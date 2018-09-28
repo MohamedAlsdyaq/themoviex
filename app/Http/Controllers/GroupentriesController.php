@@ -38,7 +38,8 @@ $qr = $query['query'];
     }
 
     public function GetMyGroups(){
-
+      if(Auth::guest())
+        return 0;
         return Groupentries::where('user_id', Auth::user()->id)
 
                     ->pluck('group_id')->toJson();

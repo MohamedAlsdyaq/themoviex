@@ -1,4 +1,4 @@
-
+     window.arr_my_groups_ids = [];
  $.get( '/groups/get/ids', function( arr ) {
          window.arr_my_groups_ids = arr;
  groups_index("http://moviex.com/groups/index?page=1");

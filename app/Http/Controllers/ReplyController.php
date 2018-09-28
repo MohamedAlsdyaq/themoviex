@@ -12,6 +12,20 @@ class ReplyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+ public static function GetUserByPostId($id){
+
+  return Reply::select('user_id')->whereId($id)->first()->user_id;
+
+
+ }public function Dedicated($id){
+$c_id = Reply::select('comment_id')->whereId($id)->first()->comment_id;
+ $p_id = Comment::select('post_id')->whereId($c_id)->first()->post_id;
+      $id =  App\Post::select('id')->whereId($p_id)->first()->id;
+      return View('post')->with([
+        'id' => $id
+      ]);
+}
+
  public function report(Request $request)
     {
         //
@@ -40,16 +54,15 @@ class ReplyController extends Controller
         $post->content = $request['reply'];
         $post->save();
 
- $tags = SearchController::SearchString($request['reply'], '@');
-        if($tags)
-        NotificationController::store($tags, $request['comment'], 'mention');
-   if($request['type'] == 'comment')
-     $user =  PostController::GetUserByPostId($request['comment']);
-   if($request['type'] == 'reply')
-     $user =  CommentController::GetUserByComId($request['comment']);      
+ 
+          if($request['tagged_uid'] !== 'null') 
+        NotificationController::store($request['tagged_uid'] , $request['comment'], 'mention');
+
+  
+     $user =  CommentController::GetUserByComId($request['comment']);
+      if($request['tagged_uid'] == null)      
   NotificationController::store($user, $request['comment'], 'reply');
-
-
+return [$post->id, Auth::user()];
     }
 
     /**

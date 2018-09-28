@@ -307,8 +307,7 @@ hr{
 </head>
 
 <body>
-
- <input type="hidden" id="my_id" value="{{Auth::user()->id}}" name="">   
+ 
 
 <div style="display: none; visibility: hidden;" id="detirmine_height"> </div>
 
@@ -626,30 +625,29 @@ hr{
 
               <h2>Login</h2>
              
-              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                  <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" autofocus required="required">
-                  @if(isset($errors))
-                  @if ($errors->has('email'))
+              <div class="form-group ">
+                  <input type="email" class="form-control" name="email" placeholder="Email" value="  " autofocus required="required">
+                  
                         <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
+                        <strong> </strong>
                         </span>
-                  @endif
+                  
                  
               </div>
-              <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+              <div class="form-group ">
                   <input id="password" type="password"   type="password" class="form-control" name="password" placeholder="Password" required="required">
-                  @if ($errors->has('password'))
+                  
                                           <span class="help-block">
-                                              <strong>{{ $errors->first('password') }}</strong>
+                                              <strong> </strong>
                                           </span>
-                                      @endif
+                                      
               </div>
                
                 <div class="form-group">
                                   <div class="">
                                       <div class="checkbox">
                                           <label>
-                                              <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                              <input type="checkbox" name="remember"  checked  : '' }}> Remember Me
                                           </label>
                                       </div>
                                   </div>
@@ -685,7 +683,7 @@ hr{
                      <div class="form-group">
             <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="/terms">Terms of Use</a> &amp; <a href="/Privacy">Privacy Policy</a></label>
                      </div>
-                   </form>   @endif
+                   </form>   
 </div>
         </div>
     </div>
@@ -930,6 +928,7 @@ bounds.right = bounds.left + this.outerWidth();
 return (!( viewport.bottom  < bounds.top   ));
 
 }
+  
 </script>
  
 </body>

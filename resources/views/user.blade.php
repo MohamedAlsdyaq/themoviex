@@ -6,13 +6,41 @@
  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="/js/follow.js"></script>
- 
+ <link rel="stylesheet" type="text/css" href="/css/post.css">
 <script src="/js/header.js"></script>
 <script src="/js/update_entry.js"></script>
- 
+ <script type="text/javascript">
+   
+function add_to_list(id, e){ // add_to_favorite
+  type = $(e).attr('data-type');
+   $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+}); 
+$.ajax({
+
+    //do a call to the list table and add the movie as 
+    url: '/favorite/'+type+'/add',
+    data: {id:id},
+    type: 'POST',
+    beforeSend: function(){
+      $(e).html('<img src="/img/loadericong.gif"> ');
+    }, 
+    success: function(i){
+ location.reload();
+        
+    }
+    
+});
+}
+ </script>
 	<style type="text/css">
   .common{
 
+  }
+  .tablinks{
+    width: 100px;
   }
 		.header{
      
@@ -239,7 +267,7 @@ $my_id = Auth::user()->id;
  @endif
  <div id="fav{{$fav['id']}}" class="fav_container" > 
  <a href="/movie/{{$fav['show_id']}}"" >
-  <img style="margin-top: -20px; overflow: hidden; float: left;" class="thumbnail_poster" src="{{$fav['show']['show_pic']}}" > 
+  <img style="margin-top: -20px; overflow: hidden; float: left;" class="thumbnail_poster" src="http://image.tmdb.org/t/p/w92{{$fav['show']['show_pic']}}" > 
 <h5 style="float: left;" >{{$fav['show']['show_name']}} </h5>
    </a>
 <i onclick="delete_fav(this, {{$fav['id']}})" style="float: right;" class="fas fa-window-close"></i>
@@ -255,7 +283,7 @@ $my_id = Auth::user()->id;
  @endif
 <div id="fav{{$fav['id']}}" class="fav_container" > 
  <a href="/movie/{{$fav['show_id']}}"" >
-  <img style="margin-top: -20px; overflow: hidden; float: left;" class="thumbnail_poster" src="{{$fav['show']['show_pic']}}" > 
+  <img style="margin-top: -20px; overflow: hidden; float: left;" class="thumbnail_poster" src="http://image.tmdb.org/t/p/w92{{$fav['show']['show_pic']}}" > 
 <h5 style="float: left;" >{{$fav['show']['show_name']}} </h5>
    </a>
 <i onclick="delete_fav(this, {{$fav['id']}})" style="float: right;" class="fas fa-window-close"></i>
@@ -350,11 +378,8 @@ $my_id = Auth::user()->id;
 	<div id="activity" class="common" >
     <div class="col-sm-1 col-md-1  col-xs-1" ></div>
 <div class="col-sm-7 col-md-7  col-xs-7"> 
+ 
 
- @if(Auth::check() )
-            @include('modules.post')
-            @endif()
-<br><br>
 <div id="posts_loading"></div>
 <div class="col-sm-12 col-md-12  _4-u2 mbm _2iwp _4-u8" >
   <div class="_2iwo" data-testid="fbfeed_placeholder_story">
@@ -427,30 +452,119 @@ $my_id = Auth::user()->id;
 <button  onclick="toggle(this, 'thumnail_movies')" class="btn  transparent_btns  active_btn_switcher" >Movies</button>
  <button  onclick="toggle(this, 'thumbnail_series')" class="btn transparent_btns " >Series</button>
 <hr style="margin-top: -2px;" >
-
+<?php $tv_countrt = $movie_countrt = 0; ?>
 <div class="th thumnail_movies" >
-  @if($favs == [])
-    <button class="btn btn-success btn-block" >Add Movie to your favorites</button>
-  @endif()
+
+  <?php $indicator = true; ?>
+
 @foreach($favs as $fav)
 @if($fav['type'] == 1)
+<?php $tv_countrt = $tv_countrt + 1 ?>
   @continue
  @endif
- <a id="fav{{$fav['id']}}" href="/movie/{{$fav['show_id']}}"" ><img class="thumbnail_poster" src="{{$fav['show']['show_pic']}}" >  </a>
+ <?php $indicator = false; ?>
+ <a id="fav{{$fav['id']}}" href="/movie/{{$fav['show_id']}}"" ><img class="thumbnail_poster" src="http://image.tmdb.org/t/p/w92{{$fav['show']['show_pic']}}" >  </a>
 
 @endforeach
+    @if($indicator)
+ <button onclick="format_favorite(this, 'movie')" class="btn btn-success btn-block" >Add Movies to your favorites</button>
+ 
+  @endif()
 </div>
+
 
 <div style="display: none;" class="th thumbnail_series" >
 
+ 
 @foreach($favs as $fav)
 @if($fav['type'] == 0)
+<?php $movie_countrt = $movie_countrt + 1 ?>
   @continue
  @endif
- <a id="fav{{$fav['id']}}" href="/tv/{{$fav['show_id']}}"" ><img class="thumbnail_poster" src="{{$fav['show']['show_pic']}}" >  </a>
+ <?php $indicator = false; ?>
+ <a id="fav{{$fav['id']}}" href="/tv/{{$fav['show_id']}}"" ><img class="thumbnail_poster" src="http://image.tmdb.org/t/p/w92{{$fav['show']['show_pic']}}" >  </a>
 
 @endforeach
+    @if($indicator)
+ <button onclick="format_favorite(this, 'tv')" class="btn btn-success btn-block" >Add Series to your favorites</button>
+ 
+  @endif()
 </div>
+
+ 
+
+
+@if($movie_countrt <= 0 || $tv_countrt <= 0)
+
+<div   style="display: none; width: 100% " id="fav_list" class="  panel panel-default" style=":  ;">
+                    <!-- List group -->
+                    <ul class="list-group">
+                        <div id="autocompleteTest">
+
+
+                        </div>
+                        
+                       @if($movie_countrt == 0) 
+                           <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;width:auto" id="fav" class="list-group-item">
+                            <div class="row">
+                                <div id="favorites" class="">
+                                    <div class="">
+                                         <b style="float: left;" >Movies</b>
+                         <b style="font-weight: normal; font-size: 12px; float: right;"><a id="load_movies" href="/search/movies" > load more </a></b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <li style="list-style: none">
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <div id="fav_movie_results" class=' media-middle'>
+                                        <a href='#'>
+                                            <img style="float: left;" class='media-object img-circle' src='http://placehold.it/40x40'>
+                                          <p style="margin: 10px; float: left;" > Fdds 
+                                        </a>
+                                    </div>
+                             
+                                </div>
+                            </div>
+                        </li>
+                          @endif()
+                          @if($tv_countrt == 0) <!-- NO FAVS TVS -->
+                          <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;width:auto" id="fav" class="list-group-item">
+                            <div class="row">
+                                <div id="favorites" class="">
+                                    <div class="">
+                                         <b style="float: left;" >TV Series</b>
+                                             <b style="font-weight: normal; font-size: 12px;  float: right;"><a id="load_tv" href="/search/tv" > load more </a></b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <li style="list-style: none">
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <div id="fav_tv_results" class=' media-middle'>
+                                        <a href='#'>
+                                            <img style="float: left;" class='media-object img-circle' src='http://placehold.it/40x40'>
+                                          <p style="margin: 10px; float: left;" > Fdds 
+                                        </a>
+                                    </div>
+                             
+                                </div>
+                            </div>
+                        </li>
+                        @endif()
+
+                       
+                     
+                 <h6 style="float:right: margin:1%; color: " > <a href="/search/movies" > advanced search      </a> </h6>
+                    </ul>
+
+                </div>
+
+@endif
 
 </div>
 
@@ -587,6 +701,17 @@ $my_id = Auth::user()->id;
 @endsection 
 
 <script>
+    $.ajax({
+          type: 'GET',
+          dataType: "json",
+          url: '/libraries/get/entries_json',
+           
+          success: function(e){ 
+          window.globla_tv_lib_entry = e[0];
+          window.globla_movies_lib_entry = e[1];
+
+        }
+          });
  var g_type = 'tv';
  var sort = 'shows.show_name';
  var status = '';
@@ -613,8 +738,8 @@ window.moviex_data_global_next = ajax.next_page_url+status+'&sort='+sort;
 data = ajax.data; 
  for(var i=0; i<15; i++ ){
   me = ' ' ;
-if({{Auth::user()->id}} !== {{$user['id']}})
-    me = disabled
+if($('#my_id').val() !== {{$user['id']}})
+    me = 'disabled'
   content = '<div  style="font-size: 14px !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" id="lib'+data[i].id+'"> <div class="modal-dialog" role="document"> <div class="modal-content"> <div class="modal-header"> <h2 style="text-align: center;" id="movie_title" > '+data[i].show_name+'<hr> <div class="" > <div style="padding-left: 10%;" class=" " > <div > <form id="update_form" style="font-size:14px; font-weight: normal" > <fieldset style="border: none" '+me+'>';
   
  content +='    <input id="entry_id" type="hidden" name="id"  value="'+data[i].id+'">';
@@ -631,12 +756,15 @@ content += ' <br> <div class="f row"> <label for="colFormLabel" class="col-sm-2 
 $('#set_modals').append(content);
 
 var loader = parseInt(data[i].ep_count) / parseInt(data[i].show_ep_count) * 100;
-anchors = '<div class="bordered_btn"><a href="/'+window.moviex_data_type+'/'+data[i].id+'"><i style="color:grey;margin-top:4px;" class="fa fa-arrow-right" aria-hidden="true"> </i></a></div>';
+anchors = '<div class="bordered_btn"><a href="/'+window.moviex_data_type+'/'+data[i].show_id+'"><i style="color:grey;margin-top:4px;" class="fa fa-arrow-right" aria-hidden="true"> </i></a></div>';
 
 anchors += '<div  class="bordered_btn" style="width:85px;"><span data-toggle="modal" data-target="#lib'+data[i].id+'"  > Edit Entry </span></div>';
 
-if({{Auth::user()->id}} !== {{$user['id']}})
-  anchors = '<a class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add to library </a>  <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4"><li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="add_to_lib('+data[i].id+','+data[i].show_pic+'`, `'+data[i].original_name+'`, `watching`, null, '+data[i].ep_count+');" >Watching</a> </li>  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="add_to_lib('+data[i].id+','+data[i].show_pic+'`, `'+data[i].original_name+'`, `completed`, null, '+data[i].ep_count+');" >Completed</a> </li>  <li role="presentation"><a role="menuitem" tabindex="-1" href="#"  onclick="add_to_lib('+data[i].id+',' +data[i].show_pic+'`, `'+data[i].original_name+'`, `watchlist`, null, '+data[i].ep_count+');" class="dropdown-item" type="button">watch List</a> </li> </ul>';
+if($('#my_id').val() != {{$user['id']}}){
+  
+  anchors = '<a class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add to library </a>  <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4"><li role="presentation"><a role="menuitem" type="button"  type="button"  tabindex="-1" href="#" onclick="add_to_lib('+data[i].id+','+data[i].show_pic+'`, `'+data[i].original_name+'`, `watching`, null, '+data[i].ep_count+');" >Watching</a> </li>  <li role="presentation"><a role="menuitem" type="button"  type="button"  tabindex="-1" href="#" onclick="add_to_lib('+data[i].id+','+data[i].show_pic+'`, `'+data[i].original_name+'`, `completed`, null, '+data[i].ep_count+');" >Completed</a> </li>  <li role="presentation"><a role="menuitem" type="button"  tabindex="-1" href="#"  onclick="add_to_lib('+data[i].id+',' +data[i].show_pic+'`, `'+data[i].original_name+'`, `watchlist`, null, '+data[i].ep_count+');" class="dropdown-item" type="button">watch List</a> </li> </ul>';
+
+}
   $('.libs').append( '  <div data-toggle="popover" data-placement="right" data-original-title="<h6>'+data[i].show_name + '<span style= &quot;color:#dddddd; &quot; > '+ get_year(data[i].show_date)+'</span></h6><small style= &quot; color: #dddddd; &quot; ><h5><span style=&quot;float:left;color:red;margin-right:2px;;&quot; class=&quot; fa fa-heart&quot; ></span>  popularity: '+Math.round(data[i].show_popularity)+'<sp style=&quot;float:right;&quot; ><span style=&quot;color:yellow;margin:2px;&quot; class=&quot;fa fa-star&quot; ></span>   Av Rating : '+data[i].show_rating+'</sp></small></h5>" data-content="<div ><h6 style= &quot; font-weight:normal !important;  font-size: 12px; &quot;  >'+data[i].show_bio+'</h6></div>" onclick="go_to_page("/movie/'+data[i].show_id+'")" class="search_poster" style="height: 255px;background-color: #2c3e50;max-width: 110px;margin-left: 7px;border-radius: 3px;"> <div id="searc_poster_content" style=" background-image: url(http://image.tmdb.org/t/p/w154'+data[i].show_pic+');" > <div class="bottom dropdown"> '+anchors+'</div></div> <div id="#p" > <div class="loaded" ><div style="width: '+loader+'%" class="loaded2" ></div></div> </div> <span style="margin:5px;float:left; color:grey; font-size:10px" > Ep.'+data[i].ep_count+' </span> <span style="margin:5px;float:right; color:grey; font-size:10px">'+data[i].rate+'</span></div> </div></div>');
   
  }
@@ -682,8 +810,8 @@ anchors = '<div class="bordered_btn"><a href="/'+window.moviex_data_type+'/'+dat
 
 anchors += '<div  class="bordered_btn" style="  width:85px;"><span data-toggle="modal" data-target="#lib'+data[i].id+'"  > Edit Entry </span></div>';
 
-if({{Auth::user()->id}} !== {{$user['id']}})
-  anchors = '<a class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add to library </a>  <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4"><li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="add_to_lib('+data[i].id+','+data[i].show_pic+'`, `'+data[i].original_name+'`, `watching`, null, '+data[i].ep_count+');" >Watching</a> </li>  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="add_to_lib('+data[i].id+','+data[i].show_pic+'`, `'+data[i].original_name+'`, `completed`, null, '+data[i].ep_count+');" >Completed</a> </li>  <li role="presentation"><a role="menuitem" tabindex="-1" href="#"  onclick="add_to_lib('+data[i].id+',' +data[i].show_pic+'`, `'+data[i].original_name+'`, `watchlist`, null, '+data[i].ep_count+');" class="dropdown-item" type="button">watch List</a> </li> </ul>';
+if($('#my_id').val()  != {{$user['id']}})
+  anchors = '<a class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add to library </a>  <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4"><li role="presentation"><a role="menuitem" type="button"  tabindex="-1" href="#" onclick="add_to_lib('+data[i].id+','+data[i].show_pic+'`, `'+data[i].original_name+'`, `watching`, null, '+data[i].ep_count+');" >Watching</a> </li>  <li role="presentation"><a role="menuitem" type="button"  tabindex="-1" href="#" onclick="add_to_lib('+data[i].id+','+data[i].show_pic+'`, `'+data[i].original_name+'`, `completed`, null, '+data[i].ep_count+');" >Completed</a> </li>  <li role="presentation"><a role="menuitem" type="button"  tabindex="-1" href="#"  onclick="add_to_lib('+data[i].id+',' +data[i].show_pic+'`, `'+data[i].original_name+'`, `watchlist`, null, '+data[i].ep_count+');" class="dropdown-item" type="button">watch List</a> </li> </ul>';
   $('.libs').append( '  <div data-toggle="popover" data-placement="right" data-original-title="<h6>'+data[i].show_name + '<span style= &quot;color:#dddddd; &quot; > '+ get_year(data[i].show_date)+'</span></h6><small style= &quot; color: #dddddd; &quot; ><h5><span style=&quot;float:left;color:red;margin-right:2px;;&quot; class=&quot; fa fa-heart&quot; ></span>  popularity: '+Math.round(data[i].show_popularity)+'<sp style=&quot;float:right;&quot; ><span style=&quot;color:yellow;margin:2px;&quot; class=&quot;fa fa-star&quot; ></span>   Av Rating : '+data[i].show_rating+'</sp></small></h5>" data-content="<div ><h6 style= &quot;font-weight:normal !important;  font-size: 12px; &quot;  >'+data[i].show_bio+'</h6></div>" onclick="go_to_page("/movie/'+data[i].show_id+'")" class="search_poster" style="height: 255px;background-color: #2c3e50;max-width: 110px;margin-left: 7px;border-radius: 3px;"> <div id="searc_poster_content" style=" background-image: url(http://image.tmdb.org/t/p/w154'+data[i].show_pic+');" > <div class="bottom dropdown"> '+anchors+'</div></div> <div id="#p" > <div class="loaded" ><div style="width: '+loader+'%" class="loaded2" ></div></div> </div> <span style="margin:5px;float:left; color:grey; font-size:10px" > Ep.'+data[i].ep_count+' </span> <span style="margin:5px;float:right; color:grey; font-size:10px">'+data[i].rate+'</span></div> </div></div>');
   
           }
@@ -754,12 +882,12 @@ function reaction(id){
   data = ajax.data;
  eligibility = 1;
   for(j=0; j<data[i].likes.length; j++){
-    if(data[i].likes[j].user_id == {{Auth::user()->id}})
+    if(data[i].likes[j].user_id == $('#my_id').val())
       eligibility = 0;
   
     break;
   }
- if({{Auth::user()->id}} == {{$user['id']}})
+ if($('#my_id').val() == {{$user['id']}})
  me = '<li> <a class="dropdown-item" onclick="delete_reaction('+data[i].id+')">Delete Reaction</a></li> ';
 var rea = 'reaction';
   $('.reaction').append( '   <div id="reaction_'+data[i].id+'" style="  background-repeat: no-repeat !important;    background-size: cover !important; background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5) ) , url(http://image.tmdb.org/t/p/w500'+data[i].show.show_header+') !important ;" class="col-sm-4 col-md-4 col-lg-4 col-xs-6 reaction_container" style="" ><span class="like_reaction cursor stat-item"> <i onclick="like('+data[i].id+',`reaction`)" style=" class="fa heart fa-heart-o"> LIKE </i><i  data-counter="'+data[i].likes.length+'" data-eligibility="'+eligibility+'" id="reaction_likes_counter'+data[i].id+'"> '+data[i].likes.length+'</i></span>    <div class="">  <div style="margin-left:5%; float: right" class="  dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span style="color: #e8e8e8;" class="fas fa-ellipsis-h" ></span> </div> <div class="dropdown-menu"> <li> <a class="dropdown-item" onclick="copy_link( '+data[i].id+',reaction)">Copy Reaction link</a></li> <li> <a data-toggle="modal" data-target="#report_modal" class="dropdown-item" onclick=" report( '+data[i].id+'); document.getElementById("modal_dest").value = "reaction" ">Report Reaction</a></li> '+me+' </div></div> <br><div class="reaction_info" ><p> '+data[i].show.show_name+' <span class="grey" > </span> <h5>'+data[i].reaction+'</h5>  </div></div>');
@@ -1025,17 +1153,6 @@ $.ajax({
 
 }
 
- $(document).ready(function(){
-     var url = window.location.href;
-     url = url.split("/");
- if(url[5]) {
-    window[url[5]]();
-  
-}
-
-
-});
  
-
 
 </script>

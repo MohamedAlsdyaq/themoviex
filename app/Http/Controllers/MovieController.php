@@ -40,8 +40,11 @@ abort(404);
             ->where('show_id', $id)
             ->first();
 
-            return View('movie')->with(
-                'rate', $rate);
+            return View('movie')->with([
+                'rate'=> $rate,
+                 'id'  => $id
+             ]
+                    );
     }
 
     /**
@@ -49,7 +52,7 @@ abort(404);
      *
      * @return \Illuminate\Http\Response
      */
-    public static function add($request, $id)
+    public static function add(  $id)
     {
         //
                 //
@@ -59,17 +62,17 @@ $repository = new \Tmdb\Repository\MovieRepository($client);
  $movie = $client->getMoviesApi()->getMovie($id);
 
          Show::updateOrCreate([
- 
- 'id' => $id
+ 'show_id' => $id,
+ 'type' => 'movie'
        ], [
       
-    'show_name' => preg_replace('/\"/', '\'',  $movie['title'])  ,
-       'id' => $id,
+      'show_name' => preg_replace('/\"/', '\'',  $movie['name']),
+       'show_id' => $id,
        'show_pic' => $movie['poster_path'],
        'show_header' => $movie['backdrop_path'],
        'show_date' => $movie['release_date'],
        'show_bio' => preg_replace('/\"/', '\'',  $movie['overview']),
-       'show_type' => 'movie',
+       'type' => 'movie',
        'show_rating' => $movie['vote_average'],
        'show_popularity' => $movie['popularity'],
        

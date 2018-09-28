@@ -34,5 +34,15 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+'google' => [
+        'client_id'     => '994229255605-66rgsle6ntfj5skon6e9m5nlgb33pc7o.apps.googleusercontent.com',
+        'client_secret' => 'ZIrFZ__yxsOQY9hdgWiz13Oo',
+        'redirect'      => 'http://moviex.com/auth/google/callback'
+    ],
+     'facebook' => [
+        'client_id'     => env('FACEBOOK_ID'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'redirect'      => env('FACEBOOK_REDIRECT')
+    ],
 
 ];

@@ -13,6 +13,23 @@ class LibraryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function EntriesJson(){
+if(Auth::guest())
+    return [0, 0];
+
+        $d1 = Library::where(['user_id'=> Auth::user()->id, 'type' => 'tv'])->pluck('show_id')->toJson();
+      
+        $d2 = Library::where(['user_id'=> Auth::user()->id, 'type' => 'movie'])->pluck('show_id')->toJson(); 
+        return [$d1 , $d2];
+    }
+    public function DontRecord($id){
+        if(Auth::guest())
+            return false;
+
+         $entry =   Library::where(['show_id' => $id, 'user_id' => Auth::user()->id]);  
+     $entry->type = 'tv'; 
+     $entry->save();
+    }
     public static function LibCount($id)
     {
         return Library::where('user_id', Auth::user()->id)
@@ -20,7 +37,7 @@ class LibraryController extends Controller
     }
 
     public static function CurrentTv(){
-        return Library::where(['user_id' => Auth::user()->id, 'type' =>1, 'status'=> 'watching'])->with('show')->get();
+        return Library::where(['user_id' => Auth::user()->id, 'type' =>'tv', 'status'=> 'watching'])->with('show')->get();
     }
     /**
      * Show the form for creating a new resource.
@@ -51,31 +68,42 @@ class LibraryController extends Controller
 
      public function AddTv(Request $request, $id)
     {
+        $ep_count = 0;
 
-    $id = (int) $id;        
-$epsidoes =  TvController::add($request, $id);
+$current = Library::where([
+     'show_id' => $id,
+ 'user_id' => Auth::user()->id,
+ 'type' => 'tv'
+    ])->first();
+
+    $state = 'new';
+ if(isset($current->ep_count ) ) {
+      $state = 'old';
  $ep_count = 0;
-
+ $current = 0;
+ 
+ }   
+$id = (int) $id;        
+$epsidoes =  TvController::add(  $id);
+ 
 if($request['status'] == 'completed')
-        $ep_count = (int) $epsidoes;
+ $ep_count = (int) $epsidoes;
 
    $lib_id =    Library::updateOrCreate([
      'show_id' => $id,
- 'user_id' => Auth::user()->id,
-
+     'user_id' => Auth::user()->id,
        ], [
-      
        'user_id' => Auth::user()->id,
        'show_id' => $id,
        'status' => $request['status'],
-       'rate' => $request['score'],
-       'type' => 1,
+       'rate' => 0,
+       'type' => 'tv',
        'ep_count' => $ep_count
        
     ]);
 
-  HistoryController::add( $lib_id->id, $request);
-  return  $ep_count ;   
+  HistoryController::add( $lib_id, $request, $current);
+   
     }
 
     /**
@@ -106,10 +134,13 @@ if($request['status'] == 'completed')
      */
     public function UpdateTv(Request $request)
     {
-       
+       $current = Library::where([
+     'show_id' => $id,
+ 'user_id' => Auth::user()->id,
+    ])->first();
 
      $entry =   Library::find($request['id']);
-return $entry;
+ 
      $entry->status = $request['status'];
      $entry->started_at = $request['started_at'];
      $entry->finished_at = $request['finished_at'];
@@ -118,6 +149,8 @@ return $entry;
      $entry->note = $request['note'];
 
      $entry->save();
+
+      HistoryController::add( $entry, $request, $ep_count, $current);
 
     }
 
@@ -157,7 +190,7 @@ return $entry;
     }
 
     public function GetLibraryMovies($id){
-        return Library::where(['type' =>  0,'user_id' =>  $id])
+        return Library::where(['type' =>  'movie','user_id' =>  $id])
         ->orderBy('updated_at', 'desc')
           ->with('show')
         ->paginate(15);
@@ -169,10 +202,11 @@ return $entry;
           if(isset($request['sort']))
             $sort = $request['sort'];
  
-        return Library::where(['type' =>  1,'user_id' => $id])
-
-         ->join('shows', 'shows.id', '=', 'libraries.show_id')
-         ->select('libraries.*',   'shows.show_name', 'shows.id as show_id', 'shows.show_pic', 'shows.ep_count as show_ep_count', 'shows.show_popularity', 'shows.show_bio', 'shows.show_date', 'shows.show_rating' )
+        return Library::where(['type' =>  'tv','user_id' => $id])
+            
+         ->join('shows', 'shows.show_id', '=', 'libraries.show_id')
+         ->select('libraries.*',   'shows.show_name', 'shows.show_id as show_id', 'shows.show_pic', 'shows.ep_count as show_ep_count', 'shows.show_popularity', 'shows.show_bio', 'shows.show_date', 'shows.show_rating' )
+         ->where('shows.show_type', 'tv')
         ->orderBy($sort, 'ASC')
          ->whereIn('status', $status)
         ->orderBy('shows.show_name', 'ASC')

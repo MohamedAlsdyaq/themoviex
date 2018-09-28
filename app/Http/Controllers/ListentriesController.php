@@ -49,7 +49,8 @@ public function shows(Request $request, $id)
      * @return \Illuminate\Http\Response
      */
     public function GetMyLists()
-    {
+    { if(Auth::guest())
+        return 0;
         //
          return listentries::where('user_id', Auth::user()->id)
 

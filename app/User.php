@@ -2,13 +2,17 @@
 
 namespace App;
 use Auth;
+
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
-{
+{use \Awobaz\Compoships\Compoships;
     use Notifiable;
-
+use SoftDeletes, CascadeSoftDeletes;
+       protected $cascadeDeletes = ['follower', 
+       'followeing','posts','comments', 'likes', 'postcontents', 'wall', 'groups', 'reactions','laist'];
     /**
      * The attributes that are mass assignable.
      *

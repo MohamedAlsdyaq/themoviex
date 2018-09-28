@@ -48,6 +48,7 @@
 <input id="movie_name" type="hidden" value="" >
 <input id="movie_pic" type="hidden" value="" >
 <input id="ep_counts" type="hidden" value="" >
+<input id="show_type" type="hidden" value="tv" >
 <input id="reported_post" type="hidden">
 
 

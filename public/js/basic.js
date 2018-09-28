@@ -1,3 +1,14 @@
+function format_favorite(e, type){
+  movie = 'fav_movie_results';
+  tv = 'fav_tv_results';
+
+  /*if(type == 'movie')
+    tv = null;
+  if(type == 'tv')
+    movie = null;*/
+  $(e).replaceWith('<input id="fav_search" onkeyup="basic_search(`fav_list`, `fav_search`, `'+movie+'`, `'+tv+'`)" style="height: 50px;"  autocomplete="off" type="text" name="q"  placeholder="Search your favorites shows">');
+}
+
   function display_post(data){ // get_post() previousely 
 
 //////console.log(data);
@@ -45,10 +56,10 @@ var xhttp = new XMLHttpRequest();
     }
     
         if(data.show){
-   if(data.show.show_type == 'movie'){
+   if(data.show.type == 'movie'){
       t_type = 'movie';
       }
-  if(data.show.show_type == 'tv'){
+  if(data.show.type == 'tv'){
         t_type = 'tv';
     }
       t_name = data.show.show_name;
@@ -81,7 +92,7 @@ if(data.movie || data.tv || data.show){
 
 }
     content += text + thumb;
-     liking = ' <i data-id="'+data.id+'" onclick="like_entry('+data.id+', `post`)" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart-o">like</i>';
+     liking = ' <i data-id="'+data.id+'" onclick="like_entry('+data.id+', `post`)" style="float:left; margin: 4px;" class="fa heart fa-heart-o">like</i>';
 
 if($('#my_id').val() != null){
   
@@ -192,30 +203,28 @@ $(target).html(comment);
     me_r = '';
 if(k == pivot)
   break;
- eligibility = 1;
+ eligibility_r = 1;
 
- like = ' <i  id="reply_like'+replies[k].id+'" data-id="'+replies[k].id+'" onclick="like_entry('+replies[k].id+', `reply` )" style="float:left; margin: 4px;" class="fa heart fa-heart-o">like</i> ';
+ like_r = ' <i  id="reply_like'+replies[k].id+'" data-id="'+replies[k].id+'" onclick="like_entry('+replies[k].id+', `reply` )" style="float:left; margin: 4px;" class="fa heart fa-heart-o">like</i> ';
   for(n=0; n<replies[n].likes['length'];n++){
     if(replies[k].likes[n].user_id == $("#my_id").val())
-      eligibility = 0;
-    like = ' <i  id="reply_like'+replies[k].id+'" data-id="'+replies[k].id+'" onclick="unlike_entry('+replies[k].id+', `reply` )" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart">unlike</i> ';
+      eligibility_r = 0;
+    like_r = ' <i  id="reply_like'+replies[k].id+'" data-id="'+replies[k].id+'" onclick="unlike_entry('+replies[k].id+', `reply` )" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart">unlike</i> ';
        break;
   }
   
-arr.push( '<div id="reply_instance'+replies[k].id+'" class="col-xs-12" > <img width="30" height="30" src="'+ replies[k].user.picture+'">  <a href="/profile/'+ replies[k].user.id+'" > '+ replies[k].user.name+'</a> '+replies[k].content+'<br> <div style="margin: 5px; height:25px" ><span style="float:left;  " > '+like+'<i  data-counter="'+replies[k].likes['length']+'" data-eligibility="'+eligibility+'" id="reply_likes_counter'+replies[k].id+'"> '+replies[k].likes['length']+'</i> </span>     <span style="cursor:pointer;float: left; margin-left:5px" onclick="format_reply('+replies[k].id+', &quot;'+replies[k].user.name+'&quot;, '+parent_comment+', `reply`)"   > Reply </span> <span style="float: left; margin-left:5px"  class="time" > '+formatDate(replies[k].created_at)+' </span>   <div style="float: left; margin-left:5px"  class="  dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span style="color: #e8e8e8;font-size: 27px" class="fas fa-ellipsis-h" ></span> </div> <div class="dropdown-menu"> <li> <a class="dropdown-item" onclick="copy_link( '+replies[k].id+',`reply`)">Copy Reply link</a></li> <li> <a   class="dropdown-item" onclick=" report( '+replies[k].id+', `reply`);  ">Report Reply</a></li> '+me_r+'</div></div>  <div id="reply_add'+replies[k].id+'" >   </div> </div>   ');
+arr.push( '<div id="reply_instance'+replies[k].id+'" class="col-xs-12" > <img width="30" height="30" src="'+ replies[k].user.picture+'">  <a href="/profile/'+ replies[k].user.id+'" > '+ replies[k].user.name+'</a> '+replies[k].content+'<br> <div style="margin: 5px; height:25px" ><span style="float:left;  " > '+like_r+'<i  data-counter="'+replies[k].likes['length']+'" data-eligibility="'+eligibility_r+'" id="reply_likes_counter'+replies[k].id+'"> '+replies[k].likes['length']+'</i> </span>     <span style="cursor:pointer;float: left; margin-left:5px" onclick="format_reply('+parent_comment+', &quot; reply &quot;, &quot;'+replies[k].user.name+'&quot; , '+replies[k].user.id+' )"   > Reply </span> <span style="float: left; margin-left:5px"  class="time" > '+formatDate(replies[k].created_at)+' </span>   <div style="float: left; margin-left:5px"  class="  dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span style="color: #e8e8e8;font-size: 27px" class="fas fa-ellipsis-h" ></span> </div> <div class="dropdown-menu"> <li> <a class="dropdown-item" onclick="copy_link( '+replies[k].id+',`reply`)">Copy Reply link</a></li> <li> <a   class="dropdown-item" onclick=" report( '+replies[k].id+', `reply`);  ">Report Reply</a></li> '+me_r+'</div></div>  <div id="reply_add'+replies[k].id+'" >   </div> </div>   ');
 }
 return arr ;
   }
-function format_reply( id , name, parent_comment, type='comment'){
-  if(type == 'reply'){
-    name = '@'+name;
-    id = parent_comment;
-  }
-  else 
-    name = '';
-  $('#reply_add'+id).html('<form id="reply'+id+'" ><div class="input-group"><input name="type" value="'+type+'" type="hidden"> <input name="comment" value="'+id+'" type="hidden"> <input name="reply" id="reply_input'+id+'" class="form-control" maxlength="50" placeholder="Add a reply.." type="text" value="'+name+' " >  <span onclick="add_reply('+id+', &quot;'+type+'&quot;)" class="input-group-addon"> <i class="fa fa-send-o"></i></span>  </div></from>')
+function format_reply( parent_comment,  type='comment', name=null, tagged_uid=null){
+ if(name == null)
+  name ='';
+ if(name == null)
+  name ='';
+  $('#reply_add'+parent_comment).html('<form id="reply'+parent_comment+'" ><div class="input-group"><input name="type" value="'+type+'" type="hidden"><input name="name" value="'+name+'" type="hidden"><input name="tagged_uid" value="'+tagged_uid+'" type="hidden"> <input name="comment" value="'+parent_comment+'" type="hidden"> <input name="reply" id="reply_input'+parent_comment+'" class="form-control" maxlength="50" placeholder="Add a reply.." type="text" value="'+name+' " >  <span onclick="add_reply('+parent_comment+', &quot;'+type+'&quot;, &quot;'+name+'&quot;, '+tagged_uid+')" class="input-group-addon"> <i class="fa fa-send-o"></i></span>  </div></from>')
 }
-function add_reply(e, type){
+function add_reply(e, type=null, name=null, tagged_uid=null){
  var data = $('#reply'+e).serialize();
  //console.log(e);
 
@@ -236,7 +245,7 @@ $.ajax({
     success: function(d){
             $('#reply').val('');
             $('.loader').hide();
-            $('#reply_for'+e).append( '<div> <img width="30" height="30" src="">  <a href="/profile/$("#my_id").val() " >  </a> '+$('#comment_input'+e).val()+'<br> <span id="like" style="float:left; margin: 4px;" >  <i data-id="" onclick="likeComment(this,  )" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i> 0 </span>    </div> <br> <br>')
+            $('#reply_for'+e).append( '<div> <img width="30" height="30" src="'+d[1]['picture']+'">  <a href="/profile/'+d[1]['id']+' " > '+d[1]['name']+' </a> '+$('#comment_input'+e).val()+'<br> <span id="like" style="float:left; margin: 4px;" >  <i data-id="" onclick="likeComment(this,  )" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i> 0 </span>    </div> <br> <br>')
       check('reply has been sent!');
 
     }
@@ -273,8 +282,10 @@ $.ajax({
     beforeSend: function(){
          }, 
     success: function(d){
-            $('#comment').val('');
-            $('#comment-for'+e).append( '<div> <img width="30" height="30" src="">  <a href="/profile/ " >  </a> '+$('#comment_input'+e).val()+'<br> <span id="like" style="float:left; margin: 4px;" >  <i data-id="" onclick="likeComment(this,  )" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i> 0 </span>    </div> <br> <br>')
+            $('#comment_input'+d[0]).val('');
+            $('#comment-for'+d[0]).append( '<div> <img width="30" height="30" src="'+d[1]['picture']+'">  <a href="/profile/'+d[1]['id']+' " > '+d[1]['name']+' </a> '+$('#comment_input'+e).val()+'<br> <span id="like" style="float:left; margin: 4px;" >  <i data-id="" onclick="likeComment(this,  )" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i> 0 </span>    </div> <br> <br>')
+           // $('#comment-for'+e).html(' ');
+      display_comments(d[0], 10,  '#comment-for'+d[0]);
       check('Comment has been sent!');
     }
     
@@ -558,7 +569,6 @@ function like_entry(id, liked){
         $.ajax({
           type: 'GET',
           url: '/like/'+liked+'/'+id,
-          data: data,
           success: function(ajax) {
          $(this).removeClass('fa-heart-o').addClass('fa-heart').css('color', 'red');
          var count = $('#'+liked+'_likes_counter'+id).attr('data-counter');
@@ -570,6 +580,32 @@ function like_entry(id, liked){
         $('#'+liked+'_likes_counter'+id).attr('data-eligibility', 0);
         $('#'+liked+'_like'+id).css('color', 'red');
         $('#'+liked+'_like'+id).removeClass('fa-heart-o').addClass('fa-heart');
+        //////console.log('#'+liked+'_like'+id);
+
+          }
+        });
+}
+
+function unlike_entry(id, liked){
+   var eligibility = $('#'+liked+'_likes_counter'+id).attr('data-eligibility');
+  if(eligibility == 1)
+  return 0;
+
+        $.ajax({
+          type: 'GET',
+          url: '/unlike/'+liked+'/'+id,
+          data: data,
+          success: function(ajax) {
+         $(this).removeClass('fa-heart').addClass('fa-heart-o').css('color', ' ');
+         var count = $('#'+liked+'_likes_counter'+id).attr('data-counter');
+      //////console.log(count);
+
+      count--;
+      $('#'+liked+'_likes_counter'+id).attr('data-counter', count);
+        $('#'+liked+'_likes_counter'+id).html(count );
+        $('#'+liked+'_likes_counter'+id).attr('data-eligibility', 1);
+        $('#'+liked+'_like'+id).css('color', ' ');
+        $('#'+liked+'_like'+id).removeClass('fa-heart').addClass('fa-heart-o');
         //////console.log('#'+liked+'_like'+id);
 
           }
@@ -588,3 +624,17 @@ $('.fa-heart-o').hover(function(){
 });
 ;
 
+$(document).ready(function(){
+  $('.fa-heart').mouseover(function(e){
+    console.log(e);
+    $(e).css('color', 'red');
+  },function(e){
+    $(e).css('color', ' ');
+  });
+
+     $('.fa-heart-o').mouseover(function(e){
+    $(e).css('color', ' ');
+  },function(e){
+    $(e).css('color', 'red');
+  });
+});

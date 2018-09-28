@@ -7,59 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 class LikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Like $like)
-    {
-        //
-    }
-
+ 
     /**
      * Update the specified resource in storage.
      *
@@ -79,7 +27,23 @@ class LikeController extends Controller
         $like->type = 'post';
         $like->save();
 
- NotificationController::store($user, $id);
+ NotificationController::store($user, $like);
+
+        return 1;
+    }
+        public function LikeReply($id)
+    {
+        //
+      $user =  ReplyController::GetUserByPostId($id);
+        if(Auth::guest())
+            return 0;
+        $like = new Like;
+        $like->user_id = Auth::user()->id;
+        $like->post_id = $id;
+        $like->type = 'reply';
+        $like->save();
+
+  NotificationController::store($user, $like);
 
         return 1;
     }
@@ -87,7 +51,7 @@ class LikeController extends Controller
     public function LikeComment($id)
     {
         //
-         $user =  PostController::GetUserByPostId($id);
+         $user =  CommentController::GetUserByPostId($id);
         if(Auth::guest())
             return 0;
         $like = new Like;
@@ -95,7 +59,7 @@ class LikeController extends Controller
         $like->post_id = $id;
         $like->type = 'comment';
         $like->save();
-       NotificationController::store($user, $id);
+      NotificationController::store($user, $like);
         return 1;
     }
 
@@ -110,7 +74,7 @@ class LikeController extends Controller
         $like->post_id = $id;
          $like->type = 'reaction';
         $like->save();
-        NotificationController::store($user, $id);
+       NotificationController::store($user, $like);
        return 1;
     }
 
@@ -120,8 +84,40 @@ class LikeController extends Controller
      * @param  \App\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+ public function UnlikePost($id)
     {
         //
+ Like::where([
+    'user_id' => Auth::user()->id,
+     'post_id' => $id ,
+     'type' => 'post'
+    ])
+                ->delete();
+
+        return 1;
+    }
+ public function UnlikeComment($id)
+    {
+        //
+ Like::where([
+    'user_id' => Auth::user()->id,
+     'post_id' => $id ,
+     'type' => 'comment'
+    ])
+                ->delete();
+
+        return 1;
+    }
+ public function UnlikeReply($id)
+    {
+        //
+ Like::where([
+    'user_id' => Auth::user()->id,
+     'post_id' => $id ,
+     'type' => 'reply'
+    ])
+                ->delete();
+
+        return 1;
     }
 }

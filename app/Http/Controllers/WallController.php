@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class WallController extends Controller
 {
+    protected $guarded = ['deleted_at'];
     /**
      * Display a listing of the resource.
      *

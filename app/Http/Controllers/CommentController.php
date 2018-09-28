@@ -11,6 +11,19 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public static function GetUserByPostId($id){
+
+  return Comment::select('user_id')->whereId($id)->first()->user_id;
+
+
+ }public function Dedicated($id){
+    $p_id = Comment::select('post_id')->whereId($id)->first()->post_id;
+      $id =  App\Post::select('id')->whereId($p_id)->first()->id;
+      return View('post')->with([
+        'id' => $id
+      ]);
+}
+
  public static function GetUserByComId($id){
 
   return Comment::select('user_id')->whereId($id)->first()->user_id;
@@ -51,7 +64,7 @@ class CommentController extends Controller
    
      $user =  PostController::GetUserByPostId($request['post']);      
   NotificationController::store($user, $request['post'], 'comment');
-
+return [$request['comment'], Auth::user()];
 
     }
 

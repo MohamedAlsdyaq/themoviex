@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Comment extends Model
 {
+  use \Awobaz\Compoships\Compoships;
     //
      use SoftDeletes, CascadeSoftDeletes;
        protected $cascadeDeletes = ['replies', 'likes'];

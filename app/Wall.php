@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Wall extends Model
 {
     //
+    protected $guarded = ['deleted_at'];
      public function post(){
         return $this->belongsTo('App\Post')->with('comments.user')
             ->with('postcontents')
@@ -23,6 +24,7 @@ class Wall extends Model
              ->with('show')
              ->with('history')
             ->with('user') 
+            
         ;
     }
          public function follow(){

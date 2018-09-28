@@ -8,10 +8,13 @@ class Tv extends Model
 {
     //
   protected $guarded = [];
+  protected $table = 'tvs';
         //
-          public function posts(){
-        return $this->hasMany('App\Post');
-    }
+public function post() {
+   return $this
+    ->hasMany ('App\Post', 'show_id'  )
+ ;
+}
           public function reactions(){
         return $this->hasMany('App\Reaction');
     }

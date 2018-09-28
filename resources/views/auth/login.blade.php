@@ -46,18 +46,27 @@
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                     </label>
                                 </div>
+                                 <a style="" class="btn btn-link" href="{{ route('password.request') }}">
+                                    Forgot Your Password?
+                                </a>
                             </div>
                         </div>
+      <div class="row">
 
+<a  onclick="window.open('/login/google', 
+                         'newwindow', 
+                         'width=400,height=350'); 
+              return false;" href="login/google"><div class="col-sm-5"><img src="/img/google.png"></div></a>
+
+ 
+      </div> 
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-success btn-block">
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
+                               
                             </div>
                         </div>
                     </form>

@@ -12,10 +12,25 @@ class HistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function add($id, $request, $type = 0)
+    public static function add($id, $request, $current, $type = 0)
     {
+ 
+            $type = 1;
+  if($request['status'] == 'completed')
+            $type = 4;
+    if(isset($current->ep_count ) ) {
+
+        if($current->rate != $request['score'])
+            $type = 2;
+        if($current->status != $request['status'])
+            $type = 4;
+        if( $current->ep_count == $id->ep_count)
+            $type = 3;
+        
+      }
+
         $history = new History;
-        $history->library_id = $id;
+        $history->library_id = $id->id;
         $history->user_id = Auth::user()->id;
         $history->status = $request['status'];
         $history->rate = $request['score'];
@@ -24,11 +39,12 @@ class HistoryController extends Controller
 
 
    Wall::updateOrCreate([
- 'post_id' => $id,
+'user_id' => Auth::user()->id,
+ 'post_id' => $id->id,
   'type'    => 'library'
        ], [
-      
-       'post_id' => $id,
+        'user_id' => Auth::user()->id,      
+       'post_id' => $id->id,
         'type'    => 'library'   
     ]);
     

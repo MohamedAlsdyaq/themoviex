@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('login/{service}', 'SocialController@redirectToProvider');
+
+Route::get('auth/{serivce}/callback', 'SocialController@handleProviderCallback');
+
 Route::get('/explore/movies', 'MovieController@explore');
 
 Route::get('/contact', function(){
@@ -18,11 +22,17 @@ Route::get('/contact', function(){
 
 Route::get('/explore/movies/{title}', 'MovieController@highlights');
 
-Route::get('/explore/tv', 'TvController@explore');
+Route::get('/explore/tv', [ 'as' => '/explore/tv', 'uses' => 'TvController@explore'] );
 
 Route::get('/explore/tv/{title}', 'TvController@highlights');
+ 
 
+// Routes for logged in users
+ 
 Route::get('/', 'HomeController@index');
+ 
+
+Route::get('/libraries/get/entries_json', 'LibraryController@EntriesJson');
 
 Route::get('/testtmdb', 'TvController@add');
 Route::get('/lists/search', 'LaistController@search');
@@ -154,6 +164,7 @@ Route::get('/settings/account/deactive', function(){
 Route::get('/like/comment/{id}', 'LikeController@LikeComment');
 
 Route::get('/like/post/{id}', 'LikeController@LikePost');
+Route::get('/like/reply/{id}', 'LikeController@LikeReply');
 
 Route::get('/like/reaction/{id}', 'LikeController@LikeReaction');
 
@@ -226,6 +237,10 @@ Route::post('/post/movie/{id}', 'PostController@PostMovie');
 
 Route::get('/post/{id}', 'PostController@Dedicated');
 
+Route::get('/comment/{id}', 'CommentController@Dedicated');
+
+Route::get('/reply/{id}', 'ReplyController@Dedicated');
+
 Route::get('/post/get/{id}', 'PostController@post');
 
 Route::get('/reaction/{id}', 'ReactionController@Dedicated');
@@ -252,7 +267,7 @@ Route::post('/entry/tv/lib/{id}', 'LibraryController@AddTv');
 
 Route::post('/update/movie/lib', 'LibraryController@UpdateMovie');
 
-Route::post('/update/tv/lib', 'LibraryController@UpdateTv');
+Route::post('/update/tv/lib', 'LibraryController@AddTv');
 
 Route::post('/delete/movie/lib', 'LibraryController@DeleteMovie');
 
@@ -268,3 +283,11 @@ Route::get('/notifications', 'NotificationController@index');
 Route::get('/notifications/get', 'NotificationController@get');
 Route::get('/notifications/count', 'NotificationController@show');
 Route::get('/notifications/saw', 'NotificationController@update');
+
+Route::get('/library/dontrecord/{id}', 'LibraryController@DontRecord');
+Route::post('/favorite/tv/add', 'FavoriteController@addTv');
+Route::post('/favorite/movie/add', 'FavoriteController@addMovie');
+
+Auth::routes();
+ 
+Route::get('/', ['as' => '/' ,'uses' => 'HomeController@index'  ] );

@@ -164,17 +164,14 @@ if(count( $request['imgs'] ) != null );
              
     }
      public function GetPostsForUser($id){
-      return Wall::where('user_id', $id)
+
+       return Wall::where('user_id', $id)
             ->with('user')
             ->with('library')
             ->with('follow')
             ->with('post')         
              ->orderBy('created_at', 'desc')
-         ->paginate(10);
-  $library = LibraryController::GetUserEntries($id);
- 
-    
-
+         ->paginate(100);
     }
     public static function PostCount($id){
         return Post::where('user_id', Auth::user()->id)

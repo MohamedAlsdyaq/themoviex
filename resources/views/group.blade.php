@@ -363,7 +363,7 @@ if(data[i].comments.length >= 3)
 comments += display_comments(data[i], 3);
  eligibility = 1;
   for(j=0; j<data[i].likes.length; j++){
-    if(data[i].likes[j].user_id == {{Auth::user()->id}})
+    if(data[i].likes[j].user_id == $('#my_id').val())
       eligibility = 0;
 
     break;
@@ -391,7 +391,7 @@ return false;
   function display_comments(data, pivot){
     comment = '';
     for(j=0; j< data.comments.length; j++){
-  if(data.comments[j].user.id == {{Auth::user()->id}})
+  if(data.comments[j].user.id == $('#my_id').val())
     me =  '<li> <a class="dropdown-item" onclick="delete_comment('+data.comments[j].id+')">Delete Comment</a></li> ';
   else
     me = '';
@@ -401,7 +401,7 @@ if(j == pivot)
  console.log(data.comments[j].likes.length);
  like = ' <i  id="comment_like'+data.comments[j].id+'" data-id="'+data.comments[j].id+'" onclick="like('+data.comments[j].id+', `comment` )" style="float:left; margin: 4px;" class="fa heart fa-heart-o">like</i> ';
   for(k=0; k<data.comments[j].likes.length;k++){
-    if(data.comments[j].likes[k].user_id == {{Auth::user()->id}})
+    if(data.comments[j].likes[k].user_id == $('#my_id').val())
       eligibility = 0;
     like = ' <i  id="comment_like'+data.comments[j].id+'" data-id="'+data.comments[j].id+'" onclick="unlike('+data.comments[j].id+', `comment` )" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart">unlike</i> ';
        break;

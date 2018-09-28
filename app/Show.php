@@ -3,21 +3,28 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+ 
 class Show extends Model
 {
-    //
+    use \Awobaz\Compoships\Compoships;
+    
     protected $guarded = [];
-    public function posts(){
-	  return $this->hasMany('App\Post', 'show_id');
-	}
+ 
 	    public function library(){
-	  return $this->hasOne('App\Library');
+	  return $this->hasMany('App\Library', 'show_id')
+	  			 ; 
 	}
-		    public function post(){
-	  return $this->hasOne('App\Post', 'id');
-	}
-		    public function favorite(){
+
+
+public function post() {
+   return
+    $this 
+    ->HasMany ('Post', 
+     ['show_type', 'show_id'], 
+     ['show_id', 'show_id'] )
+ ;
+}
+  public function favorite(){
 	  return $this->hasOne('App\Favorite');
 	}
 			    public function listentry(){

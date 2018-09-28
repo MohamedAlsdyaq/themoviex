@@ -4,16 +4,22 @@ namespace App;
 use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+ 
 class Post extends Model
 {
     //
-   use SoftDeletes, CascadeSoftDeletes;
-       protected $cascadeDeletes = ['comments', 'likes', 'postcontents', 'wall'];
+       
+    
+use SoftDeletes, CascadeSoftDeletes;
 
-    protected $dates = ['deleted_at'];
-
+protected $cascadeDeletes = ['comments', 'likes', 'postcontents', 'wall'];
+public  $show_type  ;
+protected $dates = ['deleted_at'];
+protected $table = 'posts';
+ 
     public function comments(){
-        return $this->hasMany('App\Comment')->with('likes')->with('replies');
+        return $this->HasMany('App\Comment')->with('likes')->with('replies');
     }
 
  public function user(){
@@ -29,17 +35,30 @@ class Post extends Model
         return $this->belongsTo('App\Show', 'show_id')
           ->where('show_type', 'tv');
     }
-         public function movie(){
-        return $this->belongsTo('App\Show', 'show_id')
+
+  public function movies(){
+          return $this->belongsTo('App\Show', 'show_id')
           ->where('show_type', 'movie');
+
     }
-public function show(){
-      return $this->belongsTo('App\Show', 'show_id');
+
+
+   use \Awobaz\Compoships\Compoships;
+public function show() {
+  return 
+  $this
+  ->belongsTo(Show::class,  
+    ['show_id', 'type'], 
+    ['show_id', 'type']
+      );
     }
-    public function postcontents(){
+
+
+
+   public function postcontents(){
       return $this->hasMany('App\Postcontent');
     }
-        public function wall(){
+   public function wall(){
       return $this->hasOne('App\Wall')->where('type', 'post')
                 ;
     }

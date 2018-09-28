@@ -27,7 +27,7 @@ class NotificationController extends Controller
         
          $notis = Notification::where('user_id', Auth::user()->id)
     -> with('post.user')
-            ->with('user')
+    ->with('user')
       
         ->orderBy('created_at', 'desc')
         ->get();
@@ -55,16 +55,18 @@ class NotificationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public static function store($user_id, $post_id, $type = 'Like')
+public static function store($user_id, $post, $type = 'Like')
     {
-          if(is_string($user_id[0]))
+        $user_id =  (int) $user_id;
+          if(is_string($user_id))
         $user_id = UserController::getId($user_id[0]);
 
         $notification = new Notification;
-        $notification->post_id = $post_id;
+        $notification->post_id = $post->id;
         $notification->liker_id = Auth::user()->id;
         $notification->user_id = $user_id;
         $notification->type    = $type;
+        $notification->refrence_tbl = $post->type;
         $notification->save();
     }
 

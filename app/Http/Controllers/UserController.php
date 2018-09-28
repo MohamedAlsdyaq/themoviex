@@ -43,14 +43,22 @@ class UserController extends Controller
     	$reactioncount = ReactionController::reactioncount($id);*/
         $favs = FavoriteController::index($id);
     	$user = User::whereId($id)->first() ;
-    	$links=\App\Link::where('user_id', $id)->get();		
-    			
+    	$links=\App\Link::where('user_id', $id)->get();	
+        $is_friended = false;
+        if(Auth::check())	
+    	$is_friended = \App\Follow::where(['user1' => Auth::user()->id, 'user2' => $id])->first();
+
+        if($is_friended = false && $is_friended->count())
+            $is_friended = true;
+        else
+            $is_friended = false;
 
 
     	return View('user')->with([
     		'user' => $user,
     		 'favs' => $favs,
-             'links' => $links
+             'links' => $links,
+             'is_friended' => $is_friended
     		]);
     }
     public function destroy(){
@@ -178,5 +186,15 @@ public function CreateLink(Request $request)
 'user_id' => Auth::user()->id, 'vendor' => $request['vendor'], 'link' => $request['link']
 ]);
 }
+
+ public function delete_parent(Request $request){
+    $check =   User::select('user_id')->whereId($request['id'])->first()->id;
+
+     if($check != Auth::user()->id)
+return 0;
+
+$post =  User::find($request['id']);
+$post->delete(); 
+    }
 
 }

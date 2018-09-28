@@ -33,7 +33,50 @@
     <div style="margin: 10px 10px auto 0;  background-color: white; float: left;" class="col-auto">
          <i class="fas fa-search  "></i>
     </div>
-  <input style=" width: auto !important; float: left;  border: none;  outline: none;  box-shadow: none;" onkeyup="basic_search2()" class="form-control form-control-lg form-control-borderless" placeholder="What are you searching for?" type="search">
+  <input id="inputText2" style=" width: 80%; float: left;  border: none;  outline: none;  box-shadow: none;" onkeyup="basic_search('list2', 'inputText2', 'movies_results2', 'tv_results2')" class="form-control form-control-lg form-control-borderless" placeholder="What are you searching for?" type="search">
+
+  <div   style="display: none; z-index: 100" id="list2" class="  panel panel-default col-xs-12" style=":  ;">
+                    <!-- List group -->
+                    <ul class="list-group">
+                        <div id="autocompleteTest">
+
+
+                        </div>
+                        
+                          <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item">
+                            <div class="row">
+                                <div id="favorites" class="">
+                                    <div class="">
+                                         <b style="float: left;" >Results</b>
+                         <b style="font-weight: normal; font-size: 12px; float: right;"><a id="load_movies" href="/search/tv" > load more </a></b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <li class="list-group-item">
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <div id="tv_results2" class=' media-middle'>
+                                        <a href='#'>
+                                            <img style="float: left;" class='media-object img-circle' src='http://placehold.it/40x40'>
+                                          <p style="margin: 10px; float: left;" > Fdds 
+                                        </a>
+                                    </div>
+                             
+                                </div>
+                            </div>
+                        </li>
+
+                           
+
+
+                       
+                     
+                 <h6 style="float:right: margin:1%; color: " > <a href="/search/movies" > advanced search      </a> </h6>
+                    </ul>
+
+                </div>
   </div>
  </div>
  

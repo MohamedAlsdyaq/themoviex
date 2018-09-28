@@ -103,7 +103,7 @@ $qr = $query['query'];
                 'group_id' => $id
             ])
                 ->first();
-            if(   $check     )
+            if(   $check->count()    )
          $subscribtion = 1;
         }
 

@@ -23,6 +23,7 @@ class TvController extends Controller
      public static function add(  $id)
     {
         //
+        
   $token  = new \Tmdb\ApiToken('54f297aa644bf4f27044771fc75cbb64');
 $client = new \Tmdb\Client($token);
  
@@ -31,18 +32,19 @@ $client = new \Tmdb\Client($token);
  
          Show::updateOrCreate([
  
- 'id' => $id
+ 'show_id' => $id,
+ 'type' => 'tv'
        ], [
       
       'show_name' => preg_replace('/\"/', '\'',  $movie['name']),
-       'id' => $id,
+       'show_id' => $id,
        'show_pic' => $movie['poster_path'],
        'show_header' => $movie['backdrop_path'],
        'show_date' => $movie['first_air_date'],
        'show_bio' => preg_replace('/\"/', '\'',  $movie['overview']),
        'show_rating' => $movie['vote_average'],
        'show_popularity' => $movie['popularity'],
-         'show_type' => 'tv',
+         'type' => 'tv',
        'seasons' => $movie['number_of_seasons'],
        'ep_count' => $movie['number_of_episodes'],
        
@@ -121,48 +123,5 @@ return View('highlightTv')->with([
 
 
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tv  $tv
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tv $tv)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tv  $tv
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tv $tv)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tv  $tv
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tv $tv)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Tv  $tv
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tv $tv)
-    {
-        //
-    }
+ 
 }
