@@ -71,8 +71,8 @@ $qr = $query['query'];
         
         $qr = new Group;
         $qr->creater_id = Auth::user()->id;
-        $qr->name = $request['name'];
-        $qr->bio = $request['bio'];
+        $qr->name = htmlentities($request['name'], ENT_QUOTES, 'UTF-8', false) ;  
+        $qr->bio = htmlentities($request['bio'], ENT_QUOTES, 'UTF-8', false) ;   
         $qr->picture = $filename;
         $qr->type = $request['group_type'];
         $qr->save();
@@ -102,7 +102,7 @@ $qr = $query['query'];
                 'user_id' => Auth::user()->id,
                 'group_id' => $id
             ])
-                ->first();
+                ->get();
             if(   $check->count()    )
          $subscribtion = 1;
         }

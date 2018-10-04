@@ -41,7 +41,7 @@
   ?>
 
 <div  class="profile_container ">
-
+<input type="hidden"  id="group_id" value="{{$group['id']}}" name="">
 
 
 
@@ -51,7 +51,7 @@
 
 <div class="account_info row" >
 	<div class="col-sm-2 col-xs-4" >
-		<img height="100" width="100" src="/av.png">
+		<img height="100" width="100" src="/groups/av.png">
 	</div>
 	<div class="col-sm-3 col-xs-4 " >
 
@@ -92,9 +92,13 @@
 <div id="activity" class="common">
 	 <div class="col-sm-1 col-md-1  col-xs-1" ></div>
 <div  class="col-sm-7 col-md-7  col-xs-7  " > 
- @if(Auth::check() )
+  @if(Auth::check() )
+<div class="create_post_wrapper" > 
             @include('modules.post')
+            </div>
             @endif()
+
+
 <div id="posts_loading"></div>
 <div class="col-sm-12 col-md-12  _4-u2 mbm _2iwp _4-u8" >
   <div class="_2iwo" data-testid="fbfeed_placeholder_story">
@@ -127,11 +131,11 @@
 
  
 
-	<h6> <small>  <span class="fa fa-map-marker fa-lg"></span></small>   Type: <small>{{$group['type']}} </small></h6>
+	<h6> <small>  <span class="fa fa-info fa-lg"></span></small>   Type: {{$group['type']}}</h6>
 
 	 
 
-<h6>	<small><i class="fa fa-calendar fa-lg"></i> </small>  Created:<small>  {{$group['created_at']}}</small></h6>
+<h6>	<small><i class="fa fa-calendar fa-lg"></i> </small>  Created: {{$group['created_at']}}</h6>
 
 <br>
  
@@ -229,6 +233,7 @@
 
 </div>
 
+<?php $id = $group['id']; ?>
 <script type="text/javascript">
 	
 function get_post(id){
@@ -237,181 +242,46 @@ if(id == null)
 var content = ' ';
   $.ajax({
     type: 'GET',
-    url: '/group/retrive_posts/'+id,
+    url: id,
     jsonpCallback: 'testing',
     contentType: 'application/json',
     beforeSend: function(){
-      $('#'+id).html('<div class="col-sm-12 col-md-12_4-u2 mbm _2iwp _4-u8" > <div class="_2iwo" data-testid="fbfeed_placeholder_story"> <div class="_2iwq"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div> </div></div>');
+      $('#posts_loading').append('<img id="loader_big" src="/img/ring-alt.gif">');
 
     },
     success: function(ajax) {
-      $('#'+id).html(' ');
-      console.log(ajax);
+ $('#loader_big').remove();
 data = ajax.data;
- 
+window.moviex_global_next_page = ajax.next_page_url;
+window.moviex_data_paginate_limit = ajax.last_page;
  $('._4-u8').remove();
-if(ajax.next_page_url !== null){
- var o = ajax.next_page_url;
-o = o.slice(29);
- window.moviex_id_plus_paginater = o;
- window.moviex_data_paginate_limit = ajax.last_page;
-}
-console.log(ajax.current_page);
-console.log(ajax.last_page);
-
-if(ajax.current_page > ajax.last_page){
-
-window.moviex_id_plus_paginater = null;
-//$('.no_more').removeClass('no_more');
-return false;
-
-}
-
-
  for(i=0; i<data.length; i++){
-
-var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-     
-$('#write_on_me').val(JSON.parse(this.responseText) );
-    }
-  };
-  xhttp.open("GET", "/spoiler/check/"+data[i].show_id, true);
-  xhttp.send();
-/* Dont Load posts from nlocked users 
-/
-
-var xx = new XMLHttpRequest();
-  xx.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var det = JSON.parse(this.responseText)  ;
-      console.log(det.active);
-      window.moviex_stat_blocked = false;
-if(det.active === 2) 
-window.moviex_stat_blocked = true;
-    
-
-    }
-  };
-  xhttp.open("GET", "/check_relationship/"+data[i].user.id, true);
-  xhttp.send();
-console.log(window.moviex_stat_blocked);
-if(window.moviex_stat_blocked == true){
-
-  continue;
-}
-*/
- content = ' ';
-      content += '<div id="post_s"> <figure id="post'+data[i].id+'"><div class="post_container  col-xs-12" > <div style="padding:-3%;" ><img class="img-circle" style="float:left ; margin-right:4px; " src="'+data[i].user.picture+'" height="40" width="40" ><div style="float:left" ><a href="/profile/'+data[i].user.id+'" >'+data[i].user.name+' </a><span > - '+formatDate(data[i].created_at) +'</span></div><br>    <h6></h6></div> ';
-     var imgs = '  ';
-     var modals = ' ';
-        if(data[i].postcontents.length > 0){
-            modals = ' <div class="modal fade and carousel slide" id="lightbox">    <div class="modal-dialog">      <div class="modal-content">        <div class="modal-body">          <ol class="carousel-indicators">';
-            imgs = '<div class="view_grid_'+data[i].postcontents.length+'" > ';
-  for(j=0; j<data[i].postcontents.length; j++){
-            active = 'active';
-            if(j != 0)
-              active = ' ';
-modals += ' <li data-target="#lightbox" data-slide-to="'+j+'" class="'+active+'"></li>       ';
-}
-modals += '</ol> <div class="carousel-inner">';
-          for(j=0; j<data[i].postcontents.length; j++){
  
-            if(j == 4){
-              imgs += '<div style="float:left; nargin: 3px; cursor: pointer;   width: 33%;   max-width: 30%;height: 124px;background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)) repeat scroll 0% 0%, rgba(0, 0, 0, 0) url(/'+data[i].postcontents[j].content+')"   class="post_img_more" > <h1 style="color:white; vertical-align: center; margin-top: 50px; text-align: center; " >+'+data[i].postcontents.length+' </h1> </div>'
-            }
-            else
-             imgs += '<img href="#lightbox" data-toggle="modal" data-slide-to="'+j+'" class="img-responsive cursor " id="img'+j+'" src="/'+data[i].postcontents[j].content+'" > ';
-  modals += ' <div class="item active"> <img src="/'+data[i].postcontents[j].content+'" alt="'+j+'st slide">            </div>'
-          }
-        modals += '     </div>    <a class="left carousel-control" href="#lightbox" role="button" data-slide="prev">            <span class="glyphicon glyphicon-chevron-left"></span>          </a>          <a class="right carousel-control" href="#lightbox" role="button" data-slide="next">            <span class="glyphicon glyphicon-chevron-right"></span>          </a></div></div></div></div>';
-
-          imgs += '</div>';
-        }
-    if(data[i].spoiler == 1 && data[i].ep_id >= $('#write_on_me').val()){
-
-    content += '<div id="spoiler'+data[i].id+'" class="spoilered" > <h5 style="margin:4px;" >'+data[i].content+'</h5>'+imgs+' </div> <div id="spoiler'+data[i].id+'" onclick="spoiler(this,  spoiler'+data[i].id+' )" class="spoiler_alert" ><span   class="fa fa-2x fa-eye-slash" ></span> <h4>This Post Contains Spoiler! </h4></div>'; 
-
-    }else{
-    content += '<h5 style="margin:4px;" >'+data[i].content+'</h5> '+imgs + modals;
-    console.log(modals) 
+ content = display_post(data[i]);
    
-
-    }
-     liking = ' <i data-id="'+data[i].id+'" onclick="like('+data[i].id+', `post`)" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart-o">like</i>';
-
-if($('#my_id').val() != null){
-  
-    for(k=0; k<data[i].likes.length; k++){
-      console.log(data[i].likes[k].user_id);
-      console.log($('#my_id').val() );
-      if($('#my_id').val() == data[i].likes[k].user_id){
-         liking = '<i onclick="unlike('+data[i].id+', `post`)" style="color:red; float:left" class="fa fa-heart">unlike</i> ';
-    liked = true;
-    break;
-  }
-  else{
-        console.log('none');
-    }
-  }
-}
- comments = '';
-if(data[i].comments.length >= 3)
-  comments = '   <p style="color: #276080;cursor: pointer;" onclick="all_comments('+data[i]+' )" > View all comments  '
-
-comments += display_comments(data[i], 3);
- eligibility = 1;
-  for(j=0; j<data[i].likes.length; j++){
-    if(data[i].likes[j].user_id == $('#my_id').val())
-      eligibility = 0;
-
-    break;
-  }
-   content +='</div>  <div style="display:block; bottom: 0; margin-top:10px; padding:8px;" >'+liking+'<i  data-counter="'+data[i].likes.length+'" data-eligibility="'+eligibility+'" id="post_likes_counter'+data[i].id+'"> '+data[i].likes.length+'</i>    <i onclick="myFunction('+data[i].id+')"  style="float:right ; color: #e8e8e8;" class="dropbtn fa fa-ellipsis-h"></i>    </div> </figure><div id="myDropdown'+data[i].id+'" class="dropdown-content">  <a onclick="copy_link('+data[i].id+')" >Copy Link to Post</a>    <a onclick="block('+data[i].user.id+')"   >Block @'+data[i].user.name+'</a>    <a data-toggle="modal" data-target="#report_modal" onclick="report('+data[i].id+')" >Report Post</a></div > <div style="background-color: #fafafa;margin: 0% -1.2% 0 -1%; padding: 1% 3% 1% 3%;border-top: 1px solid #dedede;" > <div id="comment-for'+data[i].id+'" ></div> <div id="comments_replies_for'+data[i].id+'" > '+comments+'</div> <br> <form id="comment'+data[i].id+'" >  <div class="input-group"> <input type="hidden" name="post" value="'+data[i].id+'"  > <input name="comment" id="comment_input'+data[i].id+'" class="form-control" maxlength="50" placeholder="Add a comment" type="text">  <span onclick="comment('+data[i].id+')" class="input-group-addon"> <i class="fa fa-send-o"></i></span> </form> </div> </div> </div>' ;
-
-   $('#posts_loading').append(content);
-
- }
- if(ajax.current_page >= ajax.last_page){
-
-//window.moviex_id_plus_paginater = null;
-        $('.no_more').html('<h5> No More Posts to be Showen!</h5> ');
-$('.no_more').removeClass('no_more');
-
-return false;
-
-}
-}
+ $('#posts_loading').append(content[0]);
+ console.log(content[1]);
+ $('.gallery'+data[i].id).imagesGrid({
+    images: content[1],
+                align: true
+            });
+   } // end for
+$('.comments').each(function(i, item ) { 
+    is = $('#'+item.id).attr('data-comment');
+    target = '#'+item.id;
+    //console.log(id + ' - '+ target)
+     display_comments(is, 10, target); 
+});
+  console.log(id);
+$('#posts_loading').append('<div class="col-xs-12 no_more" > </div>');
+  } //end success
 });
 
 
 }
+ url = {{$id}};
 
-  function display_comments(data, pivot){
-    comment = '';
-    for(j=0; j< data.comments.length; j++){
-  if(data.comments[j].user.id == $('#my_id').val())
-    me =  '<li> <a class="dropdown-item" onclick="delete_comment('+data.comments[j].id+')">Delete Comment</a></li> ';
-  else
-    me = '';
-if(j == pivot)
-  break;
- eligibility = 1;
- console.log(data.comments[j].likes.length);
- like = ' <i  id="comment_like'+data.comments[j].id+'" data-id="'+data.comments[j].id+'" onclick="like('+data.comments[j].id+', `comment` )" style="float:left; margin: 4px;" class="fa heart fa-heart-o">like</i> ';
-  for(k=0; k<data.comments[j].likes.length;k++){
-    if(data.comments[j].likes[k].user_id == $('#my_id').val())
-      eligibility = 0;
-    like = ' <i  id="comment_like'+data.comments[j].id+'" data-id="'+data.comments[j].id+'" onclick="unlike('+data.comments[j].id+', `comment` )" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart">unlike</i> ';
-       break;
-  }
-comment += '<div> <img width="30" height="30" src="'+ data.comments[j].user.picture+'">  <a href="/profile/'+ data.comments[j].user.id+'" > '+ data.comments[j].user.name+'</a> '+data.comments[j].content+'<br> <span style="float:left; margin: 4px;" > '+like+'<i  data-counter="'+data.comments[j].likes.length+'" data-eligibility="'+eligibility+'" id="comment_likes_counter'+data.comments[j].id+'"> '+data.comments[j].likes.length+'</i> </span>   <div style="margin-left:5%; float: left" class="  dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span style="color: #e8e8e8;" class="fas fa-ellipsis-h" ></span> </div> <div class="dropdown-menu"> <li> <a class="dropdown-item" onclick="copy_link( '+data.comments[j].id+',comment)">Copy Comment link</a></li> <li> <a data-toggle="modal" data-target="#report_modal" class="dropdown-item" onclick=" report( '+data.comments[j].id+'); document.getElementById("modal_dest").value = "comment" ">Report comment</a></li> '+me+' </div></div> <br> <br> <hr style="margin: -17px 0 4px 0;">'
-}
-return comment;
-  }
-
-get_post({{$group['id']}});
+get_post('/group/retrive_posts/'+url);
 
 function members(){
 $.get( '/get/follower/ids', function( data ) {
@@ -430,6 +300,9 @@ console.log(data);
 if(arr.includes(data[i].user.id)){
 button = '<button id="unfollow'+data[i].user.id+'" onclick="unfollow('+data[i].user.id+')" type="button" class="btn cursor   unfollow  - btn-block">Unfollow</button>';
 }
+if($('#my_id').val() == data[i].user.id)
+	button = "<h5 class='text-center' > This is You </h5>";
+
  $('#members').append('   <div class="col-sm-3 col-md-3 col-lg-3 col-xs-6 box"><header2><div class="vv"><canvas style="background-image: url('+data[i].user.header+');" class="img-responsive header-bg" width="" height="70" id="header-blur"></canvas><div class=""></div></div><div class="avatarcontainer"><a href="/user/'+data[i].user.id+'" ><img src="'+data[i].user.picture+'" alt="avatar" height="50px" height="50px" class="av img-circle "></a></div></header2><div style="margin-top: 5%; padding: 5%" class="content">'+button+'</div></div>');
          
           }
@@ -437,5 +310,28 @@ button = '<button id="unfollow'+data[i].user.id+'" onclick="unfollow('+data[i].u
               })  ;
 
 }
+document.addEventListener('DOMContentLoaded', function(){ 
+
+
+ $(window).on('scroll', function() {
+
+
+
+      var paginatr = window.moviex_global_next_page;
+      paginatr = paginatr.split("=");
+      paginatr = paginatr[1];
+      console.log(paginatr);
+     
+        /* Check the location of each desired element */
+  if( $('.no_more').isInViewport() ){
+    $('.no_more').removeClass('no_more');
+    get_post(window.moviex_global_next_page);
+  
+  }
+    
+    });
+
+    });
+
 </script>
 @endsection 

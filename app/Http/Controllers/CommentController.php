@@ -55,7 +55,7 @@ class CommentController extends Controller
         $post = new comment;
         $post->user_id = Auth::user()->id;
         $post->post_id = $request['post'];
-        $post->content = $request['comment'];
+        $post->content = htmlentities($request['comment'], ENT_QUOTES, 'UTF-8', false) ;  
         $post->save();
 
  $tags = SearchController::SearchString($request['comment'], '@');
@@ -63,7 +63,7 @@ class CommentController extends Controller
         NotificationController::store($tags, $request['post'], 'mention');
    
      $user =  PostController::GetUserByPostId($request['post']);      
-  NotificationController::store($user, $request['post'], 'comment');
+  NotificationController::store($user, $post, 'comment');
 return [$request['comment'], Auth::user()];
 
     }

@@ -48,7 +48,7 @@ class UserController extends Controller
         if(Auth::check())	
     	$is_friended = \App\Follow::where(['user1' => Auth::user()->id, 'user2' => $id])->first();
 
-        if($is_friended = false && $is_friended->count())
+        if( $is_friended )
             $is_friended = true;
         else
             $is_friended = false;
@@ -58,8 +58,40 @@ class UserController extends Controller
     		'user' => $user,
     		 'favs' => $favs,
              'links' => $links,
+             'section' => 'false',
+             'section_name' => 'none',
              'is_friended' => $is_friended
     		]);
+    }
+    public function LoadSection(Request $request,$id){
+        $user = User::whereId($id)->first() ;
+        if($request['section'] !== 'activity'){
+         return View('user_views.'.$request['section'])->with([
+            'user' => $user,
+            'section' => 'true',
+            'section_name' =>$request['section']
+            ])->render();
+        }
+        $favs = FavoriteController::index($id);
+        $links=\App\Link::where('user_id', $id)->get(); 
+        $is_friended = false;
+        if(Auth::check())   
+        $is_friended = \App\Follow::where(['user1' => Auth::user()->id, 'user2' => $id])->first();
+
+        if($is_friended = false && $is_friended->count())
+            $is_friended = true;
+        else
+            $is_friended = false;
+
+
+      return View('user_views.'.$request['section'])->with([
+            'user' => $user,
+             'favs' => $favs,
+             'links' => $links,
+             'is_friended' => $is_friended,
+             'section' => 'true',
+             'section_name' =>$request['section']
+            ])->render();
     }
     public function destroy(){
 
@@ -134,8 +166,8 @@ class UserController extends Controller
         //
 
      $validator = Validator::make($request->all(), [
-           'uname' => 'string|max:255',
-            'email' => 'string|email|max:255|unique:users',
+           'uname' => 'string|max:15',
+            'email' => 'string|email|max:255|unique:users,email,'.Auth::user()->id
         ]);
 
         if ($validator->fails()) {
@@ -148,8 +180,8 @@ class UserController extends Controller
           
 
          User::where('id', Auth::user()->id)->update([
-            'email' => $request['email'],
-            'name' =>$request['uname']   
+            'email' => htmlentities($request['email'], ENT_QUOTES, 'UTF-8', false) ,  
+            'name' => htmlentities($request['uname'], ENT_QUOTES, 'UTF-8', false)   
         ]);
     }
 

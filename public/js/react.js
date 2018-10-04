@@ -5,6 +5,7 @@ function react(argument) {
 var reaction = $('#reaction_content').val();
 var data = {
 		reaction: reaction,
+        type    : $('#show_type').val(),
 		movie_id: $('.movie_id').val()
     }     
 $.ajaxSetup({

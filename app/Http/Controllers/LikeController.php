@@ -20,7 +20,15 @@ class LikeController extends Controller
         //
       $user =  PostController::GetUserByPostId($id);
         if(Auth::guest())
-            return 0;
+            return false;
+        $past = Like::where(['type' => 'post', 'user_id' => Auth::user()->id, 'post_id' => $id])->get();
+
+        if($past->count() > 0)
+            return false;
+
+        if($user == Auth::user()->id)
+             return false;
+
         $like = new Like;
         $like->user_id = Auth::user()->id;
         $like->post_id = $id;
@@ -37,6 +45,13 @@ class LikeController extends Controller
       $user =  ReplyController::GetUserByPostId($id);
         if(Auth::guest())
             return 0;
+        $past = Like::where(['type' => 'reply', 'user_id' => Auth::user()->id, 'post_id' => $id])->get();
+
+        if($past->count() > 0)
+            return false;
+
+        if($user == Auth::user()->id)
+             return false;
         $like = new Like;
         $like->user_id = Auth::user()->id;
         $like->post_id = $id;
@@ -54,6 +69,13 @@ class LikeController extends Controller
          $user =  CommentController::GetUserByPostId($id);
         if(Auth::guest())
             return 0;
+        $past = Like::where(['type' => 'comment', 'user_id' => Auth::user()->id, 'post_id' => $id])->get();
+
+        if($past->count() > 0)
+            return false;
+
+        if($user == Auth::user()->id)
+             return false;
         $like = new Like;
         $like->user_id = Auth::user()->id;
         $like->post_id = $id;

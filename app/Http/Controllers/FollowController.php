@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Follow;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\DB;
+
 class FollowController extends Controller
 {
     /**
@@ -48,10 +50,11 @@ class FollowController extends Controller
        'user2' => $id,
        'active' => 0      
     ]);
-    $id = Follow::select('id')->where(['user1' => Auth::user()->id, 'user2' => $id])->id;
+    $ids = Follow::select('id')->where(['user1' => Auth::user()->id, 'user2' => $id])->first()->id;
+
      DB::table('walls')->insert(
       [
-        'post_id' => $id,
+        'post_id' => $ids,
         'type'    => 'follow'
          
         ]

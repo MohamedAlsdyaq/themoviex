@@ -1,0 +1,248 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/post.css">
+ 
+</head>
+<style type="text/css">
+  .stream-add-content,
+ {
+  position: relative;
+  display: block;
+  margin-bottom: .75rem;
+  background-color: #fff;
+  border-radius: .25rem
+}
+.modal-content .add-content-expanded textarea {
+  border: 0
+}
+
+.stream-content .stream-content-post-uploads {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between
+}
+
+.stream-content .stream-content-post-uploads a {
+  position: relative
+}
+
+.stream-content .stream-content-post-uploads a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover
+}
+.tag-media li {
+  border-top: 1px dotted #e5e5e5;
+  padding: 15px;
+  background: #fafafa;
+  line-height: 35px
+}
+
+.tag-media li:hover {
+  background: #f7f7f7
+}
+
+.tag-media .tag {
+  float: right;
+  background: 0 0;
+  color: #787878;
+  border: 1px solid #e5e5e5;
+  padding: 5px 10px
+}
+
+.tag-media .tag-poster {
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+  border-radius: 3px
+}
+
+</style>
+<div id="ember663" style="height: auto; overflow: hidden;" class="post_s stream-add-content is- ember-view"><div class="add-content-header" data-ember-action="" data-ember-action-664="664">
+    <div style="display: inline-block; margin-right: 10px;">
+      <img style="width: 36px; height: 36px; border-radius: 100%;" src="{{Auth::user()->picture}}">
+    </div>
+
+  <div style="display: inline-block; font-size: 16px; color: #999; vertical-align: middle;">
+      <a href="#" class="author-name">{{Auth::user()->name}}</a>
+  </div>
+</div>
+
+  <div class="add-content-expanded">
+<div id="ember798" class="ember-view">      <textarea id="ember799" maxlength="9000" autofocus="" class="stream-content-editor ember-view" style="overflow-x: hidden; overflow-wrap: break-word; resize: none; height: 100px;"></textarea>
+
+   <div  style="  float: left;" class="upload-btn-wrapper">
+        <button class="upload">  <svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25"><g fill-rule="evenodd"><path d="M4.042 17.05V8.857c0-1.088.842-1.85 1.935-1.85H8.43C8.867 6.262 9.243 5 9.6 5.01L15.405 5c.303 0 .755 1.322 1.177 2 0 .077 2.493 0 2.493 0 1.094 0 1.967.763 1.967 1.85v8.194c-.002 1.09-.873 1.943-1.967 1.943H5.977c-1.093.007-1.935-.85-1.935-1.937zm2.173-9.046c-.626 0-1.173.547-1.173 1.173v7.686c0 .625.547 1.146 1.173 1.146h12.683c.625 0 1.144-.53 1.144-1.15V9.173c0-.626-.52-1.173-1.144-1.173h-3.025c-.24-.63-.73-1.92-.873-2 0 0-5.052.006-5 0-.212.106-.87 2-.87 2l-2.915.003z"></path><path d="M12.484 15.977a3.474 3.474 0 0 1-3.488-3.49A3.473 3.473 0 0 1 12.484 9a3.474 3.474 0 0 1 3.488 3.488c0 1.94-1.55 3.49-3.488 3.49zm0-6.08c-1.407 0-2.59 1.183-2.59 2.59 0 1.408 1.183 2.593 2.59 2.593 1.407 0 2.59-1.185 2.59-2.592 0-1.406-1.183-2.592-2.59-2.592z"></path></g></svg> Upload  </button>
+        <input accept=".png, .jpg, .jpeg" onchange="upload(this)" type="file" name="myfile" />
+     </div>
+
+
+        <div  id="upload_target" >
+
+        <div> </div>
+        </div> </div>
+
+</div>
+    <div class="tag-media">
+
+      <!-- set the thumnail of the show -->
+<?php
+  $url =  $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+  $url = substr($url,10);
+
+  if (strpos($url,'tv') !== false || strpos($url,'/movie') !== false) {
+   ?>
+  <div style="width: 100%;" id="posting" class="row" >
+            
+             <div  style="background-color: #fafafa; padding: 1% 2% 0 2%; margin:2% 2% 1% 2%; width: 100% !important;"   class=" show_thumnail  border-dark row col-xs-12" >
+                <div style="float: left;"> 
+                 <img style="max-width: 45px; margin: 4px;" id="" class="poster img-responsive "   src=" ">
+               </div>
+
+               
+                    <h4  style="margin: 3% 0.5% 0 2%;  float: left;" id="movie_title" ></h4>
+                  <p  style="    margin-top: 2%;" class="bio v_small grey" >
+                
+
+             </div>
+         </div> 
+   <?php } 
+     if($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']  == "moviex.com"  || $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']  == "moviex.com/") { ?>
+               
+            <div id="linkshow" style="width: 100%; border-top :1px solid #e5e5e5;;  " >
+             <input   id="searchlist" onkeyup="basic_search(`listauto`, `searchlist`, `movies_list`, `tv_list`)" style="margin-left: 15px; margin:4px; color: #969696; font-size: 20px; font-weight: 400; margin-left: 2%;float:left"  autocomplete="off" type="text" name="q" class="search" placeholder="Link Post to a show..">
+
+            </div>
+         
+           <div   style="display: none; 
+                width: 70%;
+                box-shadow: 5px 5px;
+                z-index: 100;
+                position: absolute;
+                margin-top: 4%;" id="listauto" class="  panel panel-default" style=":  ;">
+                                    <!-- List group -->
+                    <ul class="list-group">
+                                        <div id="autocompleteTest">
+
+
+                            </div>
+                            
+                              <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item">
+                                <div class="row">
+                                    <div id="favorites" class="">
+                                        <div class="">
+                                             <b style="float: left;" >Movies</b>
+                             <b style="font-weight: normal; font-size: 12px; float: right;"><a id="load_movies" href="/search/movies" > load more </a></b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <li class="list-group-item">
+                                <div class='row'>
+                                    <div class='col-md-12'>
+                                        <div id="movies_list" class=' media-middle'>
+                                            <a href='#'>
+                                                <img style="float: left;" class='media-object img-circle' src='http://placehold.it/40x40'>
+                                              <p style="margin: 10px; float: left;" > Fdds 
+                                            </a>
+                                        </div>
+                                 
+                                    </div>
+                                </div>
+                            </li>
+
+                              <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item">
+                                <div class="row">
+                                    <div id="favorites" class="">
+                                        <div class="">
+                                             <b style="float: left;" >TV Series</b>
+                                                 <b style="font-weight: normal; font-size: 12px;  float: right;"><a id="load_tv" href="/search/tv" > load more </a></b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <li class="list-group-item">
+                                <div class='row'>
+                                    <div class='col-md-12'>
+                                        <div id="tv_list" class=' media-middle'>
+                                            <a href='#'>
+                                                <img style="float: left;" class='media-object img-circle' src='http://placehold.it/40x40'>
+                                              <p style="margin: 10px; float: left;" > Fdds 
+                                            </a>
+                                        </div>
+                                 
+                                    </div>
+                                </div>
+                            </li>
+
+
+                           
+                         
+                   
+                        </ul>
+
+                </div>
+
+
+ 
+  <?php } ?>
+   <div class="add-content-footer">
+  <?php
+      if (strpos($url,'tv') !== false || strpos($url,'movie') !==   false) {
+       ?>
+        <div style="float: left;">
+
+            <div class="funkyradio">
+              <div class="funkyradio-default">
+                <div class="funkyradio-info">
+                  <input type="checkbox" name="checkbox" id="checkbox6" checked/>
+                  <label for="checkbox6">Spoiler</label>
+                </div>
+              </div>
+            </div>
+
+        </div>
+
+          <?php } 
+
+       if (strpos($url,'tv') !== false) {
+         ?>
+      </div>
+          <div id="posting" class="row col-sm-12">
+              <hr style="width: 150%; margin-left: -10%;" >
+            <b style="margin-right: 2%; float: left;" >Episode:  </b>
+           
+      <div style="float: left; " >
+
+        <div style="max-width: 250px" class="form-group">
+              <div  class="input-group">
+                  <div class="input-group-btn">
+                      <button id="down" class="btn btn-default" onclick=" down('0')"><span class="glyphicon glyphicon-minus"></span></button>
+                  </div>
+                  <input style="height: 28px !important;" type="text" id="myNumber" class="form-control" value="{{$progress}}" />
+                  <div class="input-group-btn">
+              <button id="up" class="btn btn-default" data-limit="" onclick="up(this)"><span class="glyphicon glyphicon-plus"></span></button>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+        <?php
+          } 
+          ?>
+<input type="hidden" class="movie_type" value="" > 
+           <div id="post_a_post"  onclick="post()" style=" margin: 0 10px 0 0;float: right "    " > <button class="btn btn-success btn-lg" > Post </button>  </div>
+
+   </div>
+
+    
+<!---->    </div>
+  </div>
+ 

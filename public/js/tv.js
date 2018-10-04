@@ -11,6 +11,7 @@ function imageExists(image_url){
       // this will return 200 on success, and 0 or negative value on error
 }
 
+
 var movie_id = window.location.href;
 movie_id = movie_id.split('tv/');
 movie_id = movie_id[1].split('?');
@@ -31,7 +32,8 @@ $.ajax({
             },
             success: function(ajax) {
                      //      $('.disabled').addClass('disabled');
-    
+    $('button').prop('disabled', false);
+
               console.log(ajax);
                 console.log(ajax);
 var pic = 'http://image.tmdb.org/t/p/w342'+ajax.poster_path
@@ -125,7 +127,7 @@ for(i=0; i<ajax.genres.length; i +=1){
        $('#movie_length').val(length);                
 for (i= 0; i<ajax.seasons.length; i++) {
 
- $('#sense').append(' <div style="background-color: #F4F4F4; font-weight:bold; margin-bottom:15px; width:95%;" class=" col-sm-12 col-xs-12 " > <img style="float:left" height="250px"  width=""  src="http://image.tmdb.org/t/p/w342'+ajax.seasons[i].poster_path+'" class="poster_contener" > <div style="max-width: 550px;margin-left:2%;margin-top:4%;float:left" > <h4>'+ajax.seasons[i].name+' | '+ajax.seasons[i].episode_count+' Episodes</h4> <p>'+ajax.seasons[i].name + ' of '+ ajax.name+ ' premiered on ' +get_year(ajax.seasons[i].air_date) +' </p><p class="v_small" >'+ajax.seasons[i].overview +' </p></div></div>');
+ $('#sense').append(' <div style="background-color: #white; font-weight:bold; box-sizing:border-box; posistion:relative; width:75%;float:left;  min-height: 10px; margin-bottom:15px; " class="  " > <img style="float:left" height="250px"  width=""  src="http://image.tmdb.org/t/p/w342'+ajax.seasons[i].poster_path+'" class="poster_contener" > <div style="max-width: 550px;margin-left:2%;margin-top:4%;fft" > <h4>'+ajax.seasons[i].name+' | '+ajax.seasons[i].episode_count+' Episodes</h4> <p>'+ajax.seasons[i].name + ' of '+ ajax.name+ ' premiered on ' +get_year(ajax.seasons[i].air_date) +' </p><p class="v_small" >'+ajax.seasons[i].overview +' </p></div></div>');
 }
            // $('#movie_date').html(data) ;
             

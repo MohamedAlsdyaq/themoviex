@@ -4,6 +4,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" type="text/css" href="/css/post.css">
  
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <!-- CSRF Token -->
@@ -45,7 +46,12 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.2.2/lity.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/images-grid.css">
 <script type="text/javascript" src="/js/images-grid.js"></script>
-    <style>
+  <script src='http://ksylvest.github.io/jquery-growl/javascripts/jquery.growl.js' type='text/javascript'></script>
+  <link href="http://ksylvest.github.io/jquery-growl/stylesheets/jquery.growl.css" rel="stylesheet" type="text/css">
+      <style>
+    .fa-heart{
+      color:  red;
+    }
     html{
       min-width: 1299px;
     }
@@ -234,7 +240,7 @@ opacity: 0.5; }
   float: right
  }
  .nav-avatar{
-  border: 2px solid rgb(180,220,255) ;
+  border: 2px solid rgb(139, 140, 141);
   margin-top: -5px;
   margin-bottom: -10px;
  }
@@ -289,7 +295,7 @@ body{
 
   font-weight: 400 !important;
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff")  !important;
-
+font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 h1{
   font-family: Asap,sans-serif;
@@ -316,7 +322,7 @@ hr{
 @endif
    <div id="">
 
-<nav style="" id="real_nav" class="navbar-default transition hd show navbar navbar-dark bg-dark  ">
+<nav  style="min-width: 100%;" id="real_nav" class="navbar-default transition hd show navbar navbar-dark bg-dark  ">
 <div class="">
 <div class="navbar-header">
 
@@ -529,14 +535,14 @@ hr{
 <ul class="dropdown-menu" role="menu">
     <li>
      <a href="{{ url('profile/'.Auth::user()->id) }}">
-       <i class="fa fa-paper-plane" aria-hidden="true"></i>
+       <i class="fa fa-user" aria-hidden="true"></i>
         My Profile
         </a>
 
     </li>
     
     <li>
-     <a href="{{ url('list/'.Auth::user()->id) }}">
+     <a href="{{ url('profile/'.Auth::user()->id).'/library' }}">
        <i class="fa fa-list-ul" aria-hidden="true"></i>
         My Library
         </a>
@@ -545,7 +551,7 @@ hr{
         <li>
         <a href="{{ url('/setting/account') }}"
             >
-         <i class="fa fa-sign-out" aria-hidden="true"></i>
+         <i class="fa fa-gear" aria-hidden="true"></i>
             Settings
         </a>
 
@@ -866,7 +872,7 @@ for(i=0; i<e.length; i++){
   if(e[i].type == "like")
     action = 'liked your comment';
 
- $('#notification_body').append( '<div class="noti'+e[i].saw+' '+style+'" style=" width: 100%; color:black; padding: 2%" id=" color_black" > <div style="" > <div style="float:left "><div class="notify-img"><a href="/profile/'+e[i].user.name+'"><img style="margin: 2%" width="40" height="40" src="'+e[i].user.picture+'" alt=""></a></div></div> <div style="margin-left: 4%;float:left "><a href="/profile/'+e[i].user.name+'">'+e[i].user.name+'</a>  '+action+'           <p style="color: #999" class="time">'+formatDate(e[i].created_at)+'</p>             </div> </div><br><br> </div>');
+ $('#notification_body').append( '<div class="col-xs-12 noti'+e[i].saw+' '+style+'" style=" width: 100%; color:black; padding: 2%" id=" color_black" > <div style="" > <div style="float:left "><div class="notify-img"><a href="/profile/'+e[i].user.name+'"><img style="margin: 2%" width="40" height="40" src="'+e[i].user.picture+'" alt=""></a></div></div> <div style="width : 80%; margin-left: 4%;float:left "><a href="/profile/'+e[i].user.name+'">'+e[i].user.name+'</a>  '+action+'           <p style="color: #999" class="time">'+formatDate(e[i].created_at)+'</p>             </div> </div><br><br> </div>');
  }
           }
         });
@@ -893,9 +899,7 @@ $.ajax({
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 $(document).ready(function(){
-  $(button).click(function(e){
-    e.preventDefault();
-  });
+   
    $(document).click(function(e){
  
  if(e.target.offsetParent.id != "search_container"){
@@ -904,8 +908,10 @@ $(document).ready(function(){
 
     }); 
 });
-  jQuery.fn.isFullyVisible = function(){
-
+function encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+$.fn.isInViewport = function() {
 var win = $(window);
 
 var viewport = {
@@ -913,21 +919,23 @@ var viewport = {
     left : win.scrollLeft()
 };
 
-viewport.right = viewport.left + win.width();
-viewport.bottom = viewport.top + win.height();
+viewport.right = viewport.left + 1;
+viewport.bottom = viewport.top + 1;
+
 
 var elemtHeight = this.height();// Get the full height of current element
 elemtHeight = Math.round(elemtHeight);// Round it to whole humber
 
 var bounds = this.offset();// Coordinates of current element
 bounds.top =    bounds.top ;
-bounds.bottom =   win.height() - bounds.bottom;
+bounds.bottom =   bounds.bottom;
 bounds.right = bounds.left + this.outerWidth();
-//console.log('Win Height '+ $('body').innerHeight()+'viewport.bottom '+ viewport.bottom + ' &bounds.top '+ bounds.top +'viewport top '+viewport.top + ' bounds.bottom '+bounds.bottom );
+console.log('Win Height '+ $('body').innerHeight()+'viewport.bottom '+ viewport.bottom + ' &bounds.top '+ bounds.top +'viewport top '+viewport.top + ' bounds.bottom '+bounds.bottom );
 
-return (!( viewport.bottom  < bounds.top   ));
+return (!( $('body').innerHeight() -  viewport.top  > 700  ));
 
-}
+};
+
   
 </script>
  

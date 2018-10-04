@@ -1,6 +1,6 @@
-function update_entry(){
+function update_entry(id){
 
-data = $('#update_form').serialize();
+data = $('#update_form'+id).serialize();
 console.log(data);
 $.ajaxSetup({
         headers: {
@@ -21,12 +21,12 @@ $.ajax({
     success: function(d){
         console.log(d);
   check('Changes has been Saved!');
-      document.getElementById('id01').style.display='none'  
-    }
+  $('#lib'+id).modal('hide');
+      }
     
 });
 }
-function update_entry_quick(id){
+function update_entry_quick(id, type='tv'){
 
 data = $('#update_form'+id).serialize();
 console.log(data);
@@ -39,7 +39,7 @@ $.ajaxSetup({
 $.ajax({
 
     //do a call to the list table and add the movie as 
-    url: '/update/tv/lib',
+    url: '/update/'+type+'/lib',
     data: data,
     type: 'POST',
     beforeSend: function(){
@@ -48,8 +48,12 @@ $.ajax({
     }, 
     success: function(d){
         console.log(d);
+        if(d == 'dummy update')
+            check('Changes already saved!');
   check('Changes has been Saved!');
-     $('#'+id).hide(); 
+
+ $('#id01'+id).modal('hide');
+  $('#lib'+id).modal('hide');
     }
     
 });

@@ -66,9 +66,13 @@
           <div style="padding-left: 10%;" class=" " >
           
             <div >
+<?php
+$rate_id = 0;
+if(isset($rate['rate']))
+$rate_id = $rate['id'];
+?>
 
-
-  <form  id="update_form">
+  <form  id="update_form{{$rate_id}}">
   
   @if($rate != null )
   <input id="entry_id" type="hidden" name="id"  value="{{$rate['id']}}">   
@@ -178,7 +182,7 @@ if (strpos($url,'tv') !== false || strpos($url,'movie') !== false) {
   <div style="width: 390px;" class="  w3-modal-content">
     <div class="reaction_container2  w3-container">
       <span onclick="document.getElementById('reaction').style.display='none'"
-      class=" cursor w3-display-topright">&times;</span>
+      class=" cursor w3-display-topright"><i class="fa fa-window-close" aria-hidden="true"></i> </span>
        
        <div id="post_reaction" >
        <p id="movie_title"> </p>
@@ -186,10 +190,11 @@ if (strpos($url,'tv') !== false || strpos($url,'movie') !== false) {
        <p class="v_small" id="date"> </p>
        
        	<hr>
-       <textarea data-name="reaction_counter" onkeypress="limit(this)" id="reaction_content" name="react" class="" >
+       <textarea data-name="reaction_counter" onkeypress="limit(this)" id="reaction_content" name="react" max="500" >
        </textarea>
        <br>
-       <button id="post_a_post" onclick="react(this)" style="float: right" class="btn btn-success" >Post Reaction</button>
+       <input type="hidden" id="show_type" value="tv">
+       <button style="  width: 182px;float: right;height: 42px;" id="post_a_post" onclick="react(this)" style="" class="btn btn-success" >Post Reaction</button>
     </div>
 
   </div>
@@ -246,17 +251,19 @@ if (strpos($url,'tv') !== false || strpos($url,'movie') !== false) {
 	<div id="rating_section" style="display: {{$display}}" class="rating c"> 
 	<div class="center-block">
 
-	<i data-rating="1" class="fa stars fa-star-o"></i>
-	<i data-rating="2" class="fa stars fa-star-o"></i>
-	<i data-rating="3" class="fa stars fa-star-o"></i>
-	<i data-rating="4" class="fa stars fa-star-o"></i>
-	<i data-rating="5" class="fa stars fa-star-o"></i>
+	<i data-rating="1" onclick="rate_hidden(this)" class="fa stars fa-star-o"></i>
+	<i data-rating="2" onclick="rate_hidden(this)" class="fa stars fa-star-o"></i>
+	<i data-rating="3" onclick="rate_hidden(this)" class="fa stars fa-star-o"></i>
+	<i data-rating="4" onclick="rate_hidden(this)" class="fa stars fa-star-o"></i>
+	<i data-rating="5" onclick="rate_hidden(this)" class="fa stars fa-star-o"></i>
 	</div>
 	<script >
 <?php
+$status = 'watching';
 $r = 0;
 if(!is_null($rate['rate']))
 $r = $rate['rate'];
+$status = $rate['status'];
 ?>
 	console.log({{$rate["rate"]}})
 	for(i={{$r}}; i<0; i--){
@@ -264,19 +271,19 @@ $r = $rate['rate'];
 	.addClass('selected fa-star').removeClass('fa-star-o');
 	}
 </script>
-<button onclick="document.getElementById('reaction').style.display='block'"   style="width:  150px; background-color: #1abc9c" class="btn butons" >Add Reaction</button>
+<button onclick="document.getElementById('reaction').style.display='block'"   style="width:   ; background-color: #1abc9c" class="btn butons" >Add Reaction</button>
 	</div>
 		@if($rate['status'] == 'WatchList' || $rate == null )
-	<button onclick="completed(this)" style="background-color: #27ae60" class="btn butons" >Completed</button>
+	<button onclick="$('#status').val('completed'); add_to('completed')" id="completed" style="background-color: #27ae60" class="btn butons" >Completed</button>
 	@endif
 	<br>
 @if($rate == null )
 @if($rate == null )
-	<button onclick="watchList(this)" id="watch-list" style="background-color: #8e44ad" class="btn butons" >Watch-list</button>
+	<button onclick="$('#status').val('watchlist'); add_to('watchlist')" id="watchlist" style="background-color: #8e44ad" class="btn butons" >Watch-list</button>
 	@endif
 	<br>
 @if($rate == null )
-		<button onclick="started(this)" id="started" style="background-color: #3498db" class="btn butons" >Watching</button>
+		<button onclick="$('#status').val('watching'); add_to('watching')" id="watching" style="background-color: #3498db" class="btn butons" >Watching</button>
 @endif()
 @endif()
 @if($rate != null )
@@ -284,8 +291,8 @@ $r = $rate['rate'];
  
 @endif
 	</div>
-    <input id="score" type="hidden" value=" ">  
-    <input id="status" type="hidden" value="">  
+    <input id="score" type="hidden" value="{{$r}}">  
+    <input id="status" type="hidden" value="{{$status}}">  
     <input value="" type="hidden" class="movie_id">
 
 </div>
@@ -313,11 +320,13 @@ $r = $rate['rate'];
             </div>
             <hr>
  		<div  class="rounded col-sm-12">
-             @if(Auth::check() )
+     @if(Auth::check() )
+       <div class="create_post_wrapper col-xs-12 " >
             @include('modules.post')
+          </div>
             @endif()
-            	<br><br>
-        <div id="posts_loading" >
+            	
+        <div id="posts_loading" style="position: relative;min-height: 1px; width: 100%; float: left;"  >
 <div class="col-sm-12 col-md-12  _4-u2 mbm _2iwp _4-u8"  >
   <div class="_2iwo" data-testid="fbfeed_placeholder_story">
     <div class="_2iwq">
@@ -359,49 +368,50 @@ $r = $rate['rate'];
       <div class="col-sm-12 col-xs-12 no_more_inactive" style="text-align: center;" ></div>
             	 </div>
             	</div>
-            	
-            	 <div class="col-sm-4 col-md-4 col-xs-3" > 
+            	      <div class="col-sm-4 col-md-4 col-xs-3" > 
 
 
-		<a id="video" href="" data-lity>
+    <a id="video" href="" data-lity>
 
-		<div id="" class="trailer " >
+    <div id="" class="trailer " >
      <img class="img-responsive " src="/img/trailer.gif">
       </div>
 
-	    </a> 
-	<div class="panel panel-default">
-		<div class="text-center panel-heading">Movie Details 
+      </a> 
+  <div class="panel panel-default">
+    <div class="text-center panel-heading">Movie Details 
 
 
 
-		</div>
+    </div>
 
-		<div class="panel-body">
+    <div class="panel-body">
 
-		<div class="movie_details more">
+    <div class="movie_details more">
 
-		<p> Seasons: <span id="length"></span> 
-		<p> Episodes runtime: <span id="ep_run"></span> 
-			<p> Total # of Episodes: <span id="no_ep"></span> 
-		<p>Popularity: <span id="popularity"> </span> 
-		<p> Vote Count: <span id="votes"> </span>
-		<p> Status:  <span id="vote_average" align='center'>
-		<p>Created By: <spna id="director"> </span>  
-		<p>Genres: <span id="ges"></span><br>
-		<p>Production: <span id="production"></span><br>
-		<span id="links" ></span> 
-		<span id="pages"></span>
+    <p> Seasons: <span id="length"></span> 
+    <p> Episodes runtime: <span id="ep_run"></span> 
+      <p> Total # of Episodes: <span id="no_ep"></span> 
+    <p>Popularity: <span id="popularity"> </span> 
+    <p> Vote Count: <span id="votes"> </span>
+    <p> Status:  <span id="vote_average" align='center'>
+    <p>Created By: <spna id="director"> </span>  
+    <p>Genres: <span id="ges"></span><br>
+    <p>Production: <span id="production"></span><br>
+    <span id="links" ></span> 
+    <span id="pages"></span>
 
-		</div>
+    </div>
 
-		</div>
-		</div>
+    </div>
+    </div>
 </div>
-	</div>
+  
+  </div>
+         
 
 <!-- Hiddin  -->
-		<div  style="display: none" id="staff" class="common  col-sm-12">
+		<div  style="display: none" id="staff" class="common   ">
 
 		<div class="col-sm-12"><h4> Staff </h4></div>
 
@@ -413,11 +423,11 @@ $r = $rate['rate'];
 
 
 		</div>
-		<div style="display: none;" id="recommendation" class="common col-sm-12">
+		<div style="display: none;" id="recommendation" class="common  ">
 <h2>Recommendations</h2>
 		</div>
 
-		<div style="display: none;" id="gallery" class="common col-sm-12 ">
+		<div style="display: none;" id="gallery" class="common   12 ">
       <h2>Gallery</h2>
 		<div id="gallery_photos">
 		</div>
@@ -432,8 +442,9 @@ $r = $rate['rate'];
 @endsection 
 <script type="text/javascript">
   
- get_post({{$id}});
  document.addEventListener('DOMContentLoaded', function(){ 
+ get_post({{$id}});
+$('button').prop('disabled', true);
 
 
  $(window).on('scroll', function() {

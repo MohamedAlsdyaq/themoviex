@@ -299,7 +299,8 @@ b{
   margin: 0 2% 0 2%;
 }
 .btn-group-vertical  button{
-width: 80% !important;
+width: 70% !important;
+box-shadow: 1px 1px 1px 1px #e7e7e7;
  margin-bottom: 7px; 
 }
 .btn-light{
@@ -455,7 +456,7 @@ margin: -1px;
 	position: absolute;
 	display: block;
 	width: 90%;
- 	bottom: 30px;
+margin-top: 150px;
 }
 #post_reaction button{
 	

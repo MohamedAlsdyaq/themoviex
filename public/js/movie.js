@@ -29,6 +29,7 @@ $.ajax({
             },
             success: function(ajax) {
                 console.log(ajax);
+                 $('button').prop('disabled', false);
 var pic = 'http://image.tmdb.org/t/p/w500'+ajax.poster_path
 var name = ajax.title;
 var length = ajax.runtime;
@@ -39,7 +40,7 @@ var score = ajax.vote_average;
 var vote = ajax.vote_count;
 var popularity = ajax.popularity;
 var date = ajax.release_date;
-if(ajax.videos.results[0].key)
+if(typeof ajax.videos.results[0] !== 'undefined')
 var video = 'https://www.youtube.com/watch?v='+ajax.videos.results[0].key;
 if(ajax.keywords.keywords)
 var tags = ajax.keywords.keywords;
@@ -58,10 +59,12 @@ for(i=0; i<ajax.genres.length; i +=1){
           $('#ges').append(', ');
     }
     console.log(tags[0].name)
+    if(typeof tags  != 'undefined'){
+    console.log(tags[0].name)
   for(i=0; i<tags.length; i++){
-          $('#tagz').append(' <li><span class="tag">'+tags[i].name+'</span></li>')
+          $('#tagz').append('<a style="color: black" href="/search/movies?keywords='+tags[i].id+'" > <li><span class="tag">'+tags[i].name+'</span></li> </a>')
    }          
-
+    }
 
 var imdb = '<a href="http://www.imdb.com/title/'+ajax.imdb_id+'"> IMDB </a>';
 var homepage = '<a href="'+ajax.homepage+'"> Movie Page </a>';

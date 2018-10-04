@@ -103,12 +103,25 @@ label {
           
       
 
-    <label for="exampleSelect2 " class="col-sm-2 " >List Category</label>
-    <div class="col-sm-10">  <select name="list_type" style="float: left; width: 100%;"  class="form-control" id="exampleSelect2">
+    <label for="exampleSelect2 " class="col-sm-2 " >List Type</label>
+    <div class="col-sm-10">
+      <select name="list_type" style="float: left; width: 100%;"  class="form-control" id="exampleSelect2">
       <option>Public</option>
       <option>Private</option>
      
-    </select></div>
+    </select>
+  </div>
+ 
+            <br>  <br>
+           
+               <label for="exampleSelect2 " class="col-sm-2 " >List Category</label>
+    <div class="col-sm-10">
+      <select name="list_category" style="float: left; width: 100%;"  class="form-control" id="exampleSelect2">
+      <option>Movies</option>
+      <option>Tv Series</option>
+     
+    </select>
+  </div>
  
             <br>  <br>
            

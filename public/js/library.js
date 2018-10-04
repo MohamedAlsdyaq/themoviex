@@ -1,9 +1,13 @@
-function completed(){
+function add_to(e){
+	$('#'+e).hide();
+add_to_lib( );
+$('#rating_section').css('display', 'block');
+if(e == 'completed')
 $('.butons').hide();
-$('#rating_section').show();
-add_to_list('completed', 0);
+if(e == 'watching')
+	$('#watchlist').hide();
 	//ajax call
-$('.add-to-library').html('Edit Entry');
+$('.add-to-library').html('Add Rating');
 }
 
 function watchList(e){

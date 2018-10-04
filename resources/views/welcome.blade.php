@@ -48,7 +48,7 @@
     <div class="modal-content">
       <div class="modal-header">
        
-        <h2 id="movie_title" >{{$tv['show']['show_id']}}  </h2>
+        <h2 style="text-align: center;" id="movie_title" >{{$tv['show']['show_name']}}  </h2>
   
       </div>
 
@@ -177,7 +177,7 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
   else{$style = " ";}
  $quick_id = $tv['id'];  ?>
  <form id="quick_form_{{$tv['id']}}" >
-  <div style="{{$style}}  background-position: center !important;   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7) ) , url('http://image.tmdb.org/t/p/w500{{$tv['show']['show_header']}}') !important ;  background-position: 50% 0 !important;      background-repeat: no-repeat !important;" class="quick_container  carousel-cell  ">
+  <div style="{{$style}}  background-position: center !important;   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7) ) , url('http://image.tmdb.org/t/p/w300{{$tv['show']['show_header']}}') !important ;  background-position: 50% 50% ; background-size: cover !important;      background-repeat: no-repeat !important;" class="quick_container  carousel-cell  ">
     <div class=" " >
     <div class=" quick_action" > 
 
@@ -200,7 +200,7 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
 <i data-toggle="modal" data-target="#{{$quick_id}}" class="cursor fa fa-edit" style="font-size:18px"></i>
    
             
-            <button id="increment_btn{{$tv['id']}}" data-current="{{$tv['ep_count']}}" onclick="incrment_ep(this, {{$tv['id']}}, {{$tv['show']['ep_count']}}, {{$tv['show_id']}} )" class="btn btn-sm btn-success" >
+            <button type="button" id="increment_btn{{$tv['id']}}" data-current="{{$tv['ep_count']}}" onclick="incrment_ep(this, {{$tv['id']}}, {{$tv['show']['ep_count']}}, {{$tv['show_id']}} )" class="btn btn-sm btn-success" >
          {{$tv['ep_count']}}  <i class="fa fa-plus"></i>
         </button>
     
@@ -216,7 +216,7 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
                 <div class="row quick_progress col-sm-7 col-xs-7" > 
 <?php $loader  = $tv['ep_count'] / $tv['show']['ep_count'] * 100 ;   ?>
 <script > //////console.log({{$loader}}) </script>
-        <a class="anchor" href="tv/{{$tv['show']['id']}}" > <h4 id="quick_show_name" style="bottom: 0%" >{{$tv['show']['show_name']}} </h4> </a>
+        <a class="anchor" href="tv/{{$tv['show']['show_id']}}" > <h4 id="quick_show_name" style="bottom: 0%" >{{$tv['show']['show_name']}} </h4> </a>
 <div id="#p" > <div class="loaded" ><div style="width: {{$loader}}%" class="loaded2" ></div></div> </div>
                  <div class="col-xs-12" > 
                     <h6><small>Ep {{$tv['ep_count']}} of {{$tv['show']['ep_count']}}</small></h6>  
@@ -233,7 +233,7 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
 
 @if(count($tvs) <= 2)
   <div class="quick_discover carousel-cell">
-    Media you've added or updated within your <a href=""> Library </a> will show up here for you to quickly update it.
+    Media you've added or updated within your <a href="/explore/tv"> Library </a> will show up here for you to quickly update it.
     <br>
     <button class=" btn btn-success btn-block"> Discover Media </button>
   </div>
@@ -275,16 +275,7 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
 
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col ">
-         
-            @if(Auth::check() )
-            @include('modules.post')
-            @endif()
-            
-
-
-            <div id="global" class="common ">
-                
-                @if(Auth::check() && Auth::user()->new == 0)
+            @if(Auth::check() && Auth::user()->new == 0)
                         <div id="new_welcome" >
             <h4> Hey {{Auth::user()->name}}, Welcome to Moviex </h4>
             <p>This is the global activity feed. It's populated by recent activity from all of Moviex's users - even you! Once you've had a chance to follow a few more interesting users, we'll switch your default feed from Global to Following.</p>
@@ -292,6 +283,18 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
             <h5>Why don't you try creating a feed post to introduce yourself using the form below? You can say something as simple as 'Hey everyone, I'm new to Moviex', or you can show us how creative and witty you are! </h5>
                         </div>
                         @endif()
+
+
+  @if(Auth::check() )
+<div class="create_post_wrapper" > 
+            @include('modules.post')
+            </div>
+            @endif()
+
+
+            <div id="global" class="common ">
+                
+             
  
 
         <div id="global"></div>
@@ -319,11 +322,11 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
           
             <p style="font-weight: bold; margin-left: -.0%" >My Groups
            @if(count($groups) == 0)            
-   <p> Apperantely you are not a mebmer of any groups.  <a href="/discover/groups" >discover Groups </a>
+   <p> Apperantely you are not a mebmer of any groups.  <a href="/groups" >discover Groups </a>
     @endif()
     @foreach($groups as $group)
     <div style=" " id="thumbnails" > 
-       <img width="30" height="30" src="{{$group['group']['picture']}}" style=" margin-right: 7px;float: left;" > 
+       <img width="30" height="30" src="/groups/{{$group['group']['picture']}}" style=" margin-right: 7px;float: left;" > 
        <a href="/group/{{$group['group']['id']}}" > <p  style="margin-top: 7px;float: left; margin-bottom: 7px;" >  {{$group['group']['name']}} </a>
         <p style=" margin-left:90%;" > 0
     </div>
@@ -333,11 +336,11 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
         <p style="font-weight: bold; margin-left: -.0%" >My Lists
            
            @if(count($lists) == 0)   
-                <p> Apperantely you dont have any lists. <a href="/discover/lists" >discover Lists </a>
+                <p> Apperantely you dont have any lists. <a href="/lists" >discover Lists </a>
           @endif
     @foreach($lists as $list)
     <div  id="thumbnails" > 
-       
+        <img width="30" height="30" src="/groups/{{$group['group']['picture']}}" style=" margin-right: 7px;float: left;" >
        <a href="/list/{{$list['id']}}" > <p  style="margin-top: 7px;float: left; margin-bottom: 7px;" >  {{$list['title']}} </a>
         <p style=" margin-left:90%;" > {{$list['listentries_count']}}
     </div>
@@ -353,6 +356,30 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
 
 </div>
 <script >
+    jQuery.fn.isFullyVisible = function(){
+
+var win = $(window);
+
+var viewport = {
+    top : win.scrollTop(),
+    left : win.scrollLeft()
+};
+
+viewport.right = viewport.left + win.width();
+viewport.bottom = viewport.top + win.height();
+
+var elemtHeight = this.height();// Get the full height of current element
+elemtHeight = Math.round(elemtHeight);// Round it to whole humber
+
+var bounds = this.offset();// Coordinates of current element
+bounds.top =    bounds.top ;
+bounds.bottom =   win.height() - bounds.bottom;
+bounds.right = bounds.left + this.outerWidth();
+//console.log('Win Height '+ $('body').innerHeight()+'viewport.bottom '+ viewport.bottom + ' &bounds.top '+ bounds.top +'viewport top '+viewport.top + ' bounds.bottom '+bounds.bottom );
+
+return (!( viewport.bottom  < bounds.top   ));
+
+}
 call_type = 'global';
 function get_post(id, uri=false){
   if(uri == false)
@@ -431,7 +458,7 @@ current_plus++;
     if(current >= limit)
       return 0;
 
-var data = {id: id, current: current}
+var data = {id: id, current: current, movie_id : sid, group_id: null}
 $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -450,10 +477,10 @@ $.ajax({
     }, 
     success: function(d){
       
-       
-  check('Keep Watching !');
+      $.growl.notice({ message: "Entry Updated, keep watching!" });  
    
-$('#increment_btn'+id).replaceWith(' <button id="increment_btn'+id+'" data-current="'+current_plus+' " onclick="incrment_ep(this, '+id+', '+limit+')" class="btn btn-sm btn-success" > '+current_plus+' <i class="fa fa-plus"></i> </button>');
+   
+$('#increment_btn'+id).replaceWith(' <button type="button" id="increment_btn'+id+'" data-current="'+current_plus+' " onclick="incrment_ep(this, '+id+', '+limit+')" class="btn btn-sm btn-success" > '+current_plus+' <i class="fa fa-plus"></i> </button>');
     }
     
 });

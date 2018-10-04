@@ -6,7 +6,7 @@ function format_favorite(e, type){
     tv = null;
   if(type == 'tv')
     movie = null;*/
-  $(e).replaceWith('<input id="fav_search" onkeyup="basic_search(`fav_list`, `fav_search`, `'+movie+'`, `'+tv+'`)" style="height: 50px;"  autocomplete="off" type="text" name="q"  placeholder="Search your favorites shows">');
+  $(e).replaceWith('<input id="fav_search" onkeyup="basic_search(`fav_list`, `fav_search`, `'+movie+'`, `'+tv+'`)" class="form-control"  autocomplete="off" type="text" name="q"  placeholder="Search your favorites shows">');
 }
 
   function display_post(data){ // get_post() previousely 
@@ -63,7 +63,7 @@ var xhttp = new XMLHttpRequest();
         t_type = 'tv';
     }
       t_name = data.show.show_name;
-      t_id = data.show.id;
+      t_id = data.show.show_id;
       t_bio = data.show.show_bio;
       t_pic = data.show.show_pic;
 
@@ -72,27 +72,18 @@ var xhttp = new XMLHttpRequest();
   }
 if(data.movie || data.tv || data.show){
 
-  if(data.movie){
     
-  t_name = data.movie.show_name;
-  t_bio = data.movie.show_bio;
-   t_id = data.movie.id;
-  t_pic = data.movie.show_pic;
-  t_type = 'movie';
-  }
-  if(data.tv){
-  t_name = data.tv.show_name;
-    t_id = data.tv.id;
-  t_bio = data.tv.show_bio;
-  t_pic = data.tv.show_pic;
-  t_type = 'tv';
-  }
-
-  thumb = '            <div  style="border-radius: 3px;background-color: #fafafa;border: 1px solid #eee; padding: 1% 2% 0 2%; margin:2% auto; width: 100% !important;"   class=" show_thumnail  border-dark row col-xs-12" >                <div style="float: left;">    <img style="max-width: 45px; margin: 4px;" id="" class="poster img-responsive "   src=" http://image.tmdb.org/t/p/w154'+t_pic+'">               </div>  <div style="float:left;width: 80%;">    <a style="color: #337ab7;text-decoration: none;" href="'+t_type+'/'+t_id+'">  <h4  style="font-size: 16px;font-weight: 700;margin: 3% 0.5% 0 2%;  float: left;" id="movie_title" >'+t_name+'</h4> </a> <br><br> <p  style="    margin-top: 2%;font-size: 12px;color: #999;" class="bio v_small grey" >'+t_bio+' (source:tmdb) </div>  </div>';
+  t_name = data.show.show_name;
+  t_bio = data.show.show_bio;
+   t_id = data.show.show_id;
+  t_pic = data.show.show_pic;
+  t_type = data.type;
+  
+  thumb = '            <div  style="border-radius: 3px;background-color: #fafafa;border: 1px solid #eee; padding: 1% 2% 0 2%; margin:2% auto; width: 100% !important;"   class=" show_thumnail  border-dark row col-xs-12" >                <div style="float: left;">    <img style="max-width: 45px; margin: 4px;" id="" class="poster img-responsive "   src=" http://image.tmdb.org/t/p/w154'+t_pic+'">               </div>  <div style="float:left;width: 80%;">    <a style="color: #337ab7;text-decoration: none;" href="/'+t_type+'/'+t_id+'">  <h4  style="font-size: 16px;font-weight: 700;margin: 3% 0.5% 0 2%;  float: left;" id="movie_title" >'+t_name+'</h4> </a> <br><br> <p  style="    margin-top: 2%;font-size: 12px;color: #999;" class="bio v_small grey" >'+t_bio+' (source:tmdb) </div>  </div>';
 
 }
     content += text + thumb;
-     liking = ' <i data-id="'+data.id+'" onclick="like_entry('+data.id+', `post`)" style="float:left; margin: 4px;" class="fa heart fa-heart-o">like</i>';
+     liking = ' <i data-id="'+data.id+'" id="post_like'+data.id+'" onclick="like_entry('+data.id+', `post`)" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i>';
 
 if($('#my_id').val() != null){
   
@@ -100,7 +91,7 @@ if($('#my_id').val() != null){
       
      
       if($('#my_id').val() == data.likes[k].user_id){
-         liking = '<i onclick="unlike_entry('+data.id+', `post`)" style="color:red; float:left" class="fa fa-heart">unlike</i> ';
+         liking = '<i id="post_like'+data.id+'" onclick="unlike_entry('+data.id+', `post`)" style="color:red; float:left" class="fa fa-heart"></i> ';
     liked = true;
     break;
   }
@@ -116,13 +107,13 @@ if(data.comments.length >= 3)
  
  eligibility = 1;
   for(j=0; j<data.likes.length; j++){
-    if(data.likes[j].user_id == $("#my_id").val())
+    if(data.likes[j].user_id == $("#my_id").val() || data.user_id == $("#my_id").val())
       eligibility = 0;
 
     break;
   }
   actions = '  <a onclick="block('+data.user.id+')"   >Block @'+data.user.name+'</a>    <a   onclick="report('+data.id+', `post`)" >Report Post</a>';
-  if(data.user.id == $("#my_id").val())
+  if(data.user.id == $("#my_id").val() || data.user_id == $("#my_id").val())
     actions = '<a onclick="delete_post('+data.id+', `post`)" >Delete Post</a>  '
    content +='</div>  <div style="display:block; bottom: 0; margin-top:10px; padding:8px;" >'+liking+'<i  data-counter="'+data.likes.length+'" data-eligibility="'+eligibility+'" id="post_likes_counter'+data.id+'"> '+data.likes.length+'</i>    <i onclick="myFunction('+data.id+')"  style="float:right ; color: #c2c2c2;font-size: 20px;" class="dropbtn fa fa-ellipsis-h"></i>    </div> </figure><div id="myDropdown'+data.id+'" class="dropdown-content"> <a onclick="copy_link('+data.id+')" >Copy Link to Post</a>   '+actions+'</div > <div style="overflow:hidden;background-color: #fafafa;margin: 0% -1.2% 0 -1%; padding: 1% 3% 1% 3%;border-top: 1px solid #dedede;" > <div class="comments" id="comment-for'+data.id+'"  data-comment='+data.id+' ></div> <div id="comments_replies_for'+data.id+'" >    <br> <form id="comment'+data.id+'" >  <div class="input-group"> <input type="hidden" name="post" value="'+data.id+'"  > <input name="comment" id="comment_input'+data.id+'" class="form-control" maxlength="50" placeholder="Add a comment" type="text">  <span onclick="add_comment('+data.id+')" class="input-group-addon"> <i class="fa fa-send-o"></i></span> </form> </div> </div> </div>' ;
 
@@ -151,7 +142,7 @@ if(data.length <= 0){
 for(j=0; j < data.length; j++){
     comment = '';
     for(j=0; j< data.length; j++){
-  if(data[j].user.id == $("#my_id").val())
+  if(data[j].user.id == $("#my_id").val() || data.user_id == $("#my_id").val())
     me =  '<li> <a class="dropdown-item" onclick="delete_post('+data[j].id+', `comment`)">Delete Comment</a></li> ';
   else
     me = '';
@@ -159,11 +150,11 @@ if(j == pivot)
   break;
  eligibility = 1;
 
- like = ' <i  id="comment_like'+data[j].id+'" data-id="'+data[j].id+'" onclick="like_entry('+data[j].id+', `comment` )" style="float:left; margin: 4px;" class="fa heart fa-heart-o">like</i> ';
+ like = ' <i  id="comment_like'+data[j].id+'" data-id="'+data[j].id+'" onclick="like_entry('+data[j].id+', `comment` )" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i> ';
   for(k=0; k<data[j].likes['length'];k++){
-    if(data[j].likes[k].user_id == $("#my_id").val())
+    if(data[j].likes[k].user_id == $("#my_id").val() || data.user_id == $("#my_id").val())
       eligibility = 0;
-    like = ' <i  id="comment_like'+data[j].id+'" data-id="'+data[j].id+'" onclick="unlike_entry('+data[j].id+', `comment` )" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart">unlike</i> ';
+    like = ' <i  id="comment_like'+data[j].id+'" data-id="'+data[j].id+'" onclick="unlike_entry('+data[j].id+', `comment` )" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart"></i> ';
        break;
   }
 reply = ' ';
@@ -197,7 +188,7 @@ $(target).html(comment);
 
 
     for(k=0; k< replies.length; k++){
-  if(replies[k].user.id == $("#my_id").val())
+  if(replies[k].user.id == $("#my_id").val() || data.user_id == $("#my_id").val())
     me_r =  '<li> <a class="dropdown-item" onclick="delete_post('+replies[k].id+', `reply`)">Delete reply</a></li> ';
   else
     me_r = '';
@@ -207,9 +198,9 @@ if(k == pivot)
 
  like_r = ' <i  id="reply_like'+replies[k].id+'" data-id="'+replies[k].id+'" onclick="like_entry('+replies[k].id+', `reply` )" style="float:left; margin: 4px;" class="fa heart fa-heart-o">like</i> ';
   for(n=0; n<replies[n].likes['length'];n++){
-    if(replies[k].likes[n].user_id == $("#my_id").val())
+    if(replies[k].likes[n].user_id == $("#my_id").val() || data.user_id == $("#my_id").val())
       eligibility_r = 0;
-    like_r = ' <i  id="reply_like'+replies[k].id+'" data-id="'+replies[k].id+'" onclick="unlike_entry('+replies[k].id+', `reply` )" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart">unlike</i> ';
+    like_r = ' <i  id="reply_like'+replies[k].id+'" data-id="'+replies[k].id+'" onclick="unlike_entry('+replies[k].id+', `reply` )" style="color:red;float:left; margin: 4px;" class="fa heart fa-heart"></i> ';
        break;
   }
   
@@ -285,7 +276,7 @@ $.ajax({
             $('#comment_input'+d[0]).val('');
             $('#comment-for'+d[0]).append( '<div> <img width="30" height="30" src="'+d[1]['picture']+'">  <a href="/profile/'+d[1]['id']+' " > '+d[1]['name']+' </a> '+$('#comment_input'+e).val()+'<br> <span id="like" style="float:left; margin: 4px;" >  <i data-id="" onclick="likeComment(this,  )" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i> 0 </span>    </div> <br> <br>')
            // $('#comment-for'+e).html(' ');
-      display_comments(d[0], 10,  '#comment-for'+d[0]);
+      display_comments(e, 10,  '#comment-for'+e);
       check('Comment has been sent!');
     }
     
@@ -423,7 +414,7 @@ function limit(e){
 
     var tval = $(e).val(),
         tlength = tval.length,
-        set = 140,
+        set = 500,
         remain = parseInt(set - tlength);
     $('#'+name).text(remain);
     if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
@@ -523,10 +514,10 @@ var data = {
         imgs: window.arr_uploaded_images_moviex,
     post: post,
     ep_id: $('#myNumber').val(),
-    spoiler: $('#checkbox6:checkbox:checked').length,
+    spoiler:  $('input[name="chk[]"]:checked').length ,
     movie_id: $('.movie_id').val(),
     group_id : $('#group_id').val(),
-    show_type : $('.movie_id').val()
+    show_type : $('#show_type').val()
     }     
 $.ajaxSetup({
         headers: {
@@ -544,10 +535,14 @@ $.ajax({
    
     }, 
     success: function(d){
-    $('#post_a_post').replaceWith('<button id="post_a_post" onclick="react(this)" style="float: right" class="btn btn-success" >Post Reaction</button>');
+    $('#post_a_post').replaceWith(' <div id="post_a_post"  onclick="post()" style=" margin: 0 10px 0 0;float: right "    " > <button class="btn btn-success btn-lg" > Post </button>  </div>');
     $('#exampleFormControlTextarea1').val('');
-    $('.creat_post_content').hide();
-    $('#tolol').show();
+window.arr_uploaded_images_moviex = [];
+$('.creat_post_content').hide();
+$('.tolol').show();
+$('.post_thumnail').css('height', 'Auto');
+$('.creat_post_content').css('min-height', 'auto');
+$('#linkshow').html('     <input   id="searchlist" onkeyup="basic_search(`listauto`, `searchlist`, `movies_list`, `tv_list`)" style="margin-left: 15px; margin:4px; color: #969696; font-size: 20px; font-weight: 400; margin-left: 2%;float:left"  autocomplete="off" type="text" name="q" class="search" placeholder="Link Post to a show..">');
     //////console.log(window.arr_uploaded_images_moviex);
     //////console.log(d);
     document.getElementById('reaction').style.display='none';
@@ -562,6 +557,7 @@ $.ajax({
 }
 
 function like_entry(id, liked){
+       $('#'+liked+'_like'+id).attr('onclick', ' ');
    var eligibility = $('#'+liked+'_likes_counter'+id).attr('data-eligibility');
   if(eligibility == 0)
   return 0;
@@ -579,6 +575,7 @@ function like_entry(id, liked){
         $('#'+liked+'_likes_counter'+id).html(count );
         $('#'+liked+'_likes_counter'+id).attr('data-eligibility', 0);
         $('#'+liked+'_like'+id).css('color', 'red');
+        $('#'+liked+'_like'+id).attr('onclick', 'unlike_entry('+id+', "'+liked+'");');
         $('#'+liked+'_like'+id).removeClass('fa-heart-o').addClass('fa-heart');
         //////console.log('#'+liked+'_like'+id);
 
@@ -587,9 +584,10 @@ function like_entry(id, liked){
 }
 
 function unlike_entry(id, liked){
+         $('#'+liked+'_like'+id).attr('onclick', ' ');
+
    var eligibility = $('#'+liked+'_likes_counter'+id).attr('data-eligibility');
-  if(eligibility == 1)
-  return 0;
+ 
 
         $.ajax({
           type: 'GET',
@@ -604,11 +602,39 @@ function unlike_entry(id, liked){
       $('#'+liked+'_likes_counter'+id).attr('data-counter', count);
         $('#'+liked+'_likes_counter'+id).html(count );
         $('#'+liked+'_likes_counter'+id).attr('data-eligibility', 1);
-        $('#'+liked+'_like'+id).css('color', ' ');
+        $('#'+liked+'_like'+id).css('color', ' black');
+         $('#'+liked+'_like'+id).attr('onclick', 'like_entry('+id+', "'+liked+'");');
         $('#'+liked+'_like'+id).removeClass('fa-heart').addClass('fa-heart-o');
         //////console.log('#'+liked+'_like'+id);
 
           }
+        });
+}
+function delete_reaction(id){
+
+var data = { 
+    id: id
+}
+  $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+
+        }); 
+         
+       
+
+        $.ajax({
+          type: 'POST',
+          url: '/delete/'+type,
+          data: data,
+          beforeSend: function(){
+          $('#'+type+'_instance'+id).html('<img src="/img/loaderIco.gif">');
+          },
+          success: function(ajax) {
+            $('#'+type+'_instance'+id).fadeOut();
+ info('Entry has been deleted!');
+            }
         });
 }
 
@@ -632,9 +658,9 @@ $(document).ready(function(){
     $(e).css('color', ' ');
   });
 
-     $('.fa-heart-o').mouseover(function(e){
+    /* $('.fa-heart-o').mouseover(function(e){
     $(e).css('color', ' ');
   },function(e){
     $(e).css('color', 'red');
-  });
+  });/**/
 });

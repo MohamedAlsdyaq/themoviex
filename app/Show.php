@@ -23,10 +23,16 @@ public function post() {
      ['show_type', 'show_id'], 
      ['show_id', 'show_id'] )
  ;
+
+}public function favorite() {
+   return
+    $this 
+    ->HasMany ('Post', 
+     ['show_type', 'show_id'], 
+     ['show_id', 'show_id'] )
+ ;
 }
-  public function favorite(){
-	  return $this->hasOne('App\Favorite');
-	}
+ 
 			    public function listentry(){
 	  return $this->hasOne('App\Listentries');
 	}

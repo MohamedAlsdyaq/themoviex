@@ -1,12 +1,17 @@
 <?php
 
 namespace App;
-
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Wall extends Model
 {
+
+use SoftDeletes, CascadeSoftDeletes;
+
+   use \Awobaz\Compoships\Compoships;
     //
+  
     protected $guarded = ['deleted_at'];
      public function post(){
         return $this->belongsTo('App\Post')->with('comments.user')
@@ -24,6 +29,7 @@ class Wall extends Model
              ->with('show')
              ->with('history')
             ->with('user') 
+           
             
         ;
     }

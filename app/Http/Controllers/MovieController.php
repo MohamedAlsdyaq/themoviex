@@ -66,7 +66,7 @@ $repository = new \Tmdb\Repository\MovieRepository($client);
  'type' => 'movie'
        ], [
       
-      'show_name' => preg_replace('/\"/', '\'',  $movie['name']),
+      'show_name' => preg_replace('/\"/', '\'',  $movie['title']),
        'show_id' => $id,
        'show_pic' => $movie['poster_path'],
        'show_header' => $movie['backdrop_path'],
@@ -148,8 +148,9 @@ return View('highlight')->with([
     public static function GetShows( $ids, $sort='show_name')
     {
         //
-        return Show::whereIn('id', $ids)
+        return Show::whereIn('show_id', $ids)
                     ->orderBy($sort, 'asc')
+                    ->where('type', 'movie')
                     ->get();
     }
 

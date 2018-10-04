@@ -16,29 +16,34 @@ public function shows(Request $request, $id)
     {
        $ids =  Listentries::where('laist_id', $id)
               
-                ->pluck('show_id');
-               
-      return  MovieController::GetShows($ids, $request['sort']);   
+                ->pluck('show_id')->toArray();
+             if($request['category'] == 'Movies')
+      return  MovieController::GetShows($ids, $request['sort']); 
+
+      return  TvController::GetShows($ids, $request['sort']);   
     }
 
     public function add(Request $request)
     {
         if(!is_null($request['movie_id'])){
             $movies_id = $request['movie_id'];
-            MovieController::add(' ',$movies_id);
+            $type = 'movie';
+            MovieController::add($movies_id);
         }
         if(!is_null($request['tv'])){
+            $type = 'tv';
             $movies_id = $request['tv'];
-            TvController::add(' ',$movies_id);
+            TvController::add($movies_id);
         }
     Listentries::updateOrCreate([
  'laist_id' => $request['list_id'],
- 'show_id' => $$movies_id
+ 'show_id' => $movies_id
        ], [
       
        'user_id' => Auth::user()->id,
        'laist_id' => $request['list_id'],
-       'show_id' => $movies_id      
+       'show_id' => $movies_id  ,
+       'type' => $type   
     ]);
  
 

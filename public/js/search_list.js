@@ -21,7 +21,7 @@ $.ajax({
                 $('#list_search').attr('onkeyup', ' ');
             	$('.no_more').removeClass('no_more');
             	$('.lists_container').html(' ');
-        $('.lists_container').append("<img id='loader' src='img/big_ring.gif' >");
+        $('.lists_container').append("<img id='loader' src='/img/big_ring.gif' >");
             },
             success: function(ajax) {
 
@@ -43,7 +43,7 @@ console.log(window.moviex_grp_next);
             	data = ajax.data;
             	for(var i=0; i<ajax.data.length; i++){
                      
-            	$('.lists_container').append('<div class="" > <div class="search_left" > <a href="/list/'+data[i].id+'" ><img height="100" width="100" src="lists/'+data[i].list_picture+'" ></a> </div> <div class="search_data" > <a href="/list/'+data[i].id+'" ><h4> '+data[i].title+' </h4></a> <h6>'+data[i].list_info+' </h6> <div class="row "> <div class="search_type" > <kdp> '+data[i].type+' </kdp> </div>  <div class="search_right"> <kdp> '+data[i].listentries_count+' Entry </kdp> </div> </div> </div> </div><hr>');
+            	$('.lists_container').append('<div class="" > <div class="search_left" > <a href="/list/'+data[i].id+'" ><img height="100" width="100" src="/lists/'+data[i].list_picture+'" ></a> </div> <div class="search_data" > <a href="/list/'+data[i].id+'" ><h4> '+data[i].title+' </h4></a> <h6>'+data[i].list_info+' </h6> <div class="row "> <div class="search_type" > <kdp> '+data[i].type+' </kdp> </div>  <div class="search_right"> <kdp> '+data[i].listentries_count+' Entry </kdp> </div> </div> </div> </div><hr>');
             }
              setTimeout(function(){ $('#list_search').attr("onkeyup",  " setTimeout(function(){ search_list($('#list_search').val()) }, 1000);" ) }, 000);
  
@@ -67,7 +67,7 @@ $.ajax({
  
             beforeSend: function() {
             	$('.no_more').removeClass('no_more');
-        $('.lists_container').append("<img id='loader' src='img/big_ring.gif' >");
+        $('.lists_container').append("<img id='loader' src='/img/big_ring.gif' >");
             },
             success: function(ajax) {
             	$('#loader').remove();
@@ -81,7 +81,7 @@ $.ajax({
             	data = ajax.data;
             	for(var i=0; i<ajax.per_page; i++){
                      
-            $('.lists_container').append('<div class="" > <div class="search_left" > <a href="/list/'+data[i].id+'" ><img height="100" width="100" src="lists/'+data[i].list_picture+'" ></a> </div> <div class="search_data" > <a href="/list/'+data[i].id+'" ><h4> '+data[i].title+' </h4></a> <h6>'+data[i].list_info+' </h6> <div class="row "> <div class="search_type" > <kdp> '+data[i].type+' </kdp> </div>  <div class="search_right"> <kdp> '+data[i].listentries_count+' Entry </kdp> </div> </div> </div> </div><hr>');
+            $('.lists_container').append('<div class="" > <div class="search_left" > <a href="/list/'+data[i].id+'" ><img height="100" width="100" src="/lists/'+data[i].list_picture+'" ></a> </div> <div class="search_data" > <a href="/list/'+data[i].id+'" ><h4> '+data[i].title+' </h4></a> <h6>'+data[i].list_info+' </h6> <div class="row "> <div class="search_type" > <kdp> '+data[i].type+' </kdp> </div>  <div class="search_right"> <kdp> '+data[i].listentries_count+' Entry </kdp> </div> </div> </div> </div><hr>');
              }
             $('.lists_container').append('<div class="no_more">  </div>');
         }

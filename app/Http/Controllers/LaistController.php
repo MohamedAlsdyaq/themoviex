@@ -51,10 +51,11 @@ $qr = $query['query'];
         
         $qr = new Laist;
         $qr->user_id = Auth::user()->id;
-        $qr->title = $request['name'];
-        $qr->list_info = $request['bio'];
+        $qr->title = htmlentities($request['name'], ENT_QUOTES, 'UTF-8', false) ;   
+        $qr->list_info = htmlentities($request['bio'], ENT_QUOTES, 'UTF-8', false) ; 
         $qr->list_picture = $filename;
         $qr->type = $request['list_type'];
+          $qr->category = $request['list_category'];
         $qr->save();
 
         return redirect('/list/'.$qr->id);

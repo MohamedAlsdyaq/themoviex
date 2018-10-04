@@ -51,7 +51,7 @@ $c_id = Reply::select('comment_id')->whereId($id)->first()->comment_id;
         $post = new reply;
         $post->user_id = Auth::user()->id;
         $post->comment_id = $request['comment'];
-        $post->content = $request['reply'];
+        $post->content = htmlentities($request['reply'], ENT_QUOTES, 'UTF-8', false) ; 
         $post->save();
 
  

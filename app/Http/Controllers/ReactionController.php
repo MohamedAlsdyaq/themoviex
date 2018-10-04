@@ -54,7 +54,8 @@ public function reaction($id){
         $react = new Reaction;
         $react->user_id = Auth::user()->id;
         $react->show_id = $request['movie_id'];
-        $react->reaction = $request['reaction'];
+        $react->reaction = htmlentities($request['reaction'], ENT_QUOTES, 'UTF-8', false) ;  
+        $react->type     = $request['type'];
         $react->save();
         //
     }

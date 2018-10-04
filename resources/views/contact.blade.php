@@ -51,7 +51,9 @@
 
      </style>
 </head>
-<form action="/contact/s" method="post" >
+ <form enctype="multipart/form-data" action="/contact/send" method="post">
+        {{ csrf_field() }} 
+     
 <section id="contact" class="parallax-section">
      <div class="container">
           <div class="row">
@@ -75,7 +77,7 @@
                                    <input type=" " class="form-control" name="type" placeholder="Query Type" required="">
                               </div>
                               <div class="col-md-12 col-sm-12">
-                                   <textarea class="form-control" rows="5" name="message" placeholder="Message" required=""></textarea>
+                                   <textarea class="form-control" rows="5" name="text" placeholder="Message" required=""></textarea>
                               </div>
                               <div class="col-md-offset-8 col-md-4 col-sm-offset-6 col-sm-6">
                                    <button id="submit" type="submit" class="form-control" name="submit">Send Message</button>

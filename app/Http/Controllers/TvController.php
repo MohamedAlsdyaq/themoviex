@@ -20,6 +20,15 @@ class TvController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        public static function GetShows( $ids, $sort='show_name')
+    {
+        //
+        return Show::whereIn('show_id', $ids)
+                    ->orderBy($sort, 'asc')
+                    ->where('type', 'tv')
+                    ->get();
+    }
+
      public static function add(  $id)
     {
         //

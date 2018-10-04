@@ -36,8 +36,11 @@ $id = Auth::user()->id;
 else 
   $id = 0;
 ?>
-@if($data['type'] == "Public" || $data['user']['id'] == $id)
-<button style="float: left;" onclick="add_show_list(this)" class="btn btn-default" >Add new Show <i class="fa fa-plus"></i> </button>
+@if($data['type'] == "Public"  )
+<button class="form-control" style="width: auto ;float: left;" onclick="add_show_list(this)" class="btn btn-default" >Add new Show <i class="fa fa-plus"></i> </button>
+@endif
+@if($data['type'] == "Private" && $data['user_id'] == $id  )
+<button class="form-control" style="width: auto ;float: left;" onclick="add_show_list(this)" class="btn btn-default" >Add new Show <i class="fa fa-plus"></i> </button>
 @endif
 <div   style="display: none; 
  
@@ -45,7 +48,7 @@ width: 30%;
 
 margin-left: 23%;
 
-box-shadow: 5px 5px;
+ 
 
 z-index: 100;
 
@@ -58,7 +61,7 @@ margin-top: 2.8%;" id="listauto" class="  panel panel-default" style=":  ;">
 
 
                         </div>
-                        
+                  @if($data['category'] == 'Movies')      
                           <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item">
                             <div class="row">
                                 <div id="favorites" class="">
@@ -83,7 +86,8 @@ margin-top: 2.8%;" id="listauto" class="  panel panel-default" style=":  ;">
                                 </div>
                             </div>
                         </li>
-
+@endif()
+@if($data['category'] == 'Tv Series')
                           <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item">
                             <div class="row">
                                 <div id="favorites" class="">
@@ -108,7 +112,7 @@ margin-top: 2.8%;" id="listauto" class="  panel panel-default" style=":  ;">
                                 </div>
                             </div>
                         </li>
-
+@endif()
 
                        
                      
@@ -154,11 +158,17 @@ margin-top: 2.8%;" id="listauto" class="  panel panel-default" style=":  ;">
 
 <script >
 	var sort = 'show_name';
+  url = '/get/list/entries/';
+  url += {{$data['id']}};
+  url +='?category=';
+  url +="{{$data['category']}}";
+  url += '&sort='+sort;
+
 	function shows(pivot) {
 		 $('#list_entries').html(' ');
- $.get( "/get/list/entries/"+{{$data['id']}} + '?sort='+sort, function( ajax ) {
+ $.get( url, function( ajax ) {
   console.log(ajax);
-  var vaar ;
+  var vaar =0;
  for(var i=0; i<ajax.length; i++ ){
  
  		vaar =  parseInt(Math.round(ajax[i].show_rating) )  + vaar;

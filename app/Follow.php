@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Follow extends Model
 {
     //
+     use \Awobaz\Compoships\Compoships;
       use SoftDeletes, CascadeSoftDeletes;
        protected $cascadeDeletes = ['wall' ];
 

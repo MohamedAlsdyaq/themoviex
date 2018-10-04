@@ -11,6 +11,13 @@
 |
 */
 Route::get('login/{service}', 'SocialController@redirectToProvider');
+Route::get('/terms', function(){
+    return View('terms');
+});
+
+Route::get('/privacy', function(){
+    return View('privacy');
+});
 
 Route::get('auth/{serivce}/callback', 'SocialController@handleProviderCallback');
 
@@ -26,7 +33,11 @@ Route::get('/explore/tv', [ 'as' => '/explore/tv', 'uses' => 'TvController@explo
 
 Route::get('/explore/tv/{title}', 'TvController@highlights');
  
-
+Route::post('/contact/send', function(){
+    return redirect('/');
+});
+//Route::get('sendhtmlemail','MailController@html_email');
+//Route::get('sendattachmentemail','MailController@attachment_email');
 // Routes for logged in users
  
 Route::get('/', 'HomeController@index');
@@ -98,7 +109,12 @@ Route::get('/get/reaction/{id}', 'ReactionController@GetReactionsForUser');
 
 Route::get('/get/library/{id}', 'LibraryController@GetLibraryMovies');
 
+Route::get('/search/library/{id}', 'LibraryController@searchLibrary');
+Route::get('/search/librarytv/{id}', 'LibraryController@searchLibrarytv');
+
 Route::get('/get/librarytv/{id}', 'LibraryController@GetLibraryTv');
+
+Route::get('/load/section/{id}', 'UserController@LoadSection');
 
 Route::get('/get/list/{id}', 'LaistController@GetListForUser');
 
@@ -174,6 +190,8 @@ Route::get('/unlike/comment/{id}', 'LikeController@UnlikeComment');
 Route::get('/unlike/post/{id}', 'LikeController@UnlikePost');
 
 Route::get('/unlike/Reaction/{id}', 'LikeController@UnlikeReaction');
+
+Route::get('/unlike/reply/{id}', 'LikeController@UnlikeReply');
 
 // Set Notification flag to false 
 Route::get('/notifications/saw', 'NotificationController@update');
@@ -267,7 +285,7 @@ Route::post('/entry/tv/lib/{id}', 'LibraryController@AddTv');
 
 Route::post('/update/movie/lib', 'LibraryController@UpdateMovie');
 
-Route::post('/update/tv/lib', 'LibraryController@AddTv');
+Route::post('/update/tv/lib', 'LibraryController@UpdateTv');
 
 Route::post('/delete/movie/lib', 'LibraryController@DeleteMovie');
 
@@ -290,4 +308,3 @@ Route::post('/favorite/movie/add', 'FavoriteController@addMovie');
 
 Auth::routes();
  
-Route::get('/', ['as' => '/' ,'uses' => 'HomeController@index'  ] );

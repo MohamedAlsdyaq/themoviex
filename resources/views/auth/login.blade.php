@@ -51,15 +51,14 @@
                                 </a>
                             </div>
                         </div>
-      <div class="row">
-
-<a  onclick="window.open('/login/google', 
-                         'newwindow', 
-                         'width=400,height=350'); 
-              return false;" href="login/google"><div class="col-sm-5"><img src="/img/google.png"></div></a>
+<div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+<a  href="/login/facebook" href="login/facebook"><div class="colfset-4"><img src="/img/facebook.png"></div></a>
+<br>
+<a  href="/login/google" href="login/google"><div class="col-m6 co-4"><img src="/img/google.png"></div></a>
 
  
-      </div> 
+      </div>  </div> 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-success btn-block">

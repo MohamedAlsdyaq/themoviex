@@ -1,3 +1,9 @@
+.fa-heart-o{
+   transition: all 0.3s cubic-bezier(.75,-0.49,.67,1.2) 0s;
+}
+.fa-heart{
+   transition: all 0.3s cubic-bezier(.75,-0.49,.67,1.2) 0s;
+}
  .post_padding{
   padding: 7px 15px 0 10px;
  }
@@ -229,11 +235,17 @@ margin-bottom: 20px;
 .post_s{
 margin-top: 3%;
 box-shadow: 0 1px 4px rgba(0,0,0,.04);
-
+position: relative;
    width: 100% !important;
   background-color: #fff;
 }
 
+.lower_right{
+  position: absolute;
+  right: 5px;
+  font-size: 12px;
+  bottom: 5px;
+}
 .spoilered{
  -webkit-filter: blur(7px);
   -moz-filter: blur(7px);
@@ -252,7 +264,12 @@ box-shadow: 0 1px 4px rgba(0,0,0,.04);
     color: white;
  
 }
-
+#linkshow{
+  min-height: 34px;
+}
+.post_action > div {
+  margin-right: 15px; 
+}
 .spoiler_alert{
   text-align: center;
   color: #9796a1;
@@ -262,7 +279,9 @@ box-shadow: 0 1px 4px rgba(0,0,0,.04);
   bottom: 100px;  
   transform: translate(-2%,-80%);
 }
-
+.show_thumnail{
+  border: 1px solid #e6e4e4;
+}
   .upload-btn-wrapper {
   position: relative;
   margin-top: 50px;
@@ -270,9 +289,82 @@ box-shadow: 0 1px 4px rgba(0,0,0,.04);
   display: inline-block;
   margin-right: 5px;
 }
+/* The container */
+.checkbox_container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+ 
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
+/* Hide the browser's default checkbox */
+.checkbox_container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox_container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox_container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.create_post_wrapper{
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin: 10px 15px 0px 0px;
+}
+.create_post_wrapper > img{
+  margin-right: 15px;
+}
 .upload {
-  border: 2px solid gray;
+  cursor: pointer;
+  border: 2px solid white;
   color: gray;
   background-color: white;
   padding: 8px 4px;
@@ -311,9 +403,9 @@ margin-left: 100px;
 .uploaded_img{
  
 
-  height: 100px;
+  height: 90px;
   flex-shrink: 0 !important;
-  width: 100px;  
+  width: 90px;  
    background-position:50% 50%;
     background-size: 150px auto !important;
  
@@ -329,7 +421,10 @@ margin-left: 100px;
 .see_more_buton{
   background-color: white;
   z-index: 2;
-  
+   
+    position: absolute;
+    bottom: 50;
+    left: 160;
   border-radius: 5px;
   border: 2px #ecf0f1 solid;
   padding : -5px;
@@ -384,6 +479,7 @@ margin-left: 100px;
 }
 
 .create_post_wrapper{
+  margin-bottom: 35px;
   background-color: white;
   min-height: 1px;
 box-shadow: 0 1px 4px rgba(0,0,0,.04);

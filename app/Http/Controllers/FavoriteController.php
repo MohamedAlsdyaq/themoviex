@@ -23,7 +23,7 @@ class FavoriteController extends Controller
         $fav = new Favorite;
         $fav->user_id = Auth::user()->id;
         $fav->show_id = $request['id'];
-        $fav->type = 1;
+        $fav->type = 'tv';
         $fav->save();
         TvController::add($request['id']);
     }
@@ -32,7 +32,7 @@ class FavoriteController extends Controller
         $fav = new Favorite;
         $fav->user_id = Auth::user()->id;
         $fav->show_id = $request['id'];
-        $fav->type = 0;
+        $fav->type = 'movie';
         $fav->save();
     }
     public function delete( $id)

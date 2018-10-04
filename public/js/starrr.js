@@ -4,6 +4,9 @@ movie_id = movie_id.split('movie/');
 movie_id = movie_id[1].split('?');
 movie_id = movie_id[0];
 */
+function rate_hidden(e){
+$('#score').val($(e).attr('data-rating'));
+}
 $(document).on('mouseover', '.stars', function(){
  
   //  var selected = $(this).attr('data-rating');
@@ -26,10 +29,10 @@ $(document).on('click', '.stars', function(){
       $(this).addClass('fa-star selected').removeClass('fa-star-o');
       $(this).prevAll().removeClass('fa-star-o').addClass('fa-star');
       $(this).nextAll().removeClass('selected fa-star').addClass('fa-star-o');
- var tag = "completed";
-    var score = $(this).attr('data-rating');
-    $('#score').val(score);
- add_to_list('completed', 4);
+ 
+     
+   
+ add_to_lib( );
      
 });
 
@@ -45,16 +48,16 @@ $(document).on('click', '.drp', function(e){
 });
 
 
-function add_to_list(status, score){
+function add_to_lib( e =null, id=null){
 
     
    var data = {
-    status: status,
-    score: score,  
-   movie_id: $('.movie_id').val(),
-   movie_pic: $('#movie_pic').val(),
-   movie_name: $('#movie_name').val(),
-   ep_count: $('#ep_counts').val(),
+    status: $('#status').val(),
+    score: $('#score').val(),  
+    movie_id: $('.movie_id').val(),
+    movie_pic: $('#movie_pic').val(),
+    movie_name: $('#movie_name').val(),
+    ep_count: $('#ep_counts').val(),
 
 
     }

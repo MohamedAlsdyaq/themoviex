@@ -54,8 +54,7 @@ function change_section(evt, name) {
 
     tabcontent = document.getElementsByClassName("common");
     for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-        tabcontent[i].innerHTML = ' ';
+        tabcontent[i].style.display = "none" ;
     }
 
     tablinks = document.getElementsByClassName("tablinks");
@@ -89,21 +88,27 @@ function change_section(evt, name) {
     window[name](id, type);
 
 }
-function change_section_user(evt, name) {
- var i, tabcontent, tablinks;
+function change_section_user(evt, name, id) {
+     $('#render').html('<img src="/img/big_ring.gif"> ');
+ 
+    $('.current_tab').removeClass('current_tab');
+    console.log(this)
+  //  evt.currentTarget.className += " current_tab";
+$('#'+name+'btn').addClass('current_tab');
+    $.ajax({
 
-    tabcontent = document.getElementsByClassName("common");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+      url: '/load/section/'+id+'?section='+name,
+ 
+    type: 'GET',
+    beforeSend: function(){
+    }, 
+    success: function(d){
+     $('#render').html(d);
     }
 
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace("current_tab", "");
-    }
-    document.getElementById(name).style.display = "block";
-    evt.currentTarget.className += " current_tab";
-
+    });
+    //var stateObj = { foo: "bar" };
+history.pushState(null, '' , '/profile/'+id+'/'+name);
  
 
 }
@@ -122,7 +127,7 @@ function imageExists(image_url){
 function gallery(id, type){
 
 
-  var url = 'https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+api_key+'&language=en-US&include_image_language=en';
+  var url = 'https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+api_key;
     $.ajax({
         type: 'GET',
         url: url,
@@ -133,9 +138,10 @@ function gallery(id, type){
         withCredentials: true
     },
        beforeSend: function() {
-         $('#gallery_photos').html('<img class="loading" src="/img/big_ring.gif" >');
+         $('#gallery').html('<img class="loading" src="/img/big_ring.gif" >');
             },
         success: function(ajax) {
+           $('#gallery').html('<h4> Gallery </h4>');
             console.log(ajax);
               var images = ajax.posters;
              $('.loading').hide();
@@ -144,9 +150,45 @@ function gallery(id, type){
    
 
             for(i=0; i<images.length; i += 1){
-              $('#gallery_photos').append('<a href="http://image.tmdb.org/t/p/w185'+images[i].file_path+'" data-lity  ><img class="max" src="http://image.tmdb.org/t/p/w185'+images[i].file_path+'"></a>');
+              $('#gallery').append('<a href="http://image.tmdb.org/t/p/w185'+images[i].file_path+'" data-lity  ><img class="max" src="http://image.tmdb.org/t/p/w185'+images[i].file_path+'"></a>');
                  }
-          
+          if(images.length == 0)
+            $('#gallery').html('<spa');
+ }
+            //
+         
+              });
+}
+function gallery(id, type){
+
+
+  var url = 'https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+api_key+'&language=en-US';
+    $.ajax({
+        type: 'GET',
+        url: url,
+        jsonpCallback: 'testing',
+        contentType: 'application/json',
+        dataType: 'jsonp',
+            xhrFields: {
+        withCredentials: true
+    },
+       beforeSend: function() {
+         $('#gallery').html('<img class="loading" src="/img/big_ring.gif" >');
+            },
+        success: function(ajax) {
+           $('#gallery').html('<h4> Gallery </h4>');
+            console.log(ajax);
+              var images = ajax.posters;
+             $('.loading').hide();
+
+
+   
+
+            for(i=0; i<images.length; i += 1){
+              $('#gallery').append('<a href="http://image.tmdb.org/t/p/w185'+images[i].file_path+'" data-lity  ><img class="max" src="http://image.tmdb.org/t/p/w185'+images[i].file_path+'"></a>');
+                 }
+          if(images.length == 0)
+            $('#gallery').html('<spa');
  }
             //
          
@@ -211,7 +253,7 @@ function staff(id, type){
         withCredentials: true
     },
        beforeSend: function() {
-           $('#crew').html('<img class="loading" src="/img/big_ring.gif" >');
+           $('#staff').html('<img class="loading" src="/img/big_ring.gif" >');
             },
         success: function(ajax) {
               $('.loading').hide();
@@ -220,19 +262,20 @@ function staff(id, type){
               var cast = ajax.cast;
             
               if(crew){
-              for(i=0; i<cast.length; i += 1){
+                $('#staff').append('<h4> Staff </h4>');
+              for(i=0; i<cast.length / 2; i++){
                 image_url = "http://image.tmdb.org/t/p/w342"+cast[i].profile_path+"";
                 if(imageExists(image_url))
-                 $('.staff').append('<div class="app-img-wrapper">  <a href="/actor/'+cast[i].cast_id+'" class="app-img-link" title="Image 1"><img src="http://image.tmdb.org/t/p/w500'+cast[i].profile_path+'" class="img-responsive app-img" alt="App"><h4 class="app-img-text">'+cast[i].character + ' (<small>'+cast[i].name+'</small>)'+'</h4></a></div> ');
+                 $('#staff').append(' <div class="app-img-wrapper">  <a href="/actor/'+cast[i].cast_id+'" class="app-img-link" title="Image 1"><img src="http://image.tmdb.org/t/p/w500'+cast[i].profile_path+'" class="img-responsive app-img" alt="App"><h4 class="app-img-text">'+cast[i].character + ' (<small>'+cast[i].name+'</small>)'+'</h4></a></div> ');
                 else
                   continue;
                  }
 
-
-              for(i=0; i<crew.length; i += 1){
+$('#staff').append('<h4> Crew </h4>');
+              for(i=0; i<crew.length / 2; i++){
                 image_url = "http://image.tmdb.org/t/p/w342"+crew[i].profile_path+"";
                 if(imageExists(image_url))
-                  $('#crew').append('<div class="app-img-wrapper">  <a class="app-img-link" title="Image 1"><img src="http://image.tmdb.org/t/p/w500'+crew[i].profile_path+'" class="img-responsive app-img" alt="App"><h4 class="app-img-text">'+crew[i].name + ' (<small>'+crew[i].job+'</small>)'+'</h4></a></div> ');
+                  $('#staff').append('<div class="app-img-wrapper">  <a class="app-img-link" title="Image 1"><img src="http://image.tmdb.org/t/p/w500'+crew[i].profile_path+'" class="img-responsive app-img" alt="App"><h4 class="app-img-text">'+crew[i].name + ' (<small>'+crew[i].job+'</small>)'+'</h4></a></div> ');
                 else
                  {
  $('#crew').append('<h3 class="text-center" >No Data Avaliable</h3>');

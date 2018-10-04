@@ -1,7 +1,9 @@
 .rating i.fa {
-     font-size: 2.9rem;
+    font-size: 3.0rem;
     color: gold;
     float: left;
+    margin-left: 8px;
+}
 
 }
 

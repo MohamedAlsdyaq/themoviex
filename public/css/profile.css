@@ -1,3 +1,9 @@
+#sense div{
+  background-color: white !important;
+}
+#posting{
+  overflow: hidden;
+}
 .v_small{
    font-size: 0.675em;
     font-family: Arial, Helvetica, sans-serif;
@@ -99,6 +105,7 @@ border-radius: 0%;
 
    .thumbnail_poster{
     max-width:  86px; 
+    margin-bottom: 10px;
     max-height: 122px;
 }
 .thumnail_library{

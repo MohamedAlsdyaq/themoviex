@@ -31,14 +31,10 @@
 </div>
 
 	  <div class="col-xs-12 col-sm-3">
-            
-
- 
- 
- 
-	        <br>  </div>
+        <br>  </div>
 
 	  <div style="padding-top: 1%;" class="col-sm-7 col-xs-12 white_box" >
+
 	  	<input id="list_search"    onkeyup="         $('#list_search').attr('onkeyup', ' ');  setTimeout(function(){
       search_list($('#list_search').val() );}, 2000); "  class="form-control " type="text" placeholder="Filter .. ">
  
@@ -54,7 +50,7 @@
 
 	  	</div>
 	  	<br>
-	  	 	  </div>
+	  </div>
 
 </div>
 </div>

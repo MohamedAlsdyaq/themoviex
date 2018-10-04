@@ -8,6 +8,7 @@ class Listentries extends Model
 {
     //
      use SoftDeletes;
+     protected $guarded = ['deleted_at'];
     	 public function list(){
         return $this->belongsTo('App\Laist');
     }

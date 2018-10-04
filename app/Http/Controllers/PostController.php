@@ -45,6 +45,7 @@ public function GroupPosts($id){
             ->with('likes')
             ->with('comments.user')
             ->with('postcontents')
+            ->with('show')
              ->orderBy('updated_at', 'desc')
              ->where('group_id', $id)
           ->paginate(10); 
@@ -81,21 +82,25 @@ public function GroupPosts($id){
           ->paginate(10); 
   }
     public function movies(){
- return Post::with('user')
+ return Post::where('type', 'movie')
+
+              ->with('user')
             ->with('likes')
             ->with('comments.user')
             ->with('postcontents')
-            ->with('movie')
+            ->with('show')
 
              ->orderBy('updated_at', 'desc')
           ->paginate(10); 
   }
     public function tv(){
-      return Post::with('user')
+      return Post::where('type', 'tv')
+
+              ->with('user')
             ->with('likes')
             ->with('comments.user')
             ->with('postcontents')
-            ->with('tv')
+            ->with('show')
              ->orderBy('updated_at', 'desc')
           ->paginate(10); 
   }
@@ -120,32 +125,37 @@ public function GroupPosts($id){
      */
     public function create(Request $request)
     {
-      
+      $show_type = null;
       $group_id = null;
     if($request['group_id'] !== null)
           $group_id = $request['group_id'];
      if($request['movie_id'] !== null){
-          if($request['show_type'] == 'tv')
+          if($request['show_type'] == 'tv'){
             TvController::add($request['movie_id']);
-          if($request['show_type'] == 'movie')
+            $show_type = 'tv';
+          }
+
+          if($request['show_type'] == 'movie'){
+             $show_type = 'movie';
             MovieController::add($request['movie_id']);
+          }
         }
         $post = new Post;
         $post->user_id = Auth::user()->id;
         $post->show_id = $request['movie_id'];
-        $post->content = $request['post'];
+        $post->type = $request['show_type'];
+        $post->content = htmlentities($request['post'], ENT_QUOTES, 'UTF-8', false) ;
         $post->group_id = $group_id;
         $post->spoiler = $request['spoiler'];
         $post->ep_id = $request['ep_id'];
         $post->save();
 
-         DB::table('walls')->insert(
-      [
-        'post_id' => $post->id,
-        'type'    => 'post'
-         
-        ]
-        );
+       $wall = new \App\Wall;
+       $wall->post_id = $post->id;
+       $wall->type = 'post';
+       $wall->user_id = Auth::user()->id;
+       $wall->save();
+       
  if($request['imgs']){
 if(count( $request['imgs'] ) != null );
         PostcontentController::create($request['imgs'], $post->id);
@@ -169,9 +179,10 @@ if(count( $request['imgs'] ) != null );
             ->with('user')
             ->with('library')
             ->with('follow')
-            ->with('post')         
-             ->orderBy('created_at', 'desc')
-         ->paginate(100);
+            ->with('post')    
+            ->where('record', 'true')     
+             ->orderBy('updated_at', 'desc')
+         ->paginate(15);
     }
     public static function PostCount($id){
         return Post::where('user_id', Auth::user()->id)

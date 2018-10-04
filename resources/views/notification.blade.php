@@ -10,14 +10,14 @@
    <div class="notification_container ">
 
 <h5 class=" card-title">
-  <span onclick="ChangeContet(this, 'all')" class="tog " >Interactions </span>   
-    <span onclick="ChangeContet(this, 'mention')" class="tog grey"> Mentions</span>
+    <span onclick="ChangeContet(this, 'mention')" class="tog grey"> Notifications</span>
   </h5>
-
+ 
 @foreach($notifications as $n)
 <?php
+ $action = ' Replied to your ';
      $thumnail = ' ';
- 
+   $post = ' ';
 if($n['type'] ==  "follow"){
       $post = ' ';
       $action = ' Followed you ';

@@ -55,8 +55,11 @@ class NotificationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-public static function store($user_id, $post, $type = 'Like')
+public static function store($user_id, $post, $type = 'like')
     {
+        if(Auth::user()->id == $user_id)
+            return 0;
+
         $user_id =  (int) $user_id;
           if(is_string($user_id))
         $user_id = UserController::getId($user_id[0]);

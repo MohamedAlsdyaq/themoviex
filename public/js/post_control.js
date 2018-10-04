@@ -1,7 +1,4 @@
-function carousoal(){
-  
-}
-
+ 
 function get_post(id){
  
 var content = ' ';
