@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/testing', function(){
+    return 'hi';
+});
 Route::get('login/{service}', 'SocialController@redirectToProvider');
 Route::get('/terms', function(){
     return View('terms');
