@@ -80,7 +80,7 @@ function activity_feed(id ){
     jsonpCallback: 'testing',
     contentType: 'application/json',
     beforeSend: function(){
-$('#posts_loading').append('<img class="loader"src="/img/loaderIco.gif">');
+$('#posts_loading').append('<img class="loader"src="/img/ring-alt.gif">');
     },
     success: function(ajax) {
       $('.loader').remove();
