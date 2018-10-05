@@ -32,7 +32,7 @@ if(!isset($progress))
 <!-- set the thumnail of the show -->
 <?php
   $url =  $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-  $url = substr($url,10);
+  $url = substr($url,13);
 
   if (strpos($url,'/tv') !== false || strpos($url,'/movie') !== false) {
    ?>
