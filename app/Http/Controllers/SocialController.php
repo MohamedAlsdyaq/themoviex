@@ -48,9 +48,9 @@ class SocialController extends Controller
             $sameSocialId = Social::where('social_id', '=', $user->id)
                 ->where('provider', '=', $provider )
                 ->first();
-
             if (empty($sameSocialId)) {
 
+return  $user ;
                 //There is no combination of this social id and provider, so create new one
                 $newSocialUser = new User;
                 $newSocialUser->email   = $email;
@@ -58,7 +58,7 @@ class SocialController extends Controller
                 $newSocialUser->password = bcrypt(str_random(16));
                 $newSocialUser->token = str_random(64);
                 $newSocialUser->picture = $user->avatar_original;
-                $newSocialUser->header = $user->user['cover']['coverPhoto']['url'];
+ $newSocialUser->header = $user->user['cover']['coverPhoto']['url'];
                 $newSocialUser->save();
 
 
