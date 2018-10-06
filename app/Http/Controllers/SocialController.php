@@ -50,7 +50,7 @@ class SocialController extends Controller
                 ->first();
             if (empty($sameSocialId)) {
 
-return  $user ;
+dd(  $user );
                 //There is no combination of this social id and provider, so create new one
                 $newSocialUser = new User;
                 $newSocialUser->email   = $email;
