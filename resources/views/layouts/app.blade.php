@@ -22,7 +22,7 @@
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <!-- Styles -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="/css/home.css">
     <link rel="stylesheet" type="text/css" href="/css/profile.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -46,8 +46,8 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.2.2/lity.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/images-grid.css">
 <script type="text/javascript" src="/js/images-grid.js"></script>
-  <script src='http://ksylvest.github.io/jquery-growl/javascripts/jquery.growl.js' type='text/javascript'></script>
-  <link href="http://ksylvest.github.io/jquery-growl/stylesheets/jquery.growl.css" rel="stylesheet" type="text/css">
+  <script src='https://ksylvest.github.io/jquery-growl/javascripts/jquery.growl.js' type='text/javascript'></script>
+  <link href="https://ksylvest.github.io/jquery-growl/stylesheets/jquery.growl.css" rel="stylesheet" type="text/css">
       <style>
     .fa-heart{
       color:  red;
@@ -438,7 +438,7 @@ hr{
                                 <div class='col-md-12'>
                                     <div id="movies_results" class=' media-middle'>
                                         <a href='#'>
-                                            <img style="float: left;" class='media-object img-circle' src='http://placehold.it/40x40'>
+                                            <img style="float: left;" class='media-object img-circle' src='https://placehold.it/40x40'>
                                           <p style="margin: 10px; float: left;" > Fdds 
                                         </a>
                                     </div>
@@ -463,7 +463,7 @@ hr{
                                 <div class='col-md-12'>
                                     <div id="tv_results" class=' media-middle'>
                                         <a href='#'>
-                                            <img style="float: left;" class='media-object img-circle' src='http://placehold.it/40x40'>
+                                            <img style="float: left;" class='media-object img-circle' src='https://placehold.it/40x40'>
                                           <p style="margin: 10px; float: left;" > Fdds 
                                         </a>
                                     </div>
@@ -766,7 +766,7 @@ function basic_search(e, i,movieshtml, tvshtml){
     } 
     function search_movie(query, callback, movieshtml, tvshtml){
       $('#load_movies').attr('href', '/search/movies?q='+query);
-      var url = 'http://api.themoviedb.org/3/',
+      var url = 'https://api.themoviedb.org/3/',
 mode = 'search/movie?query=',
 input,
 query,
@@ -790,7 +790,7 @@ $.ajax({
                   continue;
                 }
                 //console.log(j);
-               $('#'+movieshtml).append("  <div data-type='movie' data-movie='"+ajax.results[i].id+"' data-type='movie' onclick='add_to_list("+ajax.results[i].id+", this)' class='one_result col-md-12' style='width: 100%' ><a   href='/movie/"+ajax.results[i].id+"'>                                            <img style='max-width: 45px; float: left;' class='media-object img-'   src='http://image.tmdb.org/t/p/w92"+ajax.results[i].poster_path+"'>  <p class='search_elipsis' style='margin: 10px; float: left;' > "+ajax.results[i].original_title+"                                        </a></div><br>");
+               $('#'+movieshtml).append("  <div data-type='movie' data-movie='"+ajax.results[i].id+"' data-type='movie' onclick='add_to_list("+ajax.results[i].id+", this)' class='one_result col-md-12' style='width: 100%' ><a   href='/movie/"+ajax.results[i].id+"'>                                            <img style='max-width: 45px; float: left;' class='media-object img-'   src='https://image.tmdb.org/t/p/w92"+ajax.results[i].poster_path+"'>  <p class='search_elipsis' style='margin: 10px; float: left;' > "+ajax.results[i].original_title+"                                        </a></div><br>");
               
               }
 
@@ -804,7 +804,7 @@ $.ajax({
     }
      function search_tv(query, tvshtml){
        $('#load_tv').attr('href', '/search/tv?q='+query);
-      var url = 'http://api.themoviedb.org/3/',
+      var url = 'https://api.themoviedb.org/3/',
 input,
 query,
 key = '&api_key=54f297aa644bf4f27044771fc75cbb64&language=en-US';
@@ -830,7 +830,7 @@ $.ajax({
                   j--;
                   continue;
                 }
-               $('#'+tvshtml).append("  <div data-type='tv' data-movie='"+ajax.results[i].id+"' onclick='add_to_list("+ajax.results[i].id+", this)' class='one_result live_result col-md-12' style='width: 100%' ><a  href='/tv/"+ajax.results[i].id+"'>                                            <img style='float: left;max-width: 45px;' class='media-object -circle'   src='http://image.tmdb.org/t/p/w92"+ajax.results[i].poster_path+"'>  <p class='search_elipsis' style='margin: 10px; float: left;' > "+ajax.results[i].name+"                                        </a></div><br>");
+               $('#'+tvshtml).append("  <div data-type='tv' data-movie='"+ajax.results[i].id+"' onclick='add_to_list("+ajax.results[i].id+", this)' class='one_result live_result col-md-12' style='width: 100%' ><a  href='/tv/"+ajax.results[i].id+"'>                                            <img style='float: left;max-width: 45px;' class='media-object -circle'   src='https://image.tmdb.org/t/p/w92"+ajax.results[i].poster_path+"'>  <p class='search_elipsis' style='margin: 10px; float: left;' > "+ajax.results[i].name+"                                        </a></div><br>");
 
              
               }
