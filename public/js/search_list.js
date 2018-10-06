@@ -1,7 +1,7 @@
 
  $.get( '/lists/get/ids', function( arr ) {
          window.arr_my_lists_ids = arr;
- lists_index("http://moviex.com/lists/index?page=1");
+ lists_index("https://moviex.com/lists/index?page=1");
 
  
               })  ;

@@ -79,7 +79,7 @@ if(data.movie || data.tv || data.show){
   t_pic = data.show.show_pic;
   t_type = data.type;
   
-  thumb = '            <div  style="border-radius: 3px;background-color: #fafafa;border: 1px solid #eee; padding: 1% 2% 0 2%; margin:2% auto; width: 100% !important;"   class=" show_thumnail  border-dark row col-xs-12" >                <div style="float: left;">    <img style="max-width: 45px; margin: 4px;" id="" class="poster img-responsive "   src=" http://image.tmdb.org/t/p/w154'+t_pic+'">               </div>  <div style="float:left;width: 80%;">    <a style="color: #337ab7;text-decoration: none;" href="/'+t_type+'/'+t_id+'">  <h4  style="font-size: 16px;font-weight: 700;margin: 3% 0.5% 0 2%;  float: left;" id="movie_title" >'+t_name+'</h4> </a> <br><br> <p  style="    margin-top: 2%;font-size: 12px;color: #999;" class="bio v_small grey" >'+t_bio+' (source:tmdb) </div>  </div>';
+  thumb = '            <div  style="border-radius: 3px;background-color: #fafafa;border: 1px solid #eee; padding: 1% 2% 0 2%; margin:2% auto; width: 100% !important;"   class=" show_thumnail  border-dark row col-xs-12" >                <div style="float: left;">    <img style="max-width: 45px; margin: 4px;" id="" class="poster img-responsive "   src=" https://image.tmdb.org/t/p/w154'+t_pic+'">               </div>  <div style="float:left;width: 80%;">    <a style="color: #337ab7;text-decoration: none;" href="/'+t_type+'/'+t_id+'">  <h4  style="font-size: 16px;font-weight: 700;margin: 3% 0.5% 0 2%;  float: left;" id="movie_title" >'+t_name+'</h4> </a> <br><br> <p  style="    margin-top: 2%;font-size: 12px;color: #999;" class="bio v_small grey" >'+t_bio+' (source:tmdb) </div>  </div>';
 
 }
     content += text + thumb;

@@ -17,7 +17,7 @@ movie_id = movie_id.split('tv/');
 movie_id = movie_id[1].split('?');
 movie_id = movie_id[0];
 
-var url = 'http://api.themoviedb.org/3/tv/'+movie_id+'?api_key=54f297aa644bf4f27044771fc75cbb64&append_to_response=videos,keywords';
+var url = 'https://api.themoviedb.org/3/tv/'+movie_id+'?api_key=54f297aa644bf4f27044771fc75cbb64&append_to_response=videos,keywords';
 
 $.ajax({
             type: 'GET',

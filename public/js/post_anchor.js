@@ -1,7 +1,7 @@
 
 
 function copy_link(text, type='post'){
-		text = 'www.moviex.com/'+type+'/'+text;
+		text = 'https://themoviex.com/'+type+'/'+text;
 		 var $temp = $("<input>");
 		  $("body").append($temp);
 		  $temp.val(text).select();

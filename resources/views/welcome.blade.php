@@ -177,7 +177,7 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
   else{$style = " ";}
  $quick_id = $tv['id'];  ?>
  <form id="quick_form_{{$tv['id']}}" >
-  <div style="{{$style}}  background-position: center !important;   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7) ) , url('http://image.tmdb.org/t/p/w300{{$tv['show']['show_header']}}') !important ;  background-position: 50% 50% ; background-size: cover !important;      background-repeat: no-repeat !important;" class="quick_container  carousel-cell  ">
+  <div style="{{$style}}  background-position: center !important;   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7) ) , url('https://image.tmdb.org/t/p/w300{{$tv['show']['show_header']}}') !important ;  background-position: 50% 50% ; background-size: cover !important;      background-repeat: no-repeat !important;" class="quick_container  carousel-cell  ">
     <div class=" " >
     <div class=" quick_action" > 
 
@@ -211,7 +211,7 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
                 <div id="" class="c row">
 
                     <div class="col-sm-3 col-xs-3" >  
-                            <img class="img-responsive show_img"    src="http://image.tmdb.org/t/p/w154{{$tv['show']['show_pic']}}"> 
+                            <img class="img-responsive show_img"    src="https://image.tmdb.org/t/p/w154{{$tv['show']['show_pic']}}"> 
                     </div>
                 <div class="row quick_progress col-sm-7 col-xs-7" > 
 <?php $loader  = $tv['ep_count'] / $tv['show']['ep_count'] * 100 ;   ?>
