@@ -1,7 +1,7 @@
      window.arr_my_groups_ids = [];
  $.get( '/groups/get/ids', function( arr ) {
          window.arr_my_groups_ids = arr;
- groups_index("https://moviex.com/groups/index?page=1");
+ groups_index("https://themoviex.com/groups/index?page=1");
 
  
               })  ;

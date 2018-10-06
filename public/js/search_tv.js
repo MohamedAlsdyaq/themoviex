@@ -250,7 +250,7 @@ $.ajax({
 }); // end $.ajax()
     return false;
 }//end function ajax()
-jQuery.fn.isFullyVisible = function(){
+    jQuery.fn.isFullyVisible = function(){
 
 var win = $(window);
 
@@ -258,6 +258,7 @@ var viewport = {
     top : win.scrollTop(),
     left : win.scrollLeft()
 };
+
 viewport.right = viewport.left + win.width();
 viewport.bottom = viewport.top + win.height();
 
@@ -265,12 +266,12 @@ var elemtHeight = this.height();// Get the full height of current element
 elemtHeight = Math.round(elemtHeight);// Round it to whole humber
 
 var bounds = this.offset();// Coordinates of current element
-bounds.top =  bounds.top + win.height();
+bounds.top =    bounds.top ;
+bounds.bottom =   win.height() - bounds.bottom;
 bounds.right = bounds.left + this.outerWidth();
-bounds.bottom = bounds.top + this.outerHeight();
 //console.log('Win Height '+ $('body').innerHeight()+'viewport.bottom '+ viewport.bottom + ' &bounds.top '+ bounds.top +'viewport top '+viewport.top + ' bounds.bottom '+bounds.bottom );
 
-return (!( viewport.bottom > $('body').innerHeight()    ));
+return (!( viewport.bottom  < bounds.top   ));
 
 }
 document.addEventListener('DOMContentLoaded', function(){ 
@@ -280,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
   if( $('.no_more').isFullyVisible() ){
-     $('.no_more').removeClass('no_more col-xs-12');
+   //  $('.no_more').removeClass('no_more  ');
     load_more();
   }
 });
