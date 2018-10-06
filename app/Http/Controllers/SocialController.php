@@ -50,14 +50,14 @@ class SocialController extends Controller
                 ->first();
             if (empty($sameSocialId)) {
 
-dd(  $user );
-                //There is no combination of this social id and provider, so create new one
+  //There is no combination of this social id and provider, so create new one
                 $newSocialUser = new User;
                 $newSocialUser->email   = $email;
                 $newSocialUser->name = $user->name;
                 $newSocialUser->password = bcrypt(str_random(16));
                 $newSocialUser->token = str_random(64);
                 $newSocialUser->picture = $user->avatar_original;
+                if(isset($user->user['cover']['coverPhoto']['url']))
  $newSocialUser->header = $user->user['cover']['coverPhoto']['url'];
                 $newSocialUser->save();
 
