@@ -83,7 +83,7 @@ var homepage = '<a href="'+ajax.homepage+'"> Movie Page </a>';
 
             }); 
             $('#movie_title').html(name);
-            $('title').html(name+' | Nanashi');
+            $('title').html(name+' | Moviex');
             $('#links').html(imdb+' . '+homepage);
             $('#bio').html(''+bio);
             $('#length').html(' '+length+' minute(s)') ;

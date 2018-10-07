@@ -2,6 +2,8 @@
 
 @section('content')
 <head>
+       <title> Moviex</title>
+  <
 <style type="text/css">
 	.reaction_target{
 margin: 0% 0 0 20%;

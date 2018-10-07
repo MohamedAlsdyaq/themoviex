@@ -2,6 +2,8 @@
 
 @section('content')
 <head>
+         <title> Moviex</title>
+  <
 	<style type="text/css">
 	.black > a{
 		color: black;

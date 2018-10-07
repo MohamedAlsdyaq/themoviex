@@ -7,6 +7,7 @@
 <script src="https://unpkg.com/wnumb@1.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/nouislider@10.0.0/distribute/nouislider.min.css">
          <script src="/js/search.js"></script>
+         <title>Advanced Search | Moviex</title>
   <link rel="stylesheet" href="/css/search.css">
 <style type="text/css">
     li{

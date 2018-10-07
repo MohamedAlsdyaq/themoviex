@@ -7,6 +7,8 @@
 <script src="https://unpkg.com/wnumb@1.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/nouislider@10.0.0/distribute/nouislider.min.css">
          <script src="/js/search_tv.js"></script>
+              <title>Advanced Search | Moviex</title>
+  <
   <link rel="stylesheet" href="/css/search.css">
 <style type="text/css">
     li{
@@ -362,6 +364,6 @@ function radio(e){
       $(e).html($(e).text() + '<i class="fas fa-check"></i>');
        $(e).removeClass('hoverable');
 }
-
+setTimeout(function(){ adv_search()}, 1000);
 </script>
 @endsection

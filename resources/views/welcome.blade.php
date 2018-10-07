@@ -3,7 +3,8 @@
 @section('content')
 
 <head>
-    
+         <title>Moviex</title>
+  <
     <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css" media="screen">
 
 <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>

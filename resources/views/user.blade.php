@@ -2,7 +2,8 @@
 
 @section('content')
 <head>
-
+     <title>{{$user['name']}} | Moviex</title>
+  <
  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="/js/follow.js"></script>

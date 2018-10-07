@@ -5,6 +5,8 @@
  
 <!-- CONTACT SECTION -->
 <head>
+       <title>Contact Us | Moviex</title>
+  <
      <style type="text/css">
           /*---------------------------------------
   Contact section              

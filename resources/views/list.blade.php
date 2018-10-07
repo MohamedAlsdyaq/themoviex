@@ -2,7 +2,8 @@
 
 @section('content')
 <head>
- 
+      <title>{{$data['name']}}| Moviex</title>
+  <
 <link rel="stylesheet" href="/css/mylist.css">
 
 </head>

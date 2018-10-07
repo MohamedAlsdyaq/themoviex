@@ -2,6 +2,8 @@
 
 @section('content')
 <head>
+     <title>Discover Groups | Moviex</title>
+  <
 	<style type="text/css">
 		.custom_dark_btn{
 			color: black !important;

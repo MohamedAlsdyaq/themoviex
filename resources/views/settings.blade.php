@@ -2,6 +2,8 @@
 
 @section('content')
 <head>
+       <title>Settings | Moviex</title>
+  <
 <link rel="stylesheet" type="text/css" href="/css/settings.css">
 </head>
 
