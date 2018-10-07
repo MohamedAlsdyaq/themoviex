@@ -89,6 +89,9 @@ function change_section(evt, name) {
 
 }
 function change_section_user(evt, name, id) {
+  if(name == 'activity')
+    $('#render').html('<div id="activity" class=" "> <div class="col-sm-1 col-md-1 col-xs-1"></div><div class="col-sm-7 col-md-7 col-xs-7"> <div id="posts_loading"> <div class="col-sm-12 col-md-12 _4-u2 mbm _2iwp _4-u8" > <div class="_2iwo" data-testid="fbfeed_placeholder_story"> <div class="_2iwq"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div> </div></div> </div><div class=" "><div class=" "><div id="modal_target"></div><!-- code start --><!-- code end --></div></div></div><div class="col-sm-4 col-md-4 col-xs-4"> <div id="gettin_started"> <h4 class="text-center"> Getting Started on Moviex </h4> <hr style="margin: 2px"><img src="/img/big_ring.gif"  style="width:100px" > </div> <h4 class="panel- "> About Me </h4> <img src="/img/big_ring.gif" style="width:100px" ></div></div>');
+    else
      $('#render').html('<img src="/img/big_ring.gif"> ');
  
     $('.current_tab').removeClass('current_tab');

@@ -12,8 +12,9 @@ function following(id){
     $.get( '/get/following/'+id, function( data ) {
  
  $('#following').append(' <h2> {{$user["name"]}}\'s Following </h2>');
-     if(data.length < 1)
-  $('#following').html('<h5 class="text-center" > Seems there nothing here yet! </h5>');
+if(data.length < 1){
+  $('#following').append('<div style="padding:50px; margin-top:10px;" class="no_posts">        Hmm, there doesn`t seem to be anything here yet.      </div>');
+}
       for(var i=0; i<data.length; i++ ){
 
         button = '<button  onclick="follow('+data[i].id+')" type="button" class="cursor btn btn-success -lg btn-block">Follow</button>';

@@ -346,21 +346,6 @@ slider4.noUiSlider.on('update', function ( values, handle ) {
         adv_search();
     }
 });
-
-$('.list > li a').click(function() {
-    $(this).parent().find('ul').toggle();
-});
- 
-$( ".hoverable" ).hover(
-  function() {
-    $(this).html($(this).text() + '<i class="fas fa-check fa-check-hover"></i>');
-  }, function() {
-    $(this).html($(this).text());
-  }
-);
-    
-
-
 $('.list > li a').click(function() {
     $(this).parent().find('ul').toggle();
 });
@@ -389,6 +374,5 @@ function radio(e){
       $(e).html($(e).text() + '<i class="fas fa-check"></i>');
        $(e).removeClass('hoverable');
 }
- 
 </script>
 @endsection

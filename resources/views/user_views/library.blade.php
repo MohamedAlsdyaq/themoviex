@@ -180,8 +180,10 @@ window.moviex_data_global_current = ajax.current_page;
 if(ajax.next_page_url !== null)
 window.moviex_data_global_next = ajax.next_page_url+status+'&sort='+sort;
 
-
 data = ajax.data; 
+if(data.length < 1){
+  $('.libs').append('<div style="padding:50px; margin-top:10px;" class="no_posts">        Hmm, there doesn`t seem to be anything here yet.      </div>');
+}
  for(var i=0; i<15; i++ ){
  
    lib_entry(data[i]);

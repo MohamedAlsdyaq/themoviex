@@ -72,6 +72,15 @@ class UserController extends Controller
             'section_name' =>$request['section']
             ])->render();
         }
+
+      $has_comment = \App\Comment::where('user_id', $id)->count();
+      $has_follow = \App\Follow::where('user1', $id)->count();
+      $has_like = \App\Like::where('user_id', $id)->count();
+      $has_rate = \App\Library::where('user_id', $id)->count();
+   
+
+
+
         $favs = FavoriteController::index($id);
         $links=\App\Link::where('user_id', $id)->get(); 
         $is_friended = false;
@@ -90,7 +99,11 @@ class UserController extends Controller
              'links' => $links,
              'is_friended' => $is_friended,
              'section' => 'true',
-             'section_name' =>$request['section']
+             'section_name' =>$request['section'],
+             'has_comments' => $has_comment,
+             'has_rate'    => $has_rate,
+             'has_like'    => $has_like,
+             'has_follow'  => $has_follow
             ])->render();
     }
     public function destroy(){

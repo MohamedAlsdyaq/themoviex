@@ -53,17 +53,13 @@ $('#posts_loading').append('<div class="col-xs-12 no_more" ></div>');
 
 
      $(window).scroll( function(){
-       var previousScroll = 0;
-        
-       var currentScroll = $(this).scrollTop();
-       if (currentScroll > previousScroll){
-           $('#real_nav').addClass('navbar bg-dark');
-        
-       } else {
-           $('#real_nav').removeClass('navbar bg-dark');
-       }
-       previousScroll = currentScroll;
-
+      if ($(window).scrollTop() <= 20){
+  $('.bg-dark').css('background-color', 'transparent');
+            
+        } else {
+          
+$('.bg-dark').css('background-color', '#667273');
+        }
 
       var paginatr = window.moviex_id_plus_paginater;
       paginatr = paginatr.split("=");

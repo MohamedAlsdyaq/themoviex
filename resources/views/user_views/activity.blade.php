@@ -54,11 +54,67 @@
 <!-- code end -->
 </div>
 </div>
+<?php
+ $new_or_not = true
+ ;
+if($has_comments > 0)
+  $has_comments = 'step_completed';
+if($has_rate > 4)
+  $has_rate = 'step_completed';
+if($has_follow > 4)
+  $has_follow = 'step_completed';
+if($has_like > 4)
+  $has_like = 'step_completed';
 
+if($has_like == $has_follow && $has_rate == $has_comments)
+  $new_or_not = false;
+?>
 
 	</div>
 
 <div class="col-sm-4 col-md-4 col-xs-4"> 
+ @if(Auth::check() && Auth::user()->active == 0 && Auth::user()->id == $user['id'])
+                        <div id="gettin_started" >
+ <h4 class="text-center" > Getting Started on Moviex </h4>
+         <hr style="margin: 2px" >
+    <li class="step {{$has_rate}}">
+    <span class="step-status">
+  ☑
+    </span>
+    <span class="step-description">
+    Rate 5 movies or series
+    </span>
+    </li>
+
+        <li class="step {{$has_comments}}">
+    <span class="step-status">
+  ☑
+    </span>
+    <span class="step-description">
+    Comment on a post
+    </span>
+    </li>
+
+        <li class="step {{$has_follow}}">
+    <span class="step-status">
+  ☑
+    </span>
+    <span class="step-description">
+    Follow 5 or more users
+    </span>
+    </li>
+
+        <li class="step {{$has_like}}">
+    <span class="step-status">
+  ☑
+    </span>
+    <span class="step-description">
+    Like 5 posts
+    </span>
+    </li>
+
+                        </div>
+  @endif()
 
 	<h4 class="panel- " >  About Me </h4>
 	<hr class="no_margin" >
@@ -94,9 +150,9 @@
 
 @endforeach
 
-    
+@if(Auth::check() && Auth::user()->id == $user['id'])    
  <button style="margin-top: 10px;" onclick="format_favorite(this, 'movie')" class="btn btn-success btn-block" >Add Movies to your favorites</button>
-  
+@endif()
 </div>
   <?php $indicator = true; ?>
  
@@ -113,9 +169,9 @@
  <a id="fav{{$fav['id']}}" href="/tv/{{$fav['show_id']}}"" ><img class="thumbnail_poster" src="http://image.tmdb.org/t/p/w92{{$fav['show']['show_pic']}}" >  </a>
 
 @endforeach
-    
+  @if(Auth::check() && Auth::user()->id == $user['id'])    
  <button   style="margin-top: 10px;" onclick="format_favorite(this, 'tv')" class="btn btn-success btn-block" >Add Series to your favorites</button>
-  
+  @endif()
 </div>
 
  

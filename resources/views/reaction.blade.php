@@ -43,7 +43,9 @@ function reaction(id){
  $.get( "/reaction/get/"+id, function( ajax ) {
  if(ajax.data.length < 1)
   $('#reaction_target').html('<h5 class="text-center" > Seems there nothing here yet! </h5>');
-  
+  if(data.length < 1){
+  $('.libs').append('<div style="padding:50px; margin-top:10px;" class="no_posts">        Hmm, there doesn`t seem to be anything here yet.      </div>');
+}
  for(var i=0; i<ajax.data.length; i++ ){
   me = '<li> <a data-toggle="modal" data-target="#report_modal" class="dropdown-item" onclick=" report( '+data[i].id+'); document.getElementById("modal_dest").value = "reaction" ">Report Reaction</a></li> ';
   data = ajax.data;

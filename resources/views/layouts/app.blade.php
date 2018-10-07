@@ -117,7 +117,7 @@ min-height: 231px;
 margin-bottom: 30px;
 
 }
-
+ 
 #color_black{
   color: black !important;
 }
@@ -240,9 +240,9 @@ opacity: 0.5; }
   float: right
  }
  .nav-avatar{
-  border: 2px solid rgb(139, 140, 141);
-  margin-top: -5px;
-  margin-bottom: -10px;
+  border: 1.5px solid rgb(204, 204, 204);
+margin-top: 7;
+margin-left: 20px
  }
 body {
    
@@ -291,8 +291,9 @@ body {
   
 }
 body{
+  padding-top:65px;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
-
+min-width: 1200px !important;
   font-weight: 400 !important;
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff")  !important;
 font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -302,8 +303,8 @@ h1{
   font-size: 15px;
 }
  .bg-dark{color: white !important; transition: .5s ease;
-  min-height: 50px;
-  border-radius: 0px !important; background-color: #667273; border: #667273 !important; color: white !important; position: fixed; z-index: 1000 !important;  max-height: 39px !important; width: 100%;
+  min-height: 50px; 
+  border-radius: 0px !important; background-color: #667273; border: #667273 !important; color: white !important; position: fixed; z-index: 1000 !important;   width: 100%;
 }
 hr{
   margin-top: 30px;
@@ -322,184 +323,152 @@ hr{
 @endif
    <div id="">
 
-<nav  style="min-width: 100%;" id="real_nav" class="navbar-default transition hd show navbar navbar-dark bg-dark  ">
-<div class="">
-<div class="navbar-header">
-
-<!-- Collapsed Hamburger -->
-<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-<span class="sr-only">Toggle Navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-
-<!-- Branding Image -->
-<a class="navbar-brand" href="{{ url('/') }}">
-<img style="  margin-top: -5px; max-width: 120px" src="/index.png">
-</a>
-
-</div>
-
-<div  >
-<ul class="nav  navbar-nav">
-&nbsp;
-
-    
-    <li class="navs dropdown">
-<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    
-  Browse <span class="caret"></span>
-</a>
-
-<ul class="dropdown-menu" role="menu">
-  <li>
-     <a href="/search/movies">
-        Explore Movies
+  <header style="margin-top: -65px" class="bg-dark nav-header">
+ <ul class="main-nav">
+        <li> <a href="/" ><img style="width: auto; height: 50px;" src="/index.png"> </a></li>
+       <li class="dropdown">   
+         <a class="list-item-anchor " href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            
+          Browse <span class="caret"></span>
         </a>
 
-    </li>  
-    
-      <li>
-     <a href="/search/tv">
-        Explore TV Series
-        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li>
+             <a href="/search/movies">
+                Explore Movies
+                </a>
 
-    </li>  
-    
-    
-    
-</ul>
-</li>
+            </li>  
+            
+              <li>
+             <a href="/search/tv">
+                Explore TV Series
+                </a>
 
-    <li class="navs ">
-<a href="/group"  >
-    
-  Groups 
-</a>
+            </li>  
+            
+            
+            
+        </ul>
+      </li>
 
- 
-</li>
-
-    <li class="navs ">
-<a href="/list"  >
-    
-  Lists 
-</a>
-
- 
-</li>
-    
-    
-   <li id="search_container" >
-                 <div>
-                    <!-- Default panel contents -->
-                    <div class="">
-                       
-
-                        <a>      
-    <form id="nav-search" action="/search" method="get" role="search">
-  <div class="search">
-
-    <input id="searchText" onkeyup="basic_search('autolist', 'searchText', 'movies_results', 'tv_results')" style="color:white;   height: 50px;"  autocomplete="off"
- type="text" name="q" class="search" placeholder="Search">
-  
-
-  </div>
-     </form>
-       </a>
-
-
-                         
-                            
-                        
-                    </div>
-<div   style="display: none; " id="autolist" class="  panel panel-default" style=":  ;">
-                    <!-- List group -->
-                    <ul class="list-group">
-                        <div id="autocompleteTest">
-
-
-                        </div>
-                        
-                          <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item">
-                            <div class="row">
-                                <div id="favorites" class="">
-                                    <div class="">
-                                         <b style="float: left;" >Movies</b>
-                         <b style="font-weight: normal; font-size: 12px; float: right;"><a id="load_movies" href="/search/movies" > load more </a></b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <li class="list-group-item">
-                            <div class='row'>
-                                <div class='col-md-12'>
-                                    <div id="movies_results" class=' media-middle'>
-                                        <a href='#'>
-                                            <img style="float: left;" class='media-object img-circle' src='https://placehold.it/40x40'>
-                                          <p style="margin: 10px; float: left;" > Fdds 
-                                        </a>
-                                    </div>
-                             
-                                </div>
-                            </div>
-                        </li>
-
-                          <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item">
-                            <div class="row">
-                                <div id="favorites" class="">
-                                    <div class="">
-                                         <b style="float: left;" >TV Series</b>
-                                             <b style="font-weight: normal; font-size: 12px;  float: right;"><a id="load_tv" href="/search/tv" > load more </a></b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <li class="list-group-item">
-                            <div class='row'>
-                                <div class='col-md-12'>
-                                    <div id="tv_results" class=' media-middle'>
-                                        <a href='#'>
-                                            <img style="float: left;" class='media-object img-circle' src='https://placehold.it/40x40'>
-                                          <p style="margin: 10px; float: left;" > Fdds 
-                                        </a>
-                                    </div>
-                             
-                                </div>
-                            </div>
-                        </li>
-
-
-                       
-                     
-                 <h6 style="float:right: margin:1%; color: " > <a href="/search/movies" > advanced search      </a> </h6>
-                    </ul>
-
-                </div>
-                 </div>
-
+          <li>     <a class="list-item-anchor " href="/group"  >
+          Groups 
+        </a></li>
+          <li> <a class="list-item-anchor " href="/list"  >
+      Lists 
+    </a></li>
           
-             </li> 
-            <ul style=" float: right; margin-left: 220px;" class="nav navbar-nav navbar-right">
-<!-- Authentication Links -->
-@if (Auth::guest())
-<li class="navs"><a href="{{ url('/login') }}">Login</a></li>
-<li class="navs"><a href="{{ url('/register') }}">Register</a></li>
+
+          <li>
+               <div class="header-item  " id="search_container" >
+                 <div>
+                                  <!-- Default panel contents -->
+                  <div class=""> 
+                      <a>      
+                                    <form id="nav-search" action="/search" method="get" role="search">
+                                  <div class="search">
+
+                                    <input id="searchText" onkeyup="basic_search('autolist', 'searchText', 'movies_results', 'tv_results')" style="color:#fafafa ; font-weight: normal;   margin-top: 13px; "  autocomplete="off"
+                                 type="text" name="q" class="search" placeholder="Search">
+                                  
+
+                                  </div>
+                                     </form>
+                                       </a>
+
+
+                                       
+                                          
+                                      
+                     </div>
+                
+                  <div   style="display: none; width:450px; z-index: 900;" id="autolist" class="  panel panel-default" style=":  ;">
+                                          <!-- List group -->
+                                          <ul class="list-group">
+                                              <div id="autocompleteTest">
+
+
+                                              </div>
+                                              
+                                                <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item">
+                                                  <div class="row">
+                                                      <div id="favorites" class="">
+                                                          <div class="">
+                                                               <b style="float: left;" >Movies</b>
+                                               <b style="font-weight: normal; font-size: 12px; float: right;"><a id="load_movies" href="/search/movies" > load more </a></b>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                              <li class="list-group- ">
+                                                  <div class='row'>
+                                                      <div class='col-md-12'>
+                                                          <div id="movies_results" class=' media-middle'>
+                                                              <a href='#'>
+                                                                  <img style="float: left;" class='media-object img-circle' src='https://placehold.it/40x40'>
+                                                                <p style="margin: 10px; float: left;" > Fdds 
+                                                              </a>
+                                                          </div>
+                                                   
+                                                      </div>
+                                                  </div>
+                                              </li>
+
+                                                <div style="background-color: rgba(172, 172, 172, 0.11) !important; color: black; font-weight: bold;" id="fav" class="list-group-item ">
+                                                  <div class="row">
+                                                      <div id="favorites" class="">
+                                                          <div class="">
+                                                               <b style="float: left;" >TV Series</b>
+                                                                   <b style="font-weight: normal; font-size: 12px;  float: right;"><a id="load_tv" href="/search/tv" > load more </a></b>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                              <li class="list- -item">
+                                                  <div class='row'>
+                                                      <div class='col-md-12'>
+                                                          <div id="tv_results" class=' media-middle'>
+                                                              <a href='#'>
+                                                                  <img style="float: left;" class='media-object img-circle' src='https://placehold.it/40x40'>
+                                                                <p style="margin: 10px; float: left;" > Fdds 
+                                                              </a>
+                                                          </div>
+                                                   
+                                                      </div>
+                                                  </div>
+                                              </li>
+                              <h6 style="float:right: margin:1%; color: " > <a href="/search/movies" > advanced search      </a> </h6>
+                                          </ul> </div>
+                  </div>
+
+                        
+    </div> 
+          </li>
+
+
+          <div style="margin-left: 200px;" class="main-nav" >
+
+         @if (Auth::guest())
+  <li class="navs"><a class="list-item-anchor" href="{{ url('/login') }}">Login</a></li>
+  <li class="navs"><a class="list-item-anchor" href="{{ url('/register') }}">Register</a></li>
 @else
- <li>
-     <a href="{{ url('/') }}" >
+
+ <li class=" -   ">
+     <a  class="list-item-anchor" href="{{ url('/') }}" >
     
          Home
          
      </a>
     
-</li>       
- <li class="nav navbar-brandv ">
-        <li class="dropdown">
-          <a style=" " s href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+</li>  
+
+
+ <li class="header-item  " >
+        <li class=" dropdown">
+          <a style="margin-top: 7px" class="list-item-anchor " style=" " s href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <i onclick="setTimeout(function(){ all_seen( ); }, 2500);" class="far fa-bell"></i>  </a>
           <ul class="dropdown-menu notify-drop">
             <div class="notify-drop-title">
@@ -526,7 +495,7 @@ hr{
     
  
     
-<li  class="navs dropdown">
+ <li class="header-item  ">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     
    <img class="nav-avatar img-circle" src="{{ Auth::user()->picture }}"  height="35px"  width="35px" > <span class="caret"></span>
@@ -573,22 +542,18 @@ hr{
 </ul>
 </li>
 @endif
-</ul>
+ 
   </div>
     </div>
  
  
    
 
+          </div>
 
-<!-- Right Side Of Navbar -->
 
-</div>
-
-</div>
-    
-
-</nav>
+      </ul>
+  </header> 
 
 
 
@@ -604,98 +569,9 @@ hr{
 
 
 
-
-
-
-
-
- <div style="content: ' ' ;  height: 72px;" > </div>
-    <div id="login-form" class="w3-modal">
-        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-            <div class="w3-center"><br>
-                <span onclick="document.getElementById('login-form').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-
-                <heading>
-                     <div class="w3-bar w3-border-bottom">
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'new_signup')">Signup</button>
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'new_login')">Login</button>
-
-  </div>
-                </heading>
-            </div>
-
- <div class="new_container city" id="new_login" >
-           <form action="{{ route('login') }}" method="post">
-                {{ csrf_field() }}
-
-              <h2>Login</h2>
-             
-              <div class="form-group ">
-                  <input type="email" class="form-control" name="email" placeholder="Email" value="  " autofocus required="required">
-                  
-                        <span class="help-block">
-                        <strong> </strong>
-                        </span>
-                  
-                 
-              </div>
-              <div class="form-group ">
-                  <input id="password" type="password"   type="password" class="form-control" name="password" placeholder="Password" required="required">
-                  
-                                          <span class="help-block">
-                                              <strong> </strong>
-                                          </span>
-                                      
-              </div>
-               
-                <div class="form-group">
-                                  <div class="">
-                                      <div class="checkbox">
-                                          <label>
-                                              <input type="checkbox" name="remember"  checked  : '' }}> Remember Me
-                                          </label>
-                                      </div>
-                                  </div>
-                              </div>
-              <div class="form-group">
-                  <button type="submit" class="btn btn-success  bt">Login</button>
-              </div>
-          </form>
-</div>
-
-<div  class="new_container city" id="new_signup">
-  <form action="{{ route('register') }}" method="post">
-            {{ csrf_field() }}
-                 <div class="form-group"> 
-                   <div class="row">
-                <div class="col-xs-6"><input type="text" class="form-control" name="name" placeholder="Display Name" required="required"></div>
-                <div class="col-xs-6"><input type="text" class="form-control" name="username" placeholder="Username" required="required"></div>
-            </div>  
-<br>
-                    <input id="email" name="email" placeholder="email" class="form-control" required="" data-msg-required="This field is required." aria-required="true" type="text"> </div> <div class="form-group"> 
-
-                <input type="password" id="pass" name="password" placeholder="password" class="form-control" type="text"> </div>
-                 <div class="form-group"> 
-
-                <input type="password" id="contact_phone" name="password_confirmation" placeholder="confirm password" class="form-control" type="text"> </div>
-
-
-              
-
-                 <button type="submit" class="btn btn-primary ">Sign Up</button>
-
-                   <input name="w" value="1226476" type="hidden"> <input name="websiteID" value="1226476" type="hidden"> 
-                     <div class="form-group">
-            <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="/terms">Terms of Use</a> &amp; <a href="/Privacy">Privacy Policy</a></label>
-                     </div>
-                   </form>   
-</div>
-        </div>
-    </div>
+ 
 @yield('content')
-</div>
-
+ 
  <div id="target_modals" ></div>
 <input type="hidden" id="write_on_me" value="">
  
@@ -756,6 +632,10 @@ date[1] = monthNames[date[1]];
 function basic_search(e, i,movieshtml, tvshtml){
   if($('#'+i).val().length >= 3){
         $("#"+e).css('display', 'block');
+
+        if(e == 'autolist')
+          $('#'+e).css('position', 'absolute');
+
       $('.media-middle').html('<img style="display: block;margin-left: auto;margin-right: auto;" src="/img/loaderIco.gif" >') ; 
       search_movie( $('#'+i).val(),  search_tv ,movieshtml, tvshtml );
       
@@ -936,7 +816,29 @@ console.log('Win Height '+ $('body').innerHeight()+'viewport.bottom '+ viewport.
 return (!( $('body').innerHeight() -  viewport.top  > 700  ));
 
 };
+$(function() { 
 
+    $('a[href="#toggle-search"], .navbar-bootsnipp .bootsnipp-search .input-group-btn > .btn[type="reset"]').on('click', function(event) {
+    event.preventDefault();
+    $('.navbar-bootsnipp .bootsnipp-search .input-group > input').val('');
+    $('.navbar-bootsnipp .bootsnipp-search').toggleClass('open');
+    $('a[href="#toggle-search"]').closest('li').toggleClass('active');
+
+    if ($('.navbar-bootsnipp .bootsnipp-search').hasClass('open')) {
+      /* I think .focus dosen't like css animations, set timeout to make sure input gets focus */
+      setTimeout(function() { 
+        $('.navbar-bootsnipp .bootsnipp-search .form-control').focus();
+      }, 100);
+    }     
+  });
+
+  $(document).on('keyup', function(event) {
+    if (event.which == 27 && $('.navbar-bootsnipp .bootsnipp-search').hasClass('open')) {
+      $('a[href="#toggle-search"]').trigger('click');
+    }
+  });
+    
+});
   
 </script>
  

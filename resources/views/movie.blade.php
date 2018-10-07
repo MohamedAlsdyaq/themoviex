@@ -309,7 +309,7 @@ $status = $rate['status'];
 <div id="sense" ></div>
    </div>
   <div class="common" id="summary" >
-  <div class="col-sm-8 col-xs-12"  >
+  <div style="padding-left: 0 !important;padding-right: 0 !important;" class="col-sm-8 col-xs-12"  >
             <div class=""    id="">
             <label class="no_margin_bottom"  id="movie_title">  </label>  
             <div id="bio"></div >

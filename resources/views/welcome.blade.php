@@ -233,9 +233,9 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
 
 @if(count($tvs) <= 2)
   <div class="quick_discover carousel-cell">
-    Media you've added or updated within your <a href="/explore/tv"> Library </a> will show up here for you to quickly update it.
+    Media you've added or updated within your <a href="/profile/{{Auth::user()->id}}/library"> Library </a> will show up here for you to quickly update it.
     <br>
-    <button class=" btn btn-success btn-block"> Discover Media </button>
+    <button class=" btn btn-success btn-block"> <a href="/explore/tv" style="color:white;" > Discover Media</a> </button>
   </div>
 @endif
 @if(count($tvs) <= 2)
@@ -275,7 +275,7 @@ if($key == 0){$style = "   margin-left: 150px !important;";}
 
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col ">
-            @if(Auth::check() && Auth::user()->new == 0)
+            @if(Auth::check() && Auth::user()->active == 0)
                         <div id="new_welcome" >
             <h4> Hey {{Auth::user()->name}}, Welcome to Moviex </h4>
             <p>This is the global activity feed. It's populated by recent activity from all of Moviex's users - even you! Once you've had a chance to follow a few more interesting users, we'll switch your default feed from Global to Following.</p>

@@ -72,7 +72,13 @@ for(k=0; k<data.history.length; k++){
    $('#modal'+data.id).show();
 }
 
-function activity_feed(id ){
+function activity_feed(id,c_type='null'){
+
+
+  load = '<img class="loader"src="/img/ring-alt.gif">';
+if(c_type != 'null'){
+load = '';
+}
 
   $.ajax({
     type: 'GET',
@@ -80,14 +86,16 @@ function activity_feed(id ){
     jsonpCallback: 'testing',
     contentType: 'application/json',
     beforeSend: function(){
-$('#posts_loading').append('<img class="loader"src="/img/ring-alt.gif">');
+$('#posts_loading').append(load);
     },
     success: function(ajax) {
       $('.loader').remove();
  $('._4-u8').remove();
  window.next_page_activity = ajax.next_page_url;
 var data = ajax.data;
-
+if(data.length < 1){
+  $('#posts_loading').append('<div style="padding:50px; margin-top:10px;" class="no_posts">        Hmm, there doesn`t seem to be anything here yet.      </div>');
+}
 console.log(data);
  for(i=0; i<data.length; i++){
       if(data[i].type == 'post'){
@@ -132,6 +140,6 @@ function stop_recording(show_id){
   });
 }
 
-activity_feed('/get/post/'+$('#user_id').val());
+activity_feed('/get/post/'+$('#user_id').val(), 'not_null');
 
  

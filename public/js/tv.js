@@ -31,6 +31,8 @@ $.ajax({
 
             },
             success: function(ajax) {
+              if(ajax.status_code == 34)
+                window.location.href="/404";
                      //      $('.disabled').addClass('disabled');
     $('button').prop('disabled', false);
 
