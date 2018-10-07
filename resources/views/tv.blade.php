@@ -319,7 +319,7 @@ $status = $rate['status'];
             </ul>
             </div>
             <hr>
- 		<div  class="rounded col-sm-12">
+ 		<div  class="rounded  -sm-12">
      @if(Auth::check() )
        <div class="create_post_wrapper col-xs-12 " >
             @include('modules.post')
