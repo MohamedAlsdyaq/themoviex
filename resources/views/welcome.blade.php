@@ -502,6 +502,10 @@ return false;
  
 document.addEventListener('DOMContentLoaded', function(){ 
 
+$('.btn-light').click(function(){
+    $('.common').html('<img id="loader_big" src="/img/ring-alt.gif">');
+});
+
  $(window).on('scroll', function() {
  var paginatr = window.moviex_global_next_page;
       paginatr = paginatr.split("=");

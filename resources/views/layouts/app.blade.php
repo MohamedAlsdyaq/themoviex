@@ -605,10 +605,10 @@ hr{
 
         d = date[1].split(":");
             //console.log(d);
-         if( 24 - time.getHours() > d[0]) // check hourse
-          return 24 -time.getHours() - d[0] +' hourse ago';
+         if(  time.getHours() > d[0]) // check hourse
+          return time.getHours() - d[0] +' hourse ago';
         if(time.getMinutes() > d[1]) // check minutes
-          return time.getMinutes()  - d[1] +' hourse ago';
+          return time.getMinutes()  - d[1] +' minutes ago';
 
          return 'a few seconds ago'; 
       
