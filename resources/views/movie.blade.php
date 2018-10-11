@@ -167,7 +167,7 @@ if (strpos($url,'tv') !== false || strpos($url,'movie') !== false) {
 <div style="height: 30px; margin-bottom: 10px;">
    <button onclick="delete_entry()" style="float: left" class="btn btn-default"><i class="fa fa-trash"></i> </button>
 
-          <button onclick="update_entry_quick({{$rate['id']}})" style="float: right" class="btn btn-success"> Save Changes </button>
+          <button onclick="update_entry_quick({{$rate['id']}}, 'movie')" style="float: right" class="btn btn-success"> Save Changes </button>
      
      
   </div>

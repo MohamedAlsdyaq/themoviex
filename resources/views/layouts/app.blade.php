@@ -55,6 +55,9 @@
     html{
       min-width: 1299px;
     }
+    .heart{
+      cursor: pointer;
+    }
  .sticky {
    position: -webkit-sticky; /* Safari */
     position: sticky;
@@ -324,9 +327,9 @@ hr{
 @endif
    <div id="">
 
-  <header style="margin-top: -65px" class="bg-dark nav-header">
+  <header style="padding-left:50px; margin-top: -65px" class="bg-dark nav-header">
  <ul class="main-nav">
-        <li> <a href="/" ><img style="width: auto; margin: 7px; height: 35px;" src="https://image.ibb.co/g03ow9/LO.png"> </a></li>
+        <li> <a href="/" ><img style="width: auto; margin: 12px; height: 25px;" src="https://image.ibb.co/g03ow9/LO.png"> </a></li>
        <li class="dropdown">   
          <a class="list-item-anchor " href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             
@@ -450,7 +453,7 @@ hr{
           </li>
 
 
-          <div style="margin-left: 350px;" class="main-nav" >
+          <div style="margin-left: 30%;" class="main-nav" >
 
          @if (Auth::guest())
   <li class="navs"><a class="list-item-anchor" href="{{ url('/login') }}">Login</a></li>
@@ -499,7 +502,8 @@ hr{
  <li class="header-item  ">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     
-   <img class="nav-avatar img-circle" src="{{ Auth::user()->picture }}"  height="35px"  width="35px" > <span class="caret"></span>
+   <img class="nav-avatar img-circle" src="{{ Auth::user()->picture }}"  height="35px"  width="35px" >
+    <span style="float: right;" class="caret"></span>
 </a>
 
 <ul class="dropdown-menu" role="menu">

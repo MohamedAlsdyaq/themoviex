@@ -11,7 +11,7 @@ function following(id){
 
     $.get( '/get/following/'+id, function( data ) {
  
- $('#following').append(' <h2> {{$user["name"]}}\'s Following </h2>');
+ $('#following').html(' <h2> {{$user["name"]}}\'s Following </h2>');
 if(data.length < 1){
   $('#following').append('<div style="padding:50px; margin-top:10px;" class="no_posts">        Hmm, there doesn`t seem to be anything here yet.      </div>');
 }
@@ -26,5 +26,6 @@ if($('#my_id').val() == data[i].id)
         
               })  ;
 }
+ $('title').html('{{$user["name"]}} Followings');
 following(`{{$user['id']}}`);
 </script>

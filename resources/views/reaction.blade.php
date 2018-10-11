@@ -41,7 +41,7 @@ width: 100%;
   
 
 function reaction(id){
-    $('.reaction_target').html(' ');
+   
  $.get( "/reaction/get/"+id, function( ajax ) {
  if(ajax.data.length < 1)
   $('#reaction_target').html('<h5 class="text-center" > Seems there nothing here yet! </h5>');
@@ -67,10 +67,9 @@ var rea = 'reaction';
  }
 });
 
-}
-$(document).ready(function(){
-reaction({{$user['id']}})
-});
+} 
+reaction({{$user['id']}});
+
 </script>
  
 @endsection

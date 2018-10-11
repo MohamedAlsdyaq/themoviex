@@ -171,7 +171,7 @@ $.ajax({
     
     type: 'GET',
     beforeSend: function(){
-  $('.libs').append('<img class="loader" src="/img/loaderIco.gif" style="display:block; margin:auto" > ')
+  $('.libs').append('<img class="loader" src="/img/big_ring.gif" style="display:block; margin:auto" > ')
     }, 
     success: function(ajax){
       $('.loader').remove();
@@ -213,4 +213,5 @@ library('/get/library'+g_type+'/{{$user["id"]}}?sort='+sort+status+'&page=1');
  
 
 });
+   $('title').html('{{$user["name"]}} Library');
 </script>

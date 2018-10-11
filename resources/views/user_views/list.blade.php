@@ -80,5 +80,6 @@ function lists_append(id, arr){
 
         });
 }
+ $('title').html('{{$user["name"]}} Lists');
  lists(`{{$user['id']}}`);
 </script>

@@ -81,5 +81,6 @@ function groups_append(id, arr){
 
         });
 }
+ $('title').html('{{$user["name"]}} Groups');
  groups(`{{$user['id']}}`);
 </script>

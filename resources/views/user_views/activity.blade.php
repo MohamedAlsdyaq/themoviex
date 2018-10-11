@@ -1,6 +1,10 @@
 
 <script src="/js/load.js"></script>
-
+<head>
+       <title>profile</title>
+   
+ 
+</head>
 <div id="activity" class=" " >
     <div class="col-sm-1 col-md-1  col-xs-1" ></div>
 <div class="col-sm-7 col-md-7  col-xs-7"> 
@@ -272,4 +276,5 @@ if($has_like == $has_follow && $has_rate == $has_comments)
  
 
 });
+   $('title').html('{{$user["name"]}} Activities');
 </script>

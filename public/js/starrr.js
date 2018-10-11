@@ -48,6 +48,46 @@ $(document).on('click', '.drp', function(e){
 });
 
 
+function recommended_add(type, id, pic, name, status, score){
+
+    
+   var data = {
+    status: status,
+    score: score,  
+   movie_id: id,
+   movie_pic: pic,
+   movie_name: name,
+  
+
+
+    }
+       
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+}); 
+ 
+$.ajax({
+
+    //do a call to the list table and add the movie as 
+    url: '/entry/'+type+'/lib/'+id,
+    data: data,
+    type: 'POST',
+    beforeSend: function(){
+        
+   
+    }, 
+    success: function(d){
+        console.log(d);
+  check('Movie has been added to '+status+' successfuly!');
+        
+    }
+    
+}); // end $.ajax()
+    
+}
+
 function add_to_lib( e =null, id=null){
 
     

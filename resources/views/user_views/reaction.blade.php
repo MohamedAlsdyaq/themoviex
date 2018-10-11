@@ -29,5 +29,5 @@ var rea = 'reaction';
 });
 
 }
- 
+  $('title').html('{{$user["name"]}} Reactions');
  </script>

@@ -11,11 +11,10 @@
 	<script type="text/javascript">
 
 function follower(id){
-$('#followers').html(' ');
 
    $.get( '/get/follower/'+id, function( data ) {
  
- $('#followers').append(' <h2> {{$user["name"]}}\'s Followers </h2>' );
+ $('#followers').html(' <h2> {{$user["name"]}}\'s Followers </h2>' );
 if(data.length < 1){
   $('#followers').append('<div style="padding:50px; margin-top:10px;" class="no_posts">        Hmm, there doesn`t seem to be anything here yet.      </div>');
 }
@@ -30,5 +29,6 @@ if($('#my_id').val() == data[i].id)
         
               })  ;
 }
+ $('title').html('{{$user["name"]}} Followers');
 follower(`{{$user['id']}}`);
 </script>

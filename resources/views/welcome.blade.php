@@ -4,7 +4,7 @@
 
 <head>
          <title>Moviex</title>
-  <
+   
     <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css" media="screen">
 
 <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
@@ -14,6 +14,9 @@
    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
    <script src="/js/bootstrap-suggest.js"></script>
    <style type="text/css">
+    .nav-avatar{
+  
+margin-top: 10px;}
    #thumbnails:hover{
   border-radius: 5px;
 
@@ -428,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
  $(window).on('scroll', function() {
 
-
+   
 
       var paginatr = window.moviex_global_next_page;
       paginatr = paginatr.split("=");
