@@ -15,7 +15,7 @@ if(!isset($progress))
   <div class="post_padding">
   <img class="  img-circle" height="40" width="40" src="{{Auth::user()->picture}}"  style="float: left;" >
     <h5 style="font-weight: 600; font-size: 17px; color: #23527c; margin-left: 15px;" > {{Auth::user()->name}} </h5>
-      <textarea onkeyup="check_length(this)" maxlength="140" style=" height: 50px; margin-top: 3%; font-weight: 900; line-height: 18px; " data-name="post_counter"  onkeypress="limit(this)" class="form" id="exampleFormControlTextarea1" rows="5"></textarea>
+      <textarea onkeyup="check_length(this)" maxlength="250" style=" height: 50px; margin-top: 3%; font-weight: 900; line-height: 18px; " data-name="post_counter"  onkeypress="limit(this)" class="form" id="exampleFormControlTextarea1" rows="5"></textarea>
     </div>
       <div style="height: 100px;" id="uploading_section" >
       <div onclick="if(window.arr_uploaded_images_moviex.length > 7){return false; check('You cant upload more than 8 picture at once!')}" style="  float: left;" class="upload-btn-wrapper">
@@ -42,7 +42,7 @@ if(!isset($progress))
                 <div style="float: left;"> 
                  <img style="max-width: 45px; margin: 4px;" id="" class="poster img-responsive "   src=" ">
                </div>
-
+              <input type="hidden" name="show_type" id="show_type" >
               <a href="" > 
                     <h4  style="width: 100% margin-left: 0.2%" class ="movie_title" ></h4>
                 </a>
@@ -231,8 +231,9 @@ content = ' <div id="spoiler_box" style="float: left;"> <label data-toggle="tool
 $('#listauto').append(t);
  $('#searchlist').html(' ');
 $('#listauto').hide();
+     $('#show_type').val(ty);
 
-var url = 'http://api.themoviedb.org/3/'+ty+'/'+id+'?api_key=54f297aa644bf4f27044771fc75cbb64 ';
+var url = 'https://api.themoviedb.org/3/'+ty+'/'+id+'?api_key=54f297aa644bf4f27044771fc75cbb64 ';
 
 $.ajax({
             type: 'GET',
@@ -254,7 +255,6 @@ if(ajax.original_name){
   movie_type = 'movie';
 }
      $('.movie_id').val(ajax.id);
-     $('#show_type').val(ty);
 
 
 $('#searchlist').replaceWith(' <div   id="posting" class=" " style="width: 100%;min-height: 100px;border-top :1px solid #e5e5e5; " >   <div  style="background-color: #fafafa; padding: 1% 2% 0 2%; margin:2% 2% 1% 2%; width: 90% !important;"   class=" show_thumnail   -dark row col-xs-12" >   <div style="float: left;">   <img style="max-width: 45px; margin: 4px;" id="" class="poster img-responsive "   src="http://image.tmdb.org/t/p/w92/'+ajax.poster_path+'"> </div>  <a href="" >  <h4  style=" margin-left: 0.2%; width:100;" id="movie_title" >'+name+'</h4> </a>      <h6  style="    margin-top: 2%;" class="bio v_small grey" >'+ajax.overview+'  </h6>  </div>    </div> ');
