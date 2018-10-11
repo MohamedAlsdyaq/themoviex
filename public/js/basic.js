@@ -273,11 +273,11 @@ $.ajax({
     beforeSend: function(){
          }, 
     success: function(d){
-            $('#comment_input'+d[0]).val('');
-            $('#comment-for'+d[0]).append( '<div> <img width="30" height="30" src="'+d[1]['picture']+'">  <a href="/profile/'+d[1]['id']+' " > '+d[1]['name']+' </a> '+$('#comment_input'+e).val()+'<br> <span id="like" style="float:left; margin: 4px;" >  <i data-id="" onclick="likeComment(this,  )" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i> 0 </span>    </div> <br> <br>')
+            $('#comment_input'+e).val('');
+            $('#comment-for'+e).append( '<div> <img width="30" height="30" src="'+d[1]['picture']+'">  <a href="/profile/'+d[1]['id']+' " > '+d[1]['name']+' </a> '+$('#comment_input'+e).val()+'<br> <span id="like" style="float:left; margin: 4px;" >  <i data-id="" onclick="likeComment(this,  )" style="float:left; margin: 4px;" class="fa heart fa-heart-o"></i> 0 </span>    </div> <br> <br>')
            // $('#comment-for'+e).html(' ');
-      display_comments(e, 10,  '#comment-for'+e);
       check('Comment has been sent!');
+      display_comments(e, 10,  '#comment-for'+e);
     }
     
 }); // end $.ajax()
@@ -511,7 +511,7 @@ imgs = null;
 
 var post = $('#exampleFormControlTextarea1').val();
 var data = {
-        imgs: window.arr_uploaded_images_moviex,
+   imgs: window.arr_uploaded_images_moviex,
     post: post,
     ep_id: $('#myNumber').val(),
     spoiler:  $('input[name="chk[]"]:checked').length ,
@@ -540,7 +540,7 @@ $.ajax({
 window.arr_uploaded_images_moviex = [];
 $('.creat_post_content').hide();
 $('.tolol').show();
-$('.post_thumnail').css('height', 'Auto');
+$('.post_thumnail').css('height', '60px');
 $('.creat_post_content').css('min-height', 'auto');
 $('#linkshow').html('     <input   id="searchlist" onkeyup="basic_search(`listauto`, `searchlist`, `movies_list`, `tv_list`)" style="margin-left: 15px; margin:4px; color: #969696; font-size: 20px; font-weight: 400; margin-left: 2%;float:left"  autocomplete="off" type="text" name="q" class="search" placeholder="Link Post to a show..">');
     //////console.log(window.arr_uploaded_images_moviex);

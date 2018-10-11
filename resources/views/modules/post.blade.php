@@ -14,8 +14,8 @@ if(!isset($progress))
  <div  style="display:   none" class="  creat_post_content">
   <div class="post_padding">
   <img class="  img-circle" height="40" width="40" src="{{Auth::user()->picture}}"  style="float: left;" >
-    <h5 style="font-weight: 600; font-size: 17px; color: #23527c; margin-left: 15px;" > {{Auth::user()->name}} </h5>
-      <textarea onkeyup="check_length(this)" maxlength="250" style=" height: 50px; margin-top: 3%; font-weight: 900; line-height: 18px; " data-name="post_counter"  onkeypress="limit(this)" class="form" id="exampleFormControlTextarea1" rows="5"></textarea>
+    <h5 style="font-weight: 600; font-size: 17px; color: #23527c; margin-left: 50px;" > {{Auth::user()->name}} </h5>
+      <textarea onkeyup="check_length(this)" maxlength="500" style=" height: 50px; margin-top: 3%; font-weight: 900; line-height: 18px; " data-name="post_counter"  onkeypress="limit(this)" class="form" id="exampleFormControlTextarea1" rows="5"></textarea>
     </div>
       <div style="height: 100px;" id="uploading_section" >
       <div onclick="if(window.arr_uploaded_images_moviex.length > 7){return false; check('You cant upload more than 8 picture at once!')}" style="  float: left;" class="upload-btn-wrapper">
