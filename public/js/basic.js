@@ -10,7 +10,7 @@ function format_favorite(e, type){
 }
 
   function display_post(data){ // get_post() previousely 
-
+ 
 //////console.log(data);
    window.moviex_global_indicator_spoiler = false;
    window.moviex_global_indicator_ep_count = data.ep_id ;

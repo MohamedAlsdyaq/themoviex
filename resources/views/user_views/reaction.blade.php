@@ -29,5 +29,7 @@ var rea = 'reaction';
 });
 
 }
+reaction({{$user['id']}});
+
   $('title').html('{{$user["name"]}} Reactions');
  </script>

@@ -33,7 +33,7 @@ if(!isset($progress))
 <?php
   $url =  $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
   $url = substr($url,13);
-
+ 
   if (strpos($url,'/tv') !== false || strpos($url,'/movie') !== false) {
    ?>
      <div style="width: 100%;min-height: 100px;border-top :1px solid #e5e5e5; " id="posting" style="" >
@@ -51,7 +51,7 @@ if(!isset($progress))
 
              </div>
          </div> <?php } 
-             if($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']  == "moviex.com"  || $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']  == "moviex.com/") { ?>
+             if($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']  == "themoviex.com"  || $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']  == "themoviex.com/") { ?>
                
             <div id="linkshow" style="width: 100%; border-top :1px solid #e5e5e5;;  " >
              <input   id="searchlist" onkeyup="basic_search(`listauto`, `searchlist`, `movies_list`, `tv_list`)" style="margin-left: 15px; margin:4px; color: #969696; width: 100%; font-size: 20px; font-weight: 400; margin-left: 2%;float:left"  autocomplete="off" type="text" name="q" class="search" placeholder="Link Post to a show..">
