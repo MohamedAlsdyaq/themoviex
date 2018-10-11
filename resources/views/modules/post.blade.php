@@ -42,7 +42,6 @@ if(!isset($progress))
                 <div style="float: left;"> 
                  <img style="max-width: 45px; margin: 4px;" id="" class="poster img-responsive "   src=" ">
                </div>
-              <input type="hidden" name="show_type" id="show_type" >
               <a href="" > 
                     <h4  style="width: 100% margin-left: 0.2%" class ="movie_title" ></h4>
                 </a>
@@ -53,6 +52,7 @@ if(!isset($progress))
          </div> <?php } 
              if($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']  == "themoviex.com"  || $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']  == "themoviex.com/") { ?>
                
+              <input type="hidden" name=" " id="show_type" >
             <div id="linkshow" style="width: 100%; border-top :1px solid #e5e5e5;;  " >
              <input   id="searchlist" onkeyup="basic_search(`listauto`, `searchlist`, `movies_list`, `tv_list`)" style="margin-left: 15px; margin:4px; color: #969696; width: 100%; font-size: 20px; font-weight: 400; margin-left: 2%;float:left"  autocomplete="off" type="text" name="q" class="search" placeholder="Link Post to a show..">
 
