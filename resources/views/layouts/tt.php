@@ -700,55 +700,7 @@ hr{
 <input type="hidden" id="write_on_me" value="">
  
 <script>
-
  
-    function formatDate(date) {
-
-      time = new Date;
-      
-      date = date.toString().split(" ");
-
- 
-     
-       
-
-       b = date[0].split("-");
-      //console.log(b);
-       
-        if(time.getFullYear() > b[0]) // check yrs
-          return  time.getFullYear() - b[0] + 'years ago';
-        if(time.getMonth()+1 > b[1]) // check months
-          return time.getMonth()+1 - b[1] +' months ago';
-         if(time.getDate() > b[2]) // check days
-          return time.getDate() - b[2] +' days ago';
-
-        d = date[1].split(":");
-            //console.log(d);
-         if( 24 - time.getHours() > d[0]) // check hourse
-          return 24 -time.getHours() - d[0] +' hourse ago';
-        if(time.getMinutes() > d[1]) // check minutes
-          return time.getMinutes()  - d[1] +' hourse ago';
-
-         return 'a few seconds ago'; 
-      
-      
-      date = date[0].toString().split("-");
-
-
-  var monthNames = [
-    "Jan", "Frb", "Mar",
-    "April", "May", "June", "July",
-    "Aug", "Sep", "Oct",
-    "Nov", "Dec"
-  ];
-
- if(date[1][0] == 0)
-    date[1] = date[1].slice(1);
-   
-date[1] = monthNames[date[1]];
- 
-  return date[2] + '-' + date[1];
-}
 
 /**
  * Created by Mitko on 9/8/2016.

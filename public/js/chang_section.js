@@ -135,11 +135,7 @@ function gallery(id, type){
         type: 'GET',
         url: url,
         jsonpCallback: 'testing',
-        contentType: 'application/json',
-        dataType: 'jsonp',
-            xhrFields: {
-        withCredentials: true
-    },
+  
        beforeSend: function() {
          $('#gallery').html('<img class="loading" src="/img/big_ring.gif" >');
             },
@@ -153,7 +149,7 @@ function gallery(id, type){
    
 
             for(i=0; i<images.length; i += 1){
-              $('#gallery').append('<a href="http://image.tmdb.org/t/p/w185'+images[i].file_path+'" data-lity  ><img class="max" src="http://image.tmdb.org/t/p/w185'+images[i].file_path+'"></a>');
+              $('#gallery').append('<a href="http://image.tmdb.org/t/p/w500'+images[i].file_path+'" data-lity  ><img class="max" src="http://image.tmdb.org/t/p/w185'+images[i].file_path+'"></a>');
                  }
           if(images.length == 0)
             $('#gallery').html('<spa');
@@ -162,41 +158,7 @@ function gallery(id, type){
          
               });
 }
-function gallery(id, type){
-
-
-  var url = 'https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+api_key+'&language=en-US';
-    $.ajax({
-        type: 'GET',
-        url: url,
-        jsonpCallback: 'testing',
-        contentType: 'application/json',
-        dataType: 'jsonp',
-            xhrFields: {
-        withCredentials: true
-    },
-       beforeSend: function() {
-         $('#gallery').html('<img class="loading" src="/img/big_ring.gif" >');
-            },
-        success: function(ajax) {
-           $('#gallery').html('<h4> Gallery </h4>');
-            console.log(ajax);
-              var images = ajax.posters;
-             $('.loading').hide();
-
-
-   
-
-            for(i=0; i<images.length; i += 1){
-              $('#gallery').append('<a href="http://image.tmdb.org/t/p/w185'+images[i].file_path+'" data-lity  ><img class="max" src="http://image.tmdb.org/t/p/w185'+images[i].file_path+'"></a>');
-                 }
-          if(images.length == 0)
-            $('#gallery').html('<spa');
- }
-            //
-         
-              });
-}
+ 
 
 function recommendation(id, type){
  
@@ -267,18 +229,18 @@ function staff(id, type){
               if(crew){
                 $('#staff').append('<h4> Staff </h4>');
               for(i=0; i<cast.length / 2; i++){
-                image_url = "http://image.tmdb.org/t/p/w342"+cast[i].profile_path+"";
+                image_url = "http://image.tmdb.org/t/p/w154"+cast[i].profile_path+"";
                 if(imageExists(image_url))
-                 $('#staff').append(' <div class="app-img-wrapper">  <a href="/actor/'+cast[i].cast_id+'" class="app-img-link" title="Image 1"><img src="http://image.tmdb.org/t/p/w500'+cast[i].profile_path+'" class="img-responsive app-img" alt="App"><h4 class="app-img-text">'+cast[i].character + ' (<small>'+cast[i].name+'</small>)'+'</h4></a></div> ');
+                 $('#staff').append(' <div class="app-img-wrapper"><img src="http://image.tmdb.org/t/p/w154'+cast[i].profile_path+'" class="img-responsive app-img" alt="App"><h4 class="app-img-text">'+cast[i].character + ' (<small>'+cast[i].name+'</small>)'+'</h4></div> ');
                 else
                   continue;
                  }
 
 $('#staff').append('<h4> Crew </h4>');
               for(i=0; i<crew.length / 2; i++){
-                image_url = "http://image.tmdb.org/t/p/w342"+crew[i].profile_path+"";
+                image_url = "http://image.tmdb.org/t/p/w154"+crew[i].profile_path+"";
                 if(imageExists(image_url))
-                  $('#staff').append('<div class="app-img-wrapper">  <a class="app-img-link" title="Image 1"><img src="http://image.tmdb.org/t/p/w500'+crew[i].profile_path+'" class="img-responsive app-img" alt="App"><h4 class="app-img-text">'+crew[i].name + ' (<small>'+crew[i].job+'</small>)'+'</h4></a></div> ');
+                  $('#staff').append('<div class="app-img-wrapper">  <img src="http://image.tmdb.org/t/p/w154'+crew[i].profile_path+'" class="img-responsive app-img" alt="App"><h4 class="app-img-text">'+crew[i].name + ' (<small>'+crew[i].job+'</small>)'+'</h4></div> ');
                 else
                  {
  $('#crew').append('<h3 class="text-center" >No Data Avaliable</h3>');

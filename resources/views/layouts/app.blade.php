@@ -453,7 +453,7 @@ hr{
           </li>
 
 
-          <div style="margin-left: 30%;" class="main-nav" >
+          <div style="right: 0px; position: absolute;" class="main-nav" >
 
          @if (Auth::guest())
   <li class="navs"><a class="list-item-anchor" href="{{ url('/login') }}">Login</a></li>
@@ -474,10 +474,11 @@ hr{
         <li class=" dropdown">
           <a style="margin-top: 7px" class="list-item-anchor " style=" " s href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <i onclick="setTimeout(function(){ all_seen( ); }, 2500);" class="far fa-bell"></i>  </a>
-          <ul class="dropdown-menu notify-drop">
+          <ul style="width: 695%;
+margin-left: -450%;" class="dropdown-menu notify-drop">
             <div class="notify-drop-title">
               <div class="row">
-                <div style="color: black; margin: 0 0 0 4%;" class=" "> <a href="/notifications" >NOTIFICATIONS (<b class="far fa-bell" > </b>) </a> </div>
+                <div style="color: black; margin: 0 0 0 4%;" class=" "> <a style="" href="/notifications" ><p style="color: black !important; align-content:  center; font-weight: " >NOTIFICATIONS (<b class="far fa-bell" > </b>)</p> </a> </div>
                
               </div>
             </div>
@@ -488,7 +489,7 @@ hr{
  
             </div>
             <div class="notify-drop-footer text-center">
-              <a onclick="all_seen( )" href="#"><i class="fa fa-eye"></i> Mark all seen</a>
+              <a style="color: black !important; font-weight: 500" onclick="all_seen( )" href="#"><i class="fa fa-eye"></i> Mark all seen</a>
             </div>
           </li>
         </li>
@@ -596,19 +597,19 @@ hr{
        b = date[0].split("-");
       //console.log(b);
        
-        if(time.getFullYear() > b[0]) // check yrs
-          return  time.getFullYear() - b[0] + 'years ago';
-        if(time.getMonth()+1 > b[1]) // check months
-          return time.getMonth()+1 - b[1] +' months ago';
-         if(time.getDate() > b[2]) // check days
-          return time.getDate() - b[2] +' days ago';
+        if(time.getUTCFullYear() > b[0]) // check yrs
+          return  time.getUTCFullYear() - b[0] + 'years ago';
+        if(time.getUTCMonth()+1 > b[1]) // check months
+          return time.getUTCMonth()+1 - b[1] +' months ago';
+         if(time.getUTCDate() > b[2]) // check days
+          return time.getUTCDate() - b[2] +' days ago';
 
         d = date[1].split(":");
             //console.log(d);
-         if(  time.getHours() > d[0]) // check hourse
-          return time.getHours() - d[0] +' hourse ago';
-        if(time.getMinutes() > d[1]) // check minutes
-          return time.getMinutes()  - d[1] +' minutes ago';
+         if(  time.getUTCHours() > d[0]) // check hourse
+          return time.getUTCHours() - d[0] +' hourse ago';
+        if(time.getUTCMinutes() > d[1]) // check minutes
+          return time.getUTCMinutes()  - d[1] +' minutes ago';
 
          return 'a few seconds ago'; 
       
@@ -630,7 +631,7 @@ date[1] = monthNames[date[1]];
  
   return date[2] + '-' + date[1];
 }
-
+ 
 /**
  * Created by Mitko on 9/8/2016.
  */
@@ -731,7 +732,7 @@ $.ajax({
             $.ajax({
           type: 'GET',
           dataType: "json",
-          url: '/notifications/count',
+          url: '',
            
           success: function(e){
             if(!e == 0)
@@ -758,7 +759,7 @@ for(i=0; i<e.length; i++){
   if(e[i].type == "like")
     action = 'liked your comment';
 
- $('#notification_body').append( '<div class="col-xs-12 noti'+e[i].saw+' '+style+'" style=" width: 100%; color:black; padding: 2%" id=" color_black" > <div style="" > <div style="float:left "><div class="notify-img"><a href="/profile/'+e[i].user.name+'"><img style="margin: 2%" width="40" height="40" src="'+e[i].user.picture+'" alt=""></a></div></div> <div style="width : 80%; margin-left: 4%;float:left "><a href="/profile/'+e[i].user.name+'">'+e[i].user.name+'</a>  '+action+'           <p style="color: #999" class="time">'+formatDate(e[i].created_at)+'</p>             </div> </div><br><br> </div>');
+ $('#notification_body').append( '<div class="col-xs-12 noti'+e[i].saw+' '+style+'" style=" width: 100%; color:black; padding: 2%" id=" color_black" > <div style="" > <div style="float:left "><div class="notify-img"><a href="/profile/'+e[i].user.name+'"><img style="margin: 2%" width="40" height="40" src="'+e[i].user.picture+'" alt=""></a></div></div> <div style="width : 80%; margin-left: 4%;float:left; font-weight:500; font-size:12px "><a href="/profile/'+e[i].user.name+'">'+e[i].user.name+'</a>  '+action+'           <p style="color: #999" class="time">'+formatDate(e[i].created_at)+'</p>             </div> </div><br><br> </div>');
  }
           }
         });

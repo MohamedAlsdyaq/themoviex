@@ -976,23 +976,8 @@ div._2ix0 {
     background-size: cover !important;
 }
 
-#poster::after{
-  display: none;
-    content: 'Expand: ';
-    text-align: center;
-    color: white;
-      
-       width: 100%;
-    height: 277px;
-    top: 0;
-    left: 0;
- background: rgba(0, 0, 0, 0.5);
-
-}
-#poster:hover:after{
-  display: block;
-}
-
+ 
+ 
 .fav_container{
   width: 90%;
   padding: 20px;

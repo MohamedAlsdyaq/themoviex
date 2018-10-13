@@ -269,7 +269,7 @@ $r = $rate['rate'];
 $status = $rate['status'];
 ?>
   console.log({{$rate["rate"]}})
-  for(i={{$r}}; i<0; i--){
+  for(i={{$r}}; i>0; i--){
   $("#rating_section").find(`[ data-rating='`+i+`']`) 
   .addClass('selected fa-star').removeClass('fa-star-o');
   }
