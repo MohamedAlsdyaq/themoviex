@@ -592,7 +592,7 @@ function unlike_entry(id, liked){
         $.ajax({
           type: 'GET',
           url: '/unlike/'+liked+'/'+id,
-          data: data,
+           
           success: function(ajax) {
          $(this).removeClass('fa-heart').addClass('fa-heart-o').css('color', ' ');
          var count = $('#'+liked+'_likes_counter'+id).attr('data-counter');
