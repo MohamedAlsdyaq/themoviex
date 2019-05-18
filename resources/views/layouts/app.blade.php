@@ -106,7 +106,7 @@ min-height: 231px;
   text-align: center;
    font-weight: normal;
      min-width: 175px;
-     margin-top: 60px;
+     margin-bottom: 30px;
      margin-left: 0px;
 }
 
@@ -761,6 +761,8 @@ for(i=0; i<e.length; i++){
 
  $('#notification_body').append( '<div class="col-xs-12 noti'+e[i].saw+' '+style+'" style=" width: 100%; color:black; padding: 2%" id=" color_black" > <div style="" > <div style="float:left "><div class="notify-img"><a href="/profile/'+e[i].user.name+'"><img style="margin: 2%" width="40" height="40" src="'+e[i].user.picture+'" alt=""></a></div></div> <div style="width : 80%; margin-left: 4%;float:left; font-weight:500; font-size:12px "><a href="/profile/'+e[i].user.name+'">'+e[i].user.name+'</a>  '+action+'           <p style="color: #999" class="time">'+formatDate(e[i].created_at)+'</p>             </div> </div><br><br> </div>');
  }
+ if(e.length == 0)
+  $('#notification_body').append( '<div class="col-xs-12 noti'+e[i].saw+' '+style+'" style=" width: 100%; color:black; padding: 2%" id=" color_black" >    You don\'t have any notifications!      </div>  <br>  ');
           }
         });
 

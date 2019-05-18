@@ -23,7 +23,7 @@ class LibraryController extends Controller
     }
     public function EntriesJson(){
 if(Auth::guest())
-    return [0, 0];
+    return [[0], [0]];
 
         $d1 = Library::where(['user_id'=> Auth::user()->id, 'type' => 'tv'])->pluck('show_id')->toJson();
       

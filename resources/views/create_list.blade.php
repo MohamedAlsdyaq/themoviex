@@ -4,7 +4,7 @@
 
 <head>
        <title>Create List | Moviex</title>
-  <
+   
 	<style type="text/css">
 input[type="text"],
 

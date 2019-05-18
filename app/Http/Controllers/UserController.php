@@ -52,8 +52,8 @@ class UserController extends Controller
             $is_friended = true;
         else
             $is_friended = false;
-
-
+if($user == null )
+  abort(404);
     	return View('user')->with([
     		'user' => $user,
     		 'favs' => $favs,
@@ -65,6 +65,7 @@ class UserController extends Controller
     }
     public function LoadSection(Request $request,$id){
         $user = User::whereId($id)->first() ;
+  
         if($request['section'] !== 'activity'){
          return View('user_views.'.$request['section'])->with([
             'user' => $user,

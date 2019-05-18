@@ -4,7 +4,7 @@
 
 <head>
        <title>Create Group | Moviex</title>
-  <
+   
 	<style type="text/css">
 input[type="text"],
 

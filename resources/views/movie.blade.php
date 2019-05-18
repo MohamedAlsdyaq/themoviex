@@ -40,6 +40,7 @@
     .white_section{
       margin-top: 150;
     }
+     
   </style>
 </head>
 <script type="text/javascript">
@@ -214,7 +215,7 @@ if (strpos($url,'tv') !== false || strpos($url,'movie') !== false) {
 
 
 
-<div id="backdrop" style="background-image: url('/header.jpg')" class="header"></div>
+<div id="backdrop" style="background-image: url('/.jpg')" class="header"></div>
 
  
 

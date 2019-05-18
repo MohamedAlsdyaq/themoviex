@@ -78,6 +78,8 @@ $qr = $query['query'];
                  ->with('listentries.user')  
                  ->with('posts') 
                  ->first();
+if($group == null)
+    abort(404);
 
         return view('list')->with([
             'list' => $group

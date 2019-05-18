@@ -3,7 +3,7 @@
 @section('content')
 <head>
        <title> Moviex</title>
-  <
+ 
 <style type="text/css">
 	.reaction_target{
 margin: 0% 0 0 20%;
@@ -33,8 +33,7 @@ width: 100%;
 
 </div>
 
-
-{{$user['id']}}
+ 
 </div>
 
 <script type="text/javascript">
@@ -68,7 +67,7 @@ var rea = 'reaction';
 });
 
 } 
-reaction({{$user['id']}});
+reaction({{$id}});
 
 </script>
  

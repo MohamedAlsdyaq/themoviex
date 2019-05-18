@@ -2,8 +2,8 @@
 
 @section('content')
 <head>
-       <title>  Moviex</title>
-  <
+       <title> Moviex</title>
+  
 <style type="text/css">
 	.custom_container{
     padding: 0.003% 0 3% 0;

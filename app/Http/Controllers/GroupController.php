@@ -111,6 +111,8 @@ $qr = $query['query'];
                  ->with('groupentries.user')  
                  ->with('posts') 
                  ->first();
+if($group == null)
+    abort(404);
 
         return view('group')->with([
             'group' => $group

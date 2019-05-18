@@ -1,3 +1,5 @@
+            window.globla_tv_lib_entry = [0];
+          window.globla_movies_lib_entry = [1];
   $.ajax({
           type: 'GET',
           dataType: "json",

@@ -1,3 +1,5 @@
+            window.globla_tv_lib_entry = [0];
+          window.globla_movies_lib_entry = [1];
   $.ajax({
           type: 'GET',
           dataType: "json",
@@ -281,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
   if( $('.no_more').isFullyVisible() ){
-   //  $('.no_more').removeClass('no_more  ');
+     $('.no_more').removeClass('no_more  ');
     load_more();
   }
 });

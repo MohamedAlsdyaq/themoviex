@@ -14,7 +14,7 @@ $(document).ready(function () {
   $("body")     .popover({
     selector: "[data-toggle='popover']",
     container: "body",
-     trigger: "hover",
+     trigger: "click",
     html: true
   });
   //They can be chained like the example above (when using the same selector).

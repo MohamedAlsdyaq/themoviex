@@ -13,7 +13,7 @@
 	<style type="text/css">
   html{
     overflow-x: hidden !important;
-  }
+  }    
 		.header{
 			 background-repeat: no-repeat !important;
     background-position: 50% 50% !important;
@@ -210,7 +210,7 @@ if (strpos($url,'tv') !== false || strpos($url,'movie') !== false) {
 
 
 
-<div id="backdrop" style="background-image: url('/header.jpg')" class="header"></div>
+<div id="backdrop" style="background-image: url('/')" class="header"></div>
 
  
 
@@ -230,7 +230,7 @@ if (strpos($url,'tv') !== false || strpos($url,'movie') !== false) {
 
 <div  class="col-sm-3 col-xs-3 row " > 
 	<div class="col-sm-10 col-xs-10" >
- <img id="poster" class="img-responsive"><br>
+ <div id="poster" class="img-responsive"></div><br>
             
 		
 			<div class="btn-groups" >

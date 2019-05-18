@@ -1,4 +1,11 @@
-
+<head>
+  <style type="text/css">
+    .popover > .arrow {
+      transform: rotate(-260deg) !important;
+      left: -20px !important;
+    }
+  </style>
+</head>
 <?php  $uid = $user['id']; ?>
 
 	<div id="library" style=" " class="common" >

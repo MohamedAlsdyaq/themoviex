@@ -3,7 +3,7 @@
 @section('content')
 <head>
 	     <title> {{$group['name']}}| Moviex</title>
-  <
+   
 	<style type="text/css">
 		.header{
 	  background:rgba(0,0,0,0.5);

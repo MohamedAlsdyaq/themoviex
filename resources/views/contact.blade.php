@@ -6,7 +6,7 @@
 <!-- CONTACT SECTION -->
 <head>
        <title>Contact Us | Moviex</title>
-  <
+   
      <style type="text/css">
           /*---------------------------------------
   Contact section              
@@ -97,7 +97,7 @@
                          </div>
                          
                          <p><i class="fa fa-map-marker"></i>  182-21 150th Avenue Springfield Gardens 11413 , New York City, USA</p>
-                         <p><i class="fa fa-comment"></i> <a href="mailto:info@moviex.net">info@moviex.net</a></p>
+                         <p><i class="fa fa-comment"></i> <a href="mailto:info@themoviex.com">info@moviex.net</a></p>
                          
                     </div>
                </div>

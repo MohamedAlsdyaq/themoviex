@@ -166,8 +166,8 @@ All
     <a href="#"><img onclick="nor_search(document.getElementById('search-bar'), 0)"  class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
   </form>
   
-          <p   id="current_sort" role="button" data-toggle="dropdown" href="#">Popularity <b class="caret"></b></p>
-          <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="current_sort">
+          <p  style="margin-bottom: 40px;" id="current_sort" role="button" data-toggle="dropdown" href="#">Popularity <b class="caret"></b></p>
+          <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="current_sort" style="">
              <li role="presentation"><a onclick="sort = 'popularity'; adv_search(); $('#current_sort').html('Release Date <b class=caret></b>')" role="menuitem" tabindex="-1" href="#">Popularity</a></li>
 
             <li role="presentation"><a onclick="sort = 'release_date'; adv_search(); $('#current_sort').html('Release Date <b class=caret></b>')" role="menuitem" tabindex="-1" href="#">Release Date</a></li>

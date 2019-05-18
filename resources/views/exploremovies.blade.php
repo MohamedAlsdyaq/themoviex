@@ -13,6 +13,10 @@
 		text-decoration: none;
 
 	}
+        .popover > .arrow {
+      transform: rotate(-260deg) !important;
+      left: -20px !important;
+    }
 		.search_poster{
 			margin-top: 0px;
 			cursor: pointer;

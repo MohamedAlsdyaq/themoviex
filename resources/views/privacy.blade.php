@@ -5,7 +5,7 @@
 
 <head>
 	     <title>Privacy | Moviex</title>
-  <
+   
 	<Style>
 		.container{
 			font-size: calc(14px + 6 * (100vw - 481px)/ 1319);

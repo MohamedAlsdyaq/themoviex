@@ -9,6 +9,10 @@
 		color: black;
 
 	}
+        .popover > .arrow {
+      transform: rotate(-260deg) !important;
+      left: -20px !important;
+    }
 		.black > a:hover{
 		text-decoration: none;
 
